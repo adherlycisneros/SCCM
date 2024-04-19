@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Video Hero -->
+<div class="hero-video-container">
+    <video autoplay loop muted poster="{{ url_for('static', filename='heroes/woman-playing-violin-poster.PNG') }}" id="hero-video">
+        <source src="{{ url_for('static', filename='videos/woman-playing-violin.mp4') }}" type="video/mp4"/>
+    </video>
+        <div class="video-overlay d-flex justify-content-center align-items-center">
+            <div class="overlay-text-container">
+                <h1>Find Your Rhythm,</h1>
+                <h1>Discover Your Voice.</h1>
+                <p>Passionate Advocate and Innovator in Music Education for 42 years.</p>
+                <div class="overlay-button-container my-3">
+                    <a href="contact"><button type="button" class="custom-button btn btn-lg custom-button-text">Try a Free Class Today</button></a>
+                </div>
+            </div>
+        </div> 
+</div>
+
+<!-- About Portion -->
+<div class="orange-background py-5 custom-text text-center">
+    <h1 class="py-5 text-white">Why SCCM?</h1>
+</div>
+
+<div class="row justify-content-center align-items-center pastel-background">
+    <div class="col-lg-6 why-sscm-section position-relative p-0">
+        <div class="sccm-text-overlay position-absolute align-items-center p-5">
+            <h1 class="orange-headings pb-4">Cultivating Excellence</h1>
+            <p class="px-5">Soundscapes Conservatory of Music has become a beacon of music education in Brooklyn since its establishment in 1981. Committed to excellence, SCCM offers high quality musical education with a blend of traditional and modern approaches for students of all levels and ages.</p>
+            <div class="overlay-button-container position-asbolute align-items-center mt-4">
+                <a href="about"><button type="button" class="custom-button btn btn-lg custom-button-text">Read More</button></a>
+            </div>
+        </div>
+        <img src="{{ url_for('static', filename='images/heroes/why-sccm.PNG') }}" class="img-fluid w-100 h-100" alt="Young girl sitting on a chair playing the violin." style="object-fit: cover;">
+    </div>
+
+    <div id="core-values" class="col-lg-6 p-5 align-self-start">
+        <!-- Other texts -->
+        <h1 class="text-center black-heading">Our Core Values</h1>
+        <div class="pt-4">
+            <h4 class="black-heading">Innovation</h4>
+            <p>At SCCM, we embrace each student's distinct journey in music. Our tailored approach designs a unique curriculum that complements individual aspirations and talents.</p>
+        </div>
+        <div class="pt-4">
+            <h4 class="black-heading">Mastery</h4>
+            <p>Our curriculum emphasizes rigorous preparation for formal music examinations and professional pursuits, setting a solid foundation for future success.</p>
+        </div>
+        <div class="pt-4">
+            <h4 class="black-heading">Expression</h4>
+            <p>Our semi-annual events showcase our students' progress and artistry, from recitals to exhibitions, nurturing a community that celebrates achievement and confidence.</p>
+        </div>
+        <div class="pt-4">
+            <h4 class="black-heading">Expertise</h4>
+            <p>Our faculty are seasoned professionals with advanced degrees and a passion for imparting wisdom, providing an enriching education to learners at all stages.</p>
+        </div>
+    </div>
+</div>
+
+
+<!-- Testimonials Portion -->
+<div class="why-sccm orange-background py-5 custom-text text-center">
+    <h1 class="pt-5 text-white">Testimonials</h1>
+</div>
+
+<div id="testimonials-carousel" class="carousel slide pb-5" data-bs-ride="carousel" data-bs-interval="5000">
+    <div class="carousel-inner">
+        <div class="carousel-item active pb-5">
+            <div class="container">
+                <div class="row justify-content-center pb-5">
+                    <div class="col-md-8 text-center">
+                        <p class="lead black-heading">"SCCM is more than a music school; it's a nurturing community where my child has flourished. The instructors are incredibly supportive, and we've seen remarkable progress in both skill and confidence."</p>
+                        <div class="pt-5"><strong>- Kate G, parent</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item pb-5">
+            <div class="container">
+                <div class="row justify-content-center pb-5">
+                    <div class="col-md-8 text-center">
+                        <p class="lead black-heading">"As a student at SCCM, I've not only improved my technical skills but also discovered my own musical voice. The teachers are amazing, always encouraging creativity and individuality."</p>
+                        <div class="pt-5"><strong>- Emily J, student</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item pb-5">
+            <div class="container">
+                <div class="row justify-content-center pb-5">
+                    <div class="col-md-8 text-center">
+                        <p class="lead black-heading">"SCCM has been a vibrant addition to our Brooklyn neighborhood. Their concerts and events bring us all together, showcasing the incredible talents nurtured within their walls."</p>
+                        <div class="pt-5"><strong>- Leo T, community member</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item pb-5">
+            <div class="container">
+                <div class="row justify-content-center pb-5">
+                    <div class="col-md-8 text-center">
+                        <p class="lead black-heading">"Soundscapes Conservatory was a transformative experience for me. The lessons I learned and the mentors I met have shaped my musical journey and opened doors I never imagined."</p>
+                        <div class="pt-5"><strong>- Nina P, SCCM alumna.</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#testimonials-carousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#testimonials-carousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+
+    <ol class="carousel-indicators">
+        <li data-bs-target="#testimonials-carousel" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#testimonials-carousel" data-bs-slide-to="1"></li>
+        <li data-bs-target="#testimonials-carousel" data-bs-slide-to="2"></li>
+        <li data-bs-target="#testimonials-carousel" data-bs-slide-to="3"></li>
+    </ol>
+</div>
+
+{% endblock %}

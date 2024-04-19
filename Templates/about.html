@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<header class="about-hero-section bg-cover bg-no-repeat bg-center text-white d-flex justify-content-center align-items-center" style="background-image: url({{ url_for('static', filename='images/heroes/about-us-hero.jpg') }}); height: 75vh;">
+    <div class="hero-text text-center">
+        <h1 class="display-2">About Us</h1>
+    </div>
+</header>
+
+<section class="py-5" id="about-us">
+    <div class="container px-4">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 col-md-10 offset-md-1 col-sm-12">
+                <p class="text-justify about-text">
+                    Since its establishment in 1981, Soundscapes Conservatory of Music has stood as a luminary in the realm of music education in Brooklyn. Our conservatory, nestled in the heart of Brooklyn's vibrant cultural scene, offers students a rich and diverse learning environment, where tradition meets innovation, fostering a unique and enriching experience. <br>
+                    With a history that spans over four decades, Soundscapes Conservatory has become synonymous with excellence in music education. Our curriculum is a tapestry woven from the finest traditional techniques and contemporary methodologies, ensuring that each student receives an education that is both comprehensive and forward-thinking. This balanced approach allows our students to immerse themselves in the world of music, benefiting from real-world experiences that extend far beyond the classroom.
+                </p>
+                <p class="text-justify about-text mt-4">
+                    At Soundscapes Conservatory, we believe in the power of personalized education. Our tailored private lessons, combined with dynamic group sessions in band and orchestra, offer a holistic approach to music learning. Whether you are a budding musician or an aspiring virtuoso, our program is designed to cater to every skill level, ensuring a collaborative and supportive journey for each student. <br>
+                    We take pride in our inclusive ethos, welcoming students from all ages and backgrounds. Our doors are open to everyone with a passion for music, providing a nurturing space where diversity is celebrated, and individual talents are honed and cherished.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about-us-quote" class="py-5 d-flex align-items-center justify-content-center" style="min-height: 312px;">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center d-flex flex-column align-items-center justify-content-center" style="min-height: 312px;">
+                <blockquote class="blockquote">
+                    <p class="mb-0">
+                        <i class="fa-sharp fa-solid fa-quote-left fa-lg" style="color: #ffffff;"></i>
+                        <span><i> Where words fail, music speaks. </i></span>
+                        <i class="fa-sharp fa-solid fa-quote-right fa-lg" style="color: #ffffff;"></i>
+                    </p>
+                <footer class="blockquote-footer text-start w-100 text-light mt-3">Hans Christian Andersen</footer>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about-us-page-image" style="background-image: url('{{ url_for('static', filename='images/about-us/community.png') }}'); background-size: cover; background-position: center; min-height: 464px;">
+</section>
+
+<section class="py-5" id="the-team">
+    <div class="container">
+        <div class="row align-items-end">
+            <!-- First Portrait -->
+            <div class="col-md-4">
+                <div class="card admin-member">
+                  <img class="card-img-top" src="{{ url_for('static', filename='images/about-us/Nguyen.JPG') }}" alt="Portrait of Dr. Elizabeth Nguyen, President.">
+                  <div class="py-0 card-body member-details" style="display:none;">
+                    <div class="pb-1 card-body text-center">
+                      <h5 class="card-title">Dr. Elizabeth Nguyen</h5>
+                      <p class="card-sub-title text-dark">President</p>
+                      <p class="card-text">An inspiring leader in music education, Dr. Nguyen has over two decades of experience. Her innovative initiatives in music pedagogy have won her the National Music Educators Award. Her Vietnamese heritage and international exposure bring a unique perspective to our administration.</p>
+                    </div>
+                  </div>
+                </div>
+            </div> 
+
+            <!-- Center Text -->
+            <div class="col-md-4">
+                <h1 class="orange-headings text-center">Meet Our Team</h1>
+                <p class="text-justify staff-text mt-4">
+                    Our faculty is our pride, comprising highly qualified educators who hold degrees from some of the most prestigious institutions. Their expertise is matched by their dedication, as they inspire and guide students towards achieving their musical aspirations.
+                </p>
+                <p class="text-justify staff-text">
+                    Our students' success is showcased through various avenues, including bi-annual recitals, festivals, and art exhibitions. Participation in renowned events like NYSSMA festivals and ABRSM exams is encouraged; these highlight our students' progression and accomplishments under the instruction of our instructors. Recognition through certificates, medals, and trophies further motivates our students, while regular evaluations and report cards ensure transparent communication of progress with parents.
+                </p>
+            </div>
+
+            <!-- Second Portrait -->
+            <div class="col-md-4 col-sm-12">
+                <div class="card admin-member">
+                    <img class="card-img-top" src="{{ url_for('static', filename='images/about-us/Feldman.JPG') }}" alt="Portrait of Dr. Steven Feldman, Vice President.">
+                    <div class="py-0 card-body member-details" style="display:none;">
+                      <div class="pb-1 card-body text-center">
+                        <h5 class="card-title">Dr. Steve Feldman</h5>
+                        <p class="card-sub-title text-dark">Vice President</p>
+                        <p class="card-text">Dr. Feldman is an esteemed figure in music production, with a career spanning 15 years and accolades including the Global Music Award. His expertise in merging classical traditions with modern technology has been pivotal in our school's success.</p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div> 
+
+<!--Rest of staff rows-->
+    <div class="container py-5">
+        <div class="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 g-4"> 
+            {% for member in team_members %}
+            <div class="col px-0">
+                <div class="card h-100 team-member">
+                    <img src="{{ url_for('static', filename=member.image_file) }}" alt="{{ member.name }}" class="card-img-top img-fluid">
+                    <div class="py-0 card-body member-details" style="display:none;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ member.name }}</h5>
+                            <p class="card-sub-title text-dark">{{ member.role }}</p>
+                            <p class="card-text">{{ member.bio }}</p>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            {% endfor %}     
+        </div> 
+    </div>
+    
+    
+
+</section>
+{% endblock %}7

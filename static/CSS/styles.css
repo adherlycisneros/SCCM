@@ -1,0 +1,450 @@
+/* ------------------------------- HOME PAGE CSS ----------------------------------*/
+
+/* MEDIA QUERIES FOR SMALLER SCREENS (tablets) */
+@media (max-width: 820px) {
+    .overlay-text-container h1 {
+        font-size: 1.6rem; 
+    }
+    .overlay-text-container p {
+        font-size: 0.9rem; 
+    }
+    .overlay-button-container .btn {
+        padding: .65rem 1.25rem;
+        font-size: 0.95rem;
+    }
+    }
+
+
+/* for mobile phones */
+@media (max-width: 576px) {
+    .overlay-text-container h1 {
+        font-size: 1.25rem; 
+    }
+    .overlay-text-container p {
+        font-size: 0.9rem; 
+    }
+    .overlay-button-container .btn {
+       padding: .6rem 1rem;
+       font-size: 0.9rem;
+       width: 100%;
+    }   
+}
+
+
+/* Hero video container and hero image containers*/
+.school-name {
+    color: #212529; 
+    font-family: sans-serif;
+    font-weight: 700;
+    margin-bottom: 0;
+    letter-spacing: -0.45px;
+}
+
+.nav-item, .dropdown-item {
+    color: #212529;
+    font-size: 0.9rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.hero-video-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.hero-video-container video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Hero video overlay and text */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 66.6%;
+    background: rgba(29, 14, 2, 0.808);
+} 
+
+.modal-header {
+    border-bottom: none;
+}
+
+.header-logo {
+    margin-left: 12px;
+}
+
+.hero-video-container .video-overlay {
+    height: 100%;
+}
+
+.overlay-text-container {
+    text-align: left;
+    max-width: 80%;
+}
+
+.video-overlay h1, p {
+    color: #ffffff;
+    margin: 0;
+    padding: 0.5rem 0;
+    font-weight: bold;
+}
+
+.custom-button {
+    background-color: #ff6e5a;
+}
+
+.custom-button:hover {
+    background-color: #e65640;
+    color: #ffffff;
+}
+
+
+
+/*About*/ 
+
+
+.why-sscm-section {
+    position: relative;
+    overflow: hidden; /* Ensures no overflow of the content */
+}
+
+.sccm-text-overlay  {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center top; /* Center content vertically */ 
+}
+
+.pastel-background {
+    background-color: #ffc09c;
+}
+
+.black-heading {
+    color: #212529;
+    font-weight: bold;
+}
+
+
+/*Testimonials*/
+#testimonials-carousel {
+    background-color: #ff6e5a;
+}
+
+.carousel-indicators {
+    list-style: none;
+}
+
+
+
+/* ---------------------------- ABOUT PAGE CSS ----------------------------------*/
+
+.about-hero-section {
+    background-size: cover;
+    background-position: center bottom 10%;
+    transition: height 0.5s ease-in-out;
+    height: 75vh;
+}
+
+#about-us-quote {
+    background-color: #a84247;
+}
+
+/* Responsive sizing for tablets */
+@media (max-width: 768px) {
+    .about-hero-section {
+        height: 60vh; /* less height */
+        background-position: left; /* so it'll show part of image that i want*/
+    }
+
+    .hero-text h1 {
+        font-size: 2rem; 
+    }
+
+
+    #about-us-quote {
+        min-height: 250px;
+    }
+
+    #about-us-page-image {
+        min-height: 250px;
+        background-position: center;
+    }
+}
+
+/* Responsive sizing for phones */
+@media (max-width: 576px) {
+    .about-hero-section {
+        height: 50vh; /* even less height for mobile */
+        background-position: center left 40%; /* so it'll show part of image that i want*/
+    }
+
+    .hero-text h1 {
+        font-size: 1.5rem; 
+    }
+
+    #about-us-quote {
+        min-height: 200px;
+    }
+
+    #about-us-page-image {
+        min-height: 200px;
+        background-position: center;
+    }
+
+    #about-us-quote .blockquote-footer {
+        text-align: center;
+    }
+
+}
+
+
+/* Media queries end */
+
+.about-text, .staff-text, .programs-text, .gallery-text, .sccm-text-overlay p, #core-values p {
+    font-size: 15px;
+    font-family: sans-serif;
+    color: black;
+    font-weight: normal;
+    line-height: 25.5px;
+}
+
+.staff-text, .programs-text, .sccm-text-overlay p {
+    text-align: center;
+    line-height: 20.5px;
+}
+
+#about-us-quote p {
+    font-size: 50px;
+    font-family: serif;
+    color: rgb(241, 219, 219);
+}
+
+#about-us-page-image {
+    background-size: cover;
+    background-position: center;
+    min-height: 464px;
+}
+
+/* Meet the Team Section */
+
+#the-team .card-text {
+    font-size: 15px;
+    font-family: sans-serif;
+    color: black;
+    font-weight: normal;
+}
+
+.card {
+    border: none;
+    padding: 0;
+    width: 300px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.member-details {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+}
+
+.admin-member .card-img-top {
+    width: 300px; 
+    height: 367px; 
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+.team-member .card-img-top {
+    width: 250px; 
+    height: 317px; 
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ----------CONTACT US PAGE AND MAP---------------------------------------*/
+.contact-text p{
+    font-weight: bold;
+    color: #d3d4d5; 
+}
+
+
+#school-name {
+    font-weight: bold;
+    color: #ff6e5a;
+}
+
+.form-control {
+    border-radius: 0rem; 
+    margin-bottom: 1rem; 
+}
+
+.btn-primary {
+    border: none;
+    border-radius: 0rem;
+    background-color: #ff6e5a;
+    padding: 0.5rem 1.5rem; 
+}
+
+.custom-button-text { 
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #e65640;
+}
+
+/* CONTACT US PAGE MAP */
+.map-background {
+    background-color: #ff6e5a;
+    padding: 20px 0px; /*How much of the surrounding space of the map is orange*/
+}
+
+.map-container {
+    position: relative;
+    overflow: hidden;
+    padding-top: 56.25%;
+    height: 0;
+}
+
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border: 0;
+}
+
+#contact-us {
+    background-color: rgb(33, 37, 41);
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.custom-light-text {
+    color: #ffffff !important;
+}
+
+/* MEDIA QUERIES FOR SMALLER SCREENS (tablets) */
+@media (max-width: 768px) { 
+    .contact-text p, .form-control, .btn-primary {
+        padding: 10px 0; 
+        margin-bottom: 0.5rem; 
+    }
+    .map-background{
+        padding: 10px 0;
+    }
+    .map-container {
+        padding-top: 75%; 
+    }
+    .btn-primary {
+        padding: 10px 20px; 
+    }
+}
+/* MEDIA QUERIES FOR PHONES*/
+@media (max-width: 576px) { 
+    .map-container {
+        padding-top: 125%; 
+    }
+}
+
+
+/*--------------------PROGRAMS SECTION---------------------------------------*/
+
+
+.programs-hero-section {
+    background-size: cover;
+    background-position: center top 30%;
+    transition: height 0.5s ease-in-out;
+    height: 75vh;
+}
+
+.orange-background { /*THIS IS FOR ALSO FOR THE BACKGROUND FOR GALLERY DESCRIPTION SECTION*/
+    background-color: #ff6e5a;
+}
+
+.display-2 { /*THIS IS FOR ALL THE STATIC HERO SECTIONS TITLES TO BE BOLDER*/
+    font-weight: 600;
+}
+
+.programs-image {
+    padding: 0;
+}
+
+.orange-headings {
+    color: #ff6e5a;
+    font-weight: bold;
+}
+
+/* Responsive sizing for tablets */
+@media (max-width: 768px) {
+    .programs-hero-section {
+        height: 60vh; /* less height */
+        background-position: center; /* so it'll show part of image that i want*/
+    }
+
+    .hero-text h1 {
+        font-size: 3rem; 
+    }
+}
+/* Responsive sizing for phones */
+@media (max-width: 576px) {
+    .programs-hero-section {
+        height: 50vh; /* even less height for mobile */
+        background-position: center right 42%; /* so it'll show part of image that i want*/
+    }
+
+    .hero-text h1 {
+        font-size: 3.5rem; 
+    }
+}
+
+
+/* ------------------------------------ GALLERY SECTION ------------------------------------------- */
+.carousel-hero-section {
+    height: 75vh; 
+    overflow: hidden; 
+}
+
+.carousel-hero-section .carousel-item img {
+    min-height: 75vh; 
+    object-fit: cover; 
+}
+
+.carousel-padding {
+    padding: 0;
+}
+
+.clickable-element {
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+

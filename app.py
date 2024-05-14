@@ -68,6 +68,10 @@ def programs():
 @app.route('/gallery')
 def gallery():
     albums = [
+        {"name": "Musical Theater", 
+         "cover_image": "images/gallery/theater/theater1.jpg", 
+         "images": ["images/gallery/theater/theater1.jpg", "images/gallery/theater/theater2.jpg" , "images/gallery/theater/theater3.jpg", "images/gallery/theater/theater4.jpg", "images/gallery/theater/theater5.jpg" , "images/gallery/theater/theater6.jpg"]
+        },
         {"name": "Chamber Choirs", 
          "cover_image": "images/gallery/chamber/chamber1.jpg", 
          "images": ["images/gallery/chamber/chamber1.jpg", "images/gallery/chamber/chamber2.jpg" , "images/gallery/chamber/chamber3.jpg", "images/gallery/chamber/chamber4.jpg", "images/gallery/chamber/chamber5.jpg" , "images/gallery/chamber/chamber6.jpg"]
@@ -75,10 +79,6 @@ def gallery():
         {"name": "SCCM Through The Years", 
          "cover_image": "images/gallery/sccm/sccm1.jpg", 
          "images": ["images/gallery/sccm/sccm1.jpg", "images/gallery/sccm/sccm2.jpg" , "images/gallery/sccm/sccm3.jpg", "images/gallery/sccm/sccm4.jpg", "images/gallery/sccm/sccm5.jpg" , "images/gallery/sccm/sccm6.jpg"]
-        },
-        {"name": "Musical Theater", 
-         "cover_image": "images/gallery/theater/theater1.jpg", 
-         "images": ["images/gallery/theater/theater1.jpg", "images/gallery/theater/theater2.jpg" , "images/gallery/theater/theater3.jpg", "images/gallery/theater/theater4.jpg", "images/gallery/theater/theater5.jpg" , "images/gallery/theater/theater6.jpg"]
         }
     ]
 

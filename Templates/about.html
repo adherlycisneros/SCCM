@@ -25,10 +25,10 @@
     </div>
 </section>
 
-<section id="about-us-quote" class="py-5 d-flex align-items-center justify-content-center" style="min-height: 312px;">
+<section id="about-us-quote" class="py-5 d-flex align-items-center justify-content-center" style="min-height: 250px;">
     <div class="container">
         <div class="row">
-            <div class="col text-center d-flex flex-column align-items-center justify-content-center" style="min-height: 312px;">
+            <div class="col text-center d-flex flex-column align-items-center justify-content-center" style="min-height: 250px;">
                 <blockquote class="blockquote">
                     <p class="mb-0">
                         <i class="fa-sharp fa-solid fa-quote-left fa-lg" style="color: #ffffff;"></i>
@@ -42,14 +42,24 @@
     </div>
 </section>
 
-<section id="about-us-page-image" style="background-image: url('{{ url_for('static', filename='images/about-us/community.png') }}'); background-size: cover; background-position: center; min-height: 464px;">
+<section id="about-us-page-image" style="background-image: url('{{ url_for('static', filename='images/about-us/community.png') }}'); background-size: cover; background-position: center right; min-height: 464px;">
 </section>
 
 <section class="py-5" id="the-team">
     <div class="container">
         <div class="row align-items-end">
+             <!-- Center Text -->
+             <div class="col-md-12 col-lg-4 order-md-2 order-lg-2 align-self-center">
+                <h1 class="orange-headings text-center">Meet Our Team</h1>
+                <p class="text-justify staff-text">
+                    Our faculty is our pride, comprising highly qualified educators who hold degrees from some of the most prestigious institutions. Their expertise is matched by their dedication, as they inspire and guide students towards achieving their musical aspirations.
+                </p>
+                <p class="text-justify staff-text">
+                    Our students' success is showcased through various avenues, including bi-annual recitals, festivals, and art exhibitions. Participation in renowned events like NYSSMA festivals and ABRSM exams is encouraged; these highlight our students' progression and accomplishments under the instruction of our instructors. Recognition through certificates, medals, and trophies further motivates our students, while regular evaluations and report cards ensure transparent communication of progress with parents.
+                </p>
+            </div>
             <!-- First Portrait -->
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-4 order-md-2 order-lg-1 py-4">
                 <div class="card admin-member">
                   <img class="card-img-top" src="{{ url_for('static', filename='images/about-us/Nguyen.JPG') }}" alt="Portrait of Dr. Elizabeth Nguyen, President.">
                   <div class="py-0 card-body member-details" style="display:none;">
@@ -62,19 +72,8 @@
                 </div>
             </div> 
 
-            <!-- Center Text -->
-            <div class="col-md-4">
-                <h1 class="orange-headings text-center">Meet Our Team</h1>
-                <p class="text-justify staff-text mt-4">
-                    Our faculty is our pride, comprising highly qualified educators who hold degrees from some of the most prestigious institutions. Their expertise is matched by their dedication, as they inspire and guide students towards achieving their musical aspirations.
-                </p>
-                <p class="text-justify staff-text">
-                    Our students' success is showcased through various avenues, including bi-annual recitals, festivals, and art exhibitions. Participation in renowned events like NYSSMA festivals and ABRSM exams is encouraged; these highlight our students' progression and accomplishments under the instruction of our instructors. Recognition through certificates, medals, and trophies further motivates our students, while regular evaluations and report cards ensure transparent communication of progress with parents.
-                </p>
-            </div>
-
             <!-- Second Portrait -->
-            <div class="col-md-4 col-sm-12">
+            <div class="col-md-6 col-lg-4 col-sm-12 order-md-3 order-lg-3 pb-4">
                 <div class="card admin-member">
                     <img class="card-img-top" src="{{ url_for('static', filename='images/about-us/Feldman.JPG') }}" alt="Portrait of Dr. Steven Feldman, Vice President.">
                     <div class="py-0 card-body member-details" style="display:none;">
@@ -90,7 +89,7 @@
     </div> 
 
 <!--Rest of staff rows-->
-    <div class="container py-5">
+    <div class="container py-3">
         <div class="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 g-4"> 
             {% for member in team_members %}
             <div class="col px-0">

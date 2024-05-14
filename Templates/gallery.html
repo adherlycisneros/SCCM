@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<header id="carousel-controls" class="hero-section carousel-hero-section bg-cover bg-no-repeat bg-center text-white d-flex justify-content-center align-items-center carousel slide" data-bs-ride="carousel">
+<header id="carousel-controls" class="hero-section carousel-hero-section bg-cover bg-no-repeat bg-center text-white d-flex justify-content-center align-items-center carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
     <div class="carousel-inner">
       {% for image in all_images %}
       <div class="carousel-item {% if loop.first %}active{% endif %}">
@@ -12,20 +12,12 @@
       {% endfor %}
         <!---OVERLAY GALLERY HEADING TEXT-->
         <div class="d-flex justify-content-center align-items-center position-absolute w-100 h-100">
-            <div class="text-center">
+            <div class="hero-text text-center">
                 <h1 class="display-2">Gallery</h1>
             </div>
         </div>
         <!---->
     </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carousel-controls" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carousel-controls" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
 </header>
 
 
@@ -57,25 +49,35 @@
 
 {% for album in albums %}
 <div class="modal fade" id="album-modal-{{ loop.index }}" aria-labelledby="carousel-modal-label" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg modal-dialog-centered responsive-modal">
         <div class="modal-content">
-            <div class="modal-body carousel-padding">
-                <div id="carousel-album-{{ loop.index }}" class="carousel slide" data-bs-ride="carousel">
+                <button type="button" class="btn-close btn-close-white top-right-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-body p-0">
+                <div id="carousel-album-{{ loop.index }}" class="carousel slide carousel-fade" data-bs-interval="false">
                     <div class="carousel-inner">
                       {% for image in album.images %}
                       <div class="carousel-item {% if loop.first %}active{% endif %}">
-                          <img src="{{ url_for('static', filename=image) }}" class="d-block w-100" alt="...">
+                          <img src="{{ url_for('static', filename=image) }}" class="d-block w-100" alt="{{ album.name }}">
                       </div>
                       {% endfor %}
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide="prev">
+                    <button class="carousel-control-prev pop-up-carousel mx-5" type="button" data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide="next">
+                    <button class="carousel-control-next pop-up-carousel mx-5" type="button" data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
+
+                    <ol class="carousel-indicators custom-indicators">
+                        <li data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide-to="0" class="active"></li>
+                        <li data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide-to="1"></li>
+                        <li data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide-to="2"></li>
+                        <li data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide-to="3"></li>
+                        <li data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide-to="4"></li>
+                        <li data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide-to="5"></li>
+                    </ol>
                 </div>
             </div>
         </div>

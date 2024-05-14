@@ -1,35 +1,273 @@
-/* ------------------------------- HOME PAGE CSS ----------------------------------*/
+/* MEDIA QUERIES */
 
-/* MEDIA QUERIES FOR SMALLER SCREENS (tablets) */
-@media (max-width: 820px) {
+@media (min-width: 992px) {
+    .school-name span {
+        display: flex;
+    }
+
+    .responsive-modal {
+        max-width: 60%;
+    }
+
+    .custom-button {
+        font-size: 1.3rem;
+        padding: 0.5rem 2rem;
+    }
+
     .overlay-text-container h1 {
-        font-size: 1.6rem; 
-    }
-    .overlay-text-container p {
-        font-size: 0.9rem; 
-    }
-    .overlay-button-container .btn {
-        padding: .65rem 1.25rem;
-        font-size: 0.95rem;
-    }
+        font-size: 2.5rem !important;
     }
 
-
-/* for mobile phones */
-@media (max-width: 576px) {
-    .overlay-text-container h1 {
-        font-size: 1.25rem; 
-    }
     .overlay-text-container p {
-        font-size: 0.9rem; 
+        font-size: 1.2rem !important;
     }
-    .overlay-button-container .btn {
-       padding: .6rem 1rem;
-       font-size: 0.9rem;
-       width: 100%;
-    }   
+
+    #core-values {
+        min-height: 820px !important;
+    }
+
+    .why-sscm-section {
+        min-height: 820px !important;
+    }
+
+    
 }
 
+@media (max-width: 992px) {
+    .navbar-container .navbar-brand img {
+        max-width: 70px; /* Reduce logo size */
+    }
+    .navbar-container .school-name {
+        font-size: larger; /* Slightly reduce font size */
+    }
+
+   
+    .custom-button {
+        font-size: 0.8rem !important;
+    }
+    .overlay-text-container h1 {
+        font-size: 1.8rem;
+    }
+    .overlay-text-container p {
+        font-size: 0.9rem;
+    }
+
+    .blockquote i {
+        font-size: 40px;
+    }
+    #about-us-page-image {
+        background-position: center right 22% !important;
+    }
+
+    .about-hero-section {
+        height: 55vh !important; /* less height */
+        background-position: left !important; /* so it'll show part of image that i want*/
+    }
+    .programs-hero-section {
+        height: 55vh !important; /* less height */
+        background-position: center !important; /* so it'll show part of image that i want*/
+    }
+    .carousel-hero-section {
+        height: 55vh !important; /* less height */
+        background-position: center !important; /* so it'll show part of image that i want*/
+    }
+
+    .responsive-modal {
+        max-width: 70%;
+    }
+
+    .why-sscm-section p {
+        padding-left: 5rem !important;
+        padding-right: 5rem !important;
+        font-size: 1.2rem !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .video-overlay {
+        width: 33.3% !important;
+    }
+
+    .custom-button {
+        margin-top: 1rem !important;
+    }
+
+    .why-sscm-section {
+        max-height: 800px;
+    }
+
+    .why-sscm-section p {
+        margin-bottom: 0 !important;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .navbar-container .navbar-brand img {
+        max-width: 50px; /* Further reduce logo size */
+    }
+
+    .custom-button {
+        font-size: 1.2rem !important;
+        padding: 0.3rem 1rem !important;
+        margin-top: 1rem !important;
+        
+    }
+    .overlay-text-container {
+        max-width: 60% !important;
+        text-align: center !important;
+    }
+    .overlay-text-container h1 {
+        font-size: 3rem;
+    }
+    .overlay-text-container p {
+        font-size: 1.3rem;
+    }
+
+    #about-us-quote {
+        max-height: 100px !important;
+    } 
+    .contact-text p, .form-control, .btn-primary {
+        padding: 10px 0; 
+        margin-bottom: 0.5rem; 
+    }
+    .btn-primary {
+        padding: 10px 20px; 
+    }
+
+    .responsive-modal {
+        max-width: 80%;
+    }
+
+    .pop-up-carousel {
+        margin: 10px !important;
+        width: calc(100% / 10) !important;
+        height: calc(100% / 5) !important;
+    }
+
+    #core-values p {
+        font-size: 19px !important;
+    }
+
+}
+
+@media (max-width: 576px) {
+    .navbar-container .navbar-brand img {
+        max-width: 45px; /* Slightly smaller logo for very small devices */
+    }
+    .navbar-container .school-name {
+        font-size: small; /* Reduce font size to maintain readability and spacing */
+    }
+    .banner {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    .banner h1 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+    .custom-button {
+        font-size: 0.6rem !important;
+        padding: 0.4rem 0.8rem !important;
+        align-self: center !important;
+    }
+    .overlay-text-container {
+        max-width: 60% !important;
+        text-align: center !important;
+    }
+    .overlay-text-container h1 {
+        font-size: 1.5rem;
+    }
+    .overlay-text-container p {
+        font-size: 0.8rem;
+    }
+
+    #testimonials-quote p, strong{
+        font-size: medium;
+    }
+    #testimonials-quote {
+        padding-right: 55px;
+        padding-left: 55px;
+    }
+    .blockquote  i {
+        font-size: 22px;
+    }
+    #about-us-quote .blockquote-footer {
+        font-size: 13px;
+    }
+    #about-us-page-image {
+        background-position: center right 46% !important;
+    }
+
+    .about-hero-section  {
+        height: 45vh !important; /* even less height for mobile */
+        background-position: center left 40% !important; /* so it'll show part of image that i want*/
+    }
+    .programs-hero-section {
+        height: 45vh !important; /* even less height for mobile */
+        background-position: center right 42% !important; /* so it'll show part of image that i want*/
+    }
+    .carousel-hero-section {
+        height: 45vh !important; /* less height */
+    }
+
+    .map-container {
+        padding-top: 125%; 
+    }
+    #school-name {
+        display: none;
+    }
+    #contact-us {
+        text-align: center;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .responsive-modal {
+        max-width: 90% !important;
+        margin: 0 18px !important;
+    }
+
+    .why-sscm-section button {
+        display: none;
+    }
+
+    .why-sscm-section p {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        font-size: 15px !important;
+    }
+    .why-sscm-section h1 {
+        padding-bottom: 10px !important;
+    }
+
+    .why-sscm-section {
+        min-height: 600px !important;
+    }
+
+    #core-values p {
+        font-size: 15px !important;
+    }
+
+}
+
+
+/* Media queries end */
+
+
+
+
+
+/* ------------------------------- HOME PAGE CSS ----------------------------------*/
+.navbar-brand img {
+    max-width: 95px;
+    height: auto;
+    transition: max-width 0.3s ease-in-out; 
+}
+
+.school-name {
+    transition: font-size 0.3s ease-in-out; 
+}
 
 /* Hero video container and hero image containers*/
 .school-name {
@@ -45,7 +283,6 @@
     font-size: 0.9rem;
     font-family: sans-serif;
     font-weight: bold;
-    padding-left: 10px;
 }
 
 .hero-video-container {
@@ -61,15 +298,6 @@
 }
 
 /* Hero video overlay and text */
-.video-overlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 66.6%;
-    background: rgba(29, 14, 2, 0.808);
-} 
-
 .modal-header {
     border-bottom: none;
 }
@@ -78,24 +306,46 @@
     margin-left: 12px;
 }
 
-.hero-video-container .video-overlay {
-    height: 100%;
+.hero-video-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
 }
+
+#hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(29, 14, 2, 0.808);
+}
+
 
 .overlay-text-container {
     text-align: left;
     max-width: 80%;
 }
 
-.video-overlay h1, p {
-    color: #ffffff;
+.overlay-text-container h1, .overlay-text-container p {
     margin: 0;
     padding: 0.5rem 0;
     font-weight: bold;
+    color: #ffffff;
 }
 
 .custom-button {
     background-color: #ff6e5a;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .custom-button:hover {
@@ -113,18 +363,19 @@
     overflow: hidden; /* Ensures no overflow of the content */
 }
 
+
 .sccm-text-overlay  {
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center top; /* Center content vertically */ 
+    flex-direction: column; 
 }
 
 .pastel-background {
     background-color: #ffc09c;
+    margin-right: 0;
 }
 
 .black-heading {
@@ -134,6 +385,13 @@
 
 
 /*Testimonials*/
+.carousel-item .quote {
+    height: 200px;  /* Adjust the height based on your content and design needs */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* This will vertically center the text in the div */
+}
+
 #testimonials-carousel {
     background-color: #ff6e5a;
 }
@@ -156,57 +414,6 @@
 #about-us-quote {
     background-color: #a84247;
 }
-
-/* Responsive sizing for tablets */
-@media (max-width: 768px) {
-    .about-hero-section {
-        height: 60vh; /* less height */
-        background-position: left; /* so it'll show part of image that i want*/
-    }
-
-    .hero-text h1 {
-        font-size: 2rem; 
-    }
-
-
-    #about-us-quote {
-        min-height: 250px;
-    }
-
-    #about-us-page-image {
-        min-height: 250px;
-        background-position: center;
-    }
-}
-
-/* Responsive sizing for phones */
-@media (max-width: 576px) {
-    .about-hero-section {
-        height: 50vh; /* even less height for mobile */
-        background-position: center left 40%; /* so it'll show part of image that i want*/
-    }
-
-    .hero-text h1 {
-        font-size: 1.5rem; 
-    }
-
-    #about-us-quote {
-        min-height: 200px;
-    }
-
-    #about-us-page-image {
-        min-height: 200px;
-        background-position: center;
-    }
-
-    #about-us-quote .blockquote-footer {
-        text-align: center;
-    }
-
-}
-
-
-/* Media queries end */
 
 .about-text, .staff-text, .programs-text, .gallery-text, .sccm-text-overlay p, #core-values p {
     font-size: 15px;
@@ -345,30 +552,6 @@
     color: #ffffff !important;
 }
 
-/* MEDIA QUERIES FOR SMALLER SCREENS (tablets) */
-@media (max-width: 768px) { 
-    .contact-text p, .form-control, .btn-primary {
-        padding: 10px 0; 
-        margin-bottom: 0.5rem; 
-    }
-    .map-background{
-        padding: 10px 0;
-    }
-    .map-container {
-        padding-top: 75%; 
-    }
-    .btn-primary {
-        padding: 10px 20px; 
-    }
-}
-/* MEDIA QUERIES FOR PHONES*/
-@media (max-width: 576px) { 
-    .map-container {
-        padding-top: 125%; 
-    }
-}
-
-
 /*--------------------PROGRAMS SECTION---------------------------------------*/
 
 
@@ -396,30 +579,6 @@
     font-weight: bold;
 }
 
-/* Responsive sizing for tablets */
-@media (max-width: 768px) {
-    .programs-hero-section {
-        height: 60vh; /* less height */
-        background-position: center; /* so it'll show part of image that i want*/
-    }
-
-    .hero-text h1 {
-        font-size: 3rem; 
-    }
-}
-/* Responsive sizing for phones */
-@media (max-width: 576px) {
-    .programs-hero-section {
-        height: 50vh; /* even less height for mobile */
-        background-position: center right 42%; /* so it'll show part of image that i want*/
-    }
-
-    .hero-text h1 {
-        font-size: 3.5rem; 
-    }
-}
-
-
 /* ------------------------------------ GALLERY SECTION ------------------------------------------- */
 .carousel-hero-section {
     height: 75vh; 
@@ -438,6 +597,57 @@
 .clickable-element {
     cursor: pointer;
 }
+
+.responsive-modal {
+    max-width: 100%;
+    width: 100%;
+}
+
+.top-right-close {
+    position: absolute;
+    z-index: 1050;
+    top: 0px;
+    right: 0px;
+    background-color: rgba(245, 245, 245, 0.247);
+    border-radius: 0;
+    border: none;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+    width: calc(100% / 20);
+    height: calc(100% / 12);
+}
+
+.top-right-close:hover {
+    background-color: rgba(245, 245, 245, 0.877);
+}
+
+.pop-up-carousel {
+    width: calc(100% / 20);
+    height: calc(100% / 10);
+    top: 50%;
+    transform: translateY(-50%);
+    
+}
+
+.pop-up-carousel:hover {
+    background: rgba(0, 0, 0, 0.438);
+    cursor: pointer;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  width: 5vw;
+  height: 5vw;
+}
+
+.custom-indicators li {
+    border-radius: 50%;
+    width: 1vw !important;
+    height: 1vw !important;
+}
+
+
+
 
 
 

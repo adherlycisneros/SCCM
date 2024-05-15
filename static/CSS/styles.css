@@ -30,6 +30,18 @@
         min-height: 820px !important;
     }
 
+    .admin-member .card-img-top, .card-body {
+        height: 400px;
+        width: 300px; 
+    }
+
+    .team-member .card-img-top, .card-body {
+        width: 250px; 
+        height: 317px;
+    }
+    .team-member .card-sub-title, .team-member .card-title {
+        font-size: 1.4rem !important;
+    }
     
 }
 
@@ -81,6 +93,20 @@
         padding-right: 5rem !important;
         font-size: 1.2rem !important;
     }
+
+    .admin-member .card-img-top, .card-body {
+        height: 300px;
+        width: 250px; 
+    }
+
+    .team-member .card-img-top, .card-body {
+        height: 200px;
+        width: 200px; 
+    }
+
+    .team-member .card-text {
+        display: none;
+    }
 }
 
 @media (min-width: 769px) {
@@ -99,6 +125,8 @@
     .why-sscm-section p {
         margin-bottom: 0 !important;
     }
+
+    
 }
 
 
@@ -149,6 +177,9 @@
         font-size: 19px !important;
     }
 
+    .team-member .card-sub-title, .team-member .card-title {
+        font-size: 1.5rem;
+    }
 }
 
 @media (max-width: 576px) {
@@ -247,6 +278,32 @@
 
     #core-values p {
         font-size: 15px !important;
+    }
+
+    .admin-member .card-img-top {
+        height: 230px;
+        width: 170px;
+    }
+
+    .team-member .card-img-top {
+        height: 120px;
+        width: 120px; 
+    }
+    .team-member .card-img-top, .card-body {
+        width: 120px; 
+        height: 120px;
+    }
+
+    #the-team {
+        padding-bottom: 24px !important;
+    }
+
+    .team-member .card-sub-title, .team-member .card-title {
+        font-size: 0.9rem;
+    }
+
+    .admin-member .card-text {
+        display: none;
     }
 
 }
@@ -442,6 +499,12 @@
 
 /* Meet the Team Section */
 
+.staff-container {
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
 #the-team .card-text {
     font-size: 15px;
     font-family: sans-serif;
@@ -452,7 +515,7 @@
 .card {
     border: none;
     padding: 0;
-    width: 300px;
+   
     margin: 0 auto;
     position: relative;
     overflow: hidden;
@@ -472,17 +535,13 @@
     display: flex;
 }
 
-.admin-member .card-img-top {
-    width: 300px; 
-    height: 367px; 
+.admin-member .card-img-top { 
     object-fit: cover;
     display: block;
     margin: 0 auto;
 }
 
-.team-member .card-img-top {
-    width: 250px; 
-    height: 317px; 
+.team-member .card-img-top { 
     object-fit: cover;
     display: block;
     margin: 0 auto;

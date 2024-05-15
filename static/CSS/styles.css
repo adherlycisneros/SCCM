@@ -50,7 +50,7 @@
         max-width: 70px; /* Reduce logo size */
     }
     .navbar-container .school-name {
-        font-size: larger; /* Slightly reduce font size */
+        font-size: 30px; /* Slightly reduce font size */
     }
 
    
@@ -187,7 +187,7 @@
         max-width: 45px; /* Slightly smaller logo for very small devices */
     }
     .navbar-container .school-name {
-        font-size: small; /* Reduce font size to maintain readability and spacing */
+        font-size: 0.87rem; /* Reduce font size to maintain readability and spacing */
     }
     .banner {
         padding-top: 0 !important;

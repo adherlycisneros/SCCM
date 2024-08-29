@@ -131,3 +131,8 @@ dist
 
 # Editor-specific files
 *.code-workspace
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+

@@ -155,8 +155,3 @@ env/
 # Python testing
 .cache/
 .tox/
-
-# Docker-related files
-docker-compose.yml
-Dockerfile
-.dockerignore

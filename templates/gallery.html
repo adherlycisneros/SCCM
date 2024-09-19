@@ -56,7 +56,7 @@
                     <div class="carousel-inner">
                       {% for image in album.images %}
                       <div class="carousel-item {% if loop.first %}active{% endif %}">
-                          <img src="{{ url_for('static', filename=image) }}" class="d-block w-100" alt="{{ image.alt }}">
+                          <img src="{{ url_for('static', filename=image.url) }}" class="d-block w-100" alt="{{ image.alt }}">
                       </div>
                       {% endfor %}
                     </div>

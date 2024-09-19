@@ -135,4 +135,28 @@ dist
 # Python bytecode
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
 
+# Flask specific files
+instance/
+*.db
+*.sqlite3
+*.log
+
+# Python virtual environments
+venv/
+env/
+.venv/
+
+# pipenv related files
+*.lock
+
+# Python testing
+.cache/
+.tox/
+
+# Docker-related files
+docker-compose.yml
+Dockerfile
+.dockerignore

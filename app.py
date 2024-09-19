@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for
+import os
+from flask import Flask, render_template, request
 from flask_mail import Mail, Message 
 
 app = Flask(__name__)
@@ -6,8 +7,8 @@ app = Flask(__name__)
 app.config['MAIL_SERVER'] = 'smtp.office365.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'cisnerosprojects@outlook.com'
-app.config['MAIL_PASSWORD'] = 'toetvyvyaujztkom'
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 mail = Mail(app)
 
 @app.route('/')
@@ -116,7 +117,7 @@ def contact():
         subject = request.form['subject']
         message = request.form['message']
 
-        msg = Message (subject, sender = 'cisnerosprojects@outlook.com', recipients = ['cisnerosprojects@outlook.com'])
+        msg = Message(subject, sender=os.environ.get('MAIL_USERNAME'), recipients=[os.environ.get('MAIL_USERNAME')])
         msg.body = f"From: {first_name} {last_name}\nEmail: {email}\nPhone: {phone}\n\n{message}"
         mail.send(msg)
 
@@ -225,4 +226,4 @@ def gallery():
    
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))

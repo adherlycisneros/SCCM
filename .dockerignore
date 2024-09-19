@@ -1,0 +1,46 @@
+# Ignore Python bytecode files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Ignore Flask instance folder
+instance/
+
+# Ignore SQLite database files
+*.db
+*.sqlite3
+
+# Ignore environment variable files
+.env
+.env.*
+
+# Ignore logs
+*.log
+
+# Ignore virtual environments
+venv/
+env/
+.venv/
+
+# Ignore test and coverage files
+.tox/
+.coverage
+.cache
+
+# Ignore static files that will be generated or compiled
+static/scss/
+
+# Ignore OS-generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Ignore node_modules and package lock files (if applicable)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Ignore IDE-specific files
+.vscode/
+.idea/

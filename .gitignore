@@ -140,6 +140,10 @@ __pycache__/
 
 # Flask specific files
 instance/
+# Track only uploads inside instance (remove if you don't need uploads in git)
+!instance/uploads/
+!instance/uploads/**
+
 *.db
 *.sqlite3
 *.log
@@ -150,8 +154,4 @@ env/
 .venv/
 
 # pipenv related files
-*.lock
-
-# Python testing
-.cache/
-.tox/
+Pipfile.lock

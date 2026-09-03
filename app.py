@@ -1,17 +1,21 @@
 import os
 from datetime import datetime
 
-from flask import Flask, render_template, request
+from flask import Flask, redirect, render_template, request, url_for
 from flask_mail import Mail, Message
 
 app = Flask(__name__)
 
-app.config['MAIL_SERVER'] = 'smtp.office365.com'
-app.config['MAIL_PORT'] = 587
+app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.office365.com')
+app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+# Set MAIL_SUPPRESS_SEND=1 locally to exercise the contact form without SMTP credentials.
+app.config['MAIL_SUPPRESS_SEND'] = os.environ.get('MAIL_SUPPRESS_SEND') == '1'
 mail = Mail(app)
+
+CONTACT_FIELDS = ('first_name', 'last_name', 'email', 'phone', 'subject', 'message')
 
 
 @app.context_processor
@@ -159,23 +163,45 @@ FACULTY = [
 def about():
     return render_template('about.html', administration=ADMINISTRATION, faculty=FACULTY)
 
+def validate_contact(form):
+    """Return a dict of field -> error message for the submitted contact form."""
+    errors = {}
+    for field in CONTACT_FIELDS:
+        if not form[field]:
+            errors[field] = 'This field is required.'
+    email = form['email']
+    if email and ('@' not in email or '.' not in email.rsplit('@', 1)[-1]):
+        errors['email'] = 'Enter a valid email address.'
+    return errors
+
+
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
+        form = {field: request.form.get(field, '').strip() for field in CONTACT_FIELDS}
+        errors = validate_contact(form)
+        if errors:
+            return render_template('contact.html', form=form, errors=errors), 400
 
-        first_name = request.form['first_name']
-        last_name = request.form['last_name']
-        email = request.form['email']
-        phone = request.form['phone']
-        subject = request.form['subject']
-        message = request.form['message']
+        inbox = os.environ.get('MAIL_RECIPIENT') or app.config['MAIL_USERNAME'] or 'sccm-website@localhost'
+        sender = app.config['MAIL_USERNAME'] or 'sccm-website@localhost'
+        email = Message(form['subject'], sender=sender, recipients=[inbox], reply_to=form['email'])
+        email.body = (
+            f"From: {form['first_name']} {form['last_name']}\n"
+            f"Email: {form['email']}\n"
+            f"Phone: {form['phone']}\n\n"
+            f"{form['message']}"
+        )
+        try:
+            mail.send(email)
+        except Exception:
+            app.logger.exception('The contact form email could not be sent')
+            return render_template('contact.html', form=form, errors={}, send_failed=True), 500
 
-        msg = Message(subject, sender=os.environ.get('MAIL_USERNAME'), recipients=[os.environ.get('MAIL_USERNAME')])
-        msg.body = f"From: {first_name} {last_name}\nEmail: {email}\nPhone: {phone}\n\n{message}"
-        mail.send(msg)
+        # Redirect after POST so a refresh never re-sends the message
+        return redirect(url_for('contact', sent=1))
 
-        return render_template('contact.html', success=True) 
-    return render_template('contact.html')
+    return render_template('contact.html', form={}, errors={}, sent=request.args.get('sent') == '1')
 
 PROGRAM_CATEGORIES = [
     {'slug': 'individual-instruction', 'name': 'Individual Instruction'},

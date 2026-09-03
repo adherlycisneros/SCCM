@@ -362,7 +362,7 @@ a {
    -------------------------------------------------------------------------- */
 .site-footer {
     --sccm-focus: var(--sccm-white);
-    padding-block: 3.5rem 2rem;
+    padding-block: clamp(2.5rem, 6vw, 3.5rem) 1.5rem;
     background-color: var(--sccm-ink);
     color: #d5d9dd;
 }
@@ -412,6 +412,36 @@ a {
     margin-bottom: 0.35rem;
 }
 
+.site-footer__contact {
+    display: inline-flex;
+    min-height: 2.25rem;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+/* Phones: quick links flow on one or two lines instead of a tall list */
+@media (max-width: 575.98px) {
+    .site-footer__heading {
+        margin-bottom: 0.6rem;
+    }
+
+    .site-footer__list--inline {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.35rem 1rem;
+    }
+
+    .site-footer__list--inline li {
+        margin: 0;
+    }
+
+    .site-footer__list--inline a {
+        display: inline-block;
+        padding-block: 0.3rem;
+    }
+}
+
 .site-footer__social {
     display: flex;
     flex-wrap: wrap;
@@ -438,8 +468,8 @@ a {
 }
 
 .site-footer__legal {
-    margin: 2.5rem 0 0;
-    padding-top: 1.5rem;
+    margin: clamp(1.75rem, 4vw, 2.5rem) 0 0;
+    padding-top: 1.25rem;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
     font-size: 0.9rem;
     color: #b9bfc5;
@@ -636,13 +666,14 @@ a {
     position: relative;
     isolation: isolate;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     min-height: clamp(24rem, 70vh, 46rem);
     overflow: hidden;
     background-color: #1d0e02;
     color: var(--sccm-white);
 }
 
+/* The violin body sits in the left-centre of the footage for the whole loop, so portrait crops anchor there */
 .hero__poster,
 .hero__video {
     position: absolute;
@@ -650,7 +681,7 @@ a {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 62% 50%;
+    object-position: 25% 50%;
 }
 
 .hero__poster {
@@ -661,17 +692,18 @@ a {
     z-index: 1;
 }
 
+/* Small screens: copy sits at the bottom under a bottom-weighted scrim, so the upper part of the frame stays clear */
 .hero__scrim {
     position: absolute;
     inset: 0;
     z-index: 2;
-    background: linear-gradient(180deg, rgba(29, 14, 2, 0.55) 0%, rgba(29, 14, 2, 0.8) 100%);
+    background: linear-gradient(180deg, rgba(29, 14, 2, 0.12) 0%, rgba(29, 14, 2, 0.3) 35%, rgba(29, 14, 2, 0.84) 100%);
 }
 
 .hero__inner {
     position: relative;
     z-index: 3;
-    padding-block: clamp(3rem, 8vw, 5rem);
+    padding-block: clamp(3rem, 8vw, 5rem) 4.75rem;
 }
 
 .hero__content {
@@ -696,9 +728,25 @@ a {
     --sccm-focus: var(--sccm-white);
 }
 
-@media (min-width: 768px) {
+/* From the lg breakpoint the copy moves to the right, leaving the violin on the left unobstructed */
+@media (min-width: 992px) {
+    .hero {
+        align-items: center;
+    }
+
     .hero__scrim {
-        background: linear-gradient(90deg, rgba(29, 14, 2, 0.86) 0%, rgba(29, 14, 2, 0.7) 38%, rgba(29, 14, 2, 0.3) 72%, rgba(29, 14, 2, 0.15) 100%);
+        background: linear-gradient(270deg, rgba(29, 14, 2, 0.86) 0%, rgba(29, 14, 2, 0.7) 38%, rgba(29, 14, 2, 0.28) 70%, rgba(29, 14, 2, 0.12) 100%);
+    }
+
+    .hero__inner {
+        display: flex;
+        justify-content: flex-end;
+        padding-block: clamp(3rem, 8vw, 5rem);
+    }
+
+    .hero__toggle {
+        right: auto;
+        left: 1rem;
     }
 }
 
@@ -720,7 +768,7 @@ a {
     width: 100%;
     max-width: 38rem;
     margin-inline: auto;
-    padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 3.5rem) clamp(1.5rem, 3vw, 2rem);
+    padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 3.5rem) 0.5rem;
     text-align: center;
 }
 
@@ -732,14 +780,20 @@ a {
     color: var(--sccm-coral-text);
 }
 
+/* The photo's own cream backdrop matches the panel, so the text sits in the blank area above the
+   subject and the picture reads as the panel's background. The crop keeps the girl and her chair
+   whole (the frame shows the lower 60% of the photo) and the edges fade into the panel colour. */
 .why__photo {
     display: block;
-    width: 100%;
-    max-width: 30rem;
-    margin-inline: auto;
-    aspect-ratio: 4 / 5;
+    width: min(100%, 36rem);
+    margin: auto auto 0;
+    aspect-ratio: 4 / 3;
     object-fit: cover;
-    object-position: 50% 12%;
+    object-position: 50% 100%;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 24%), linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 24%), linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%);
+    mask-composite: intersect;
 }
 
 .why__values {
@@ -770,14 +824,6 @@ a {
 @media (min-width: 992px) {
     .why__grid {
         grid-template-columns: 1fr 1fr;
-    }
-
-    .why__photo {
-        flex: 1 1 0;
-        max-width: none;
-        min-height: 26rem;
-        aspect-ratio: auto;
-        object-position: 50% 88%;
     }
 }
 

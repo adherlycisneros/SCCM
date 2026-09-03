@@ -23,14 +23,12 @@
     }
 
     /* ------------------------------------------------------------------
-       2. Hero video: the poster image is always shown; the video itself is
-          only fetched on wider screens, when motion is welcome and the user
-          has not asked to save data. A visible button lets anyone pause it.
+       2. Hero video: the poster image is always shown first; the video is
+          added on every device and loops until the visitor pauses it with
+          the visible button. Only prefers-reduced-motion keeps the poster.
        ------------------------------------------------------------------ */
     var heroVideo = document.getElementById('hero-video');
     if (heroVideo && heroVideo.dataset.src) {
-        var wideScreen = window.matchMedia('(min-width: 768px)');
-        var saveData = navigator.connection && navigator.connection.saveData;
         var videoToggle = document.querySelector('[data-video-toggle]');
 
         var setVideoToggle = function (playing) {
@@ -40,7 +38,7 @@
             videoToggle.querySelector('[data-icon="play"]').hidden = playing;
         };
 
-        if (wideScreen.matches && !reduceMotion.matches && !saveData) {
+        if (!reduceMotion.matches) {
             var source = document.createElement('source');
             source.src = heroVideo.dataset.src;
             source.type = 'video/mp4';

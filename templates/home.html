@@ -8,7 +8,7 @@
          srcset="{{ url_for('static', filename='images/heroes/woman-playing-violin-poster-sm.jpg') }} 960w, {{ url_for('static', filename='images/heroes/woman-playing-violin-poster.jpg') }} 1920w"
          sizes="100vw" width="1920" height="1012" alt="" fetchpriority="high">
     <video class="hero__video" id="hero-video" data-src="{{ url_for('static', filename='videos/woman-playing-violin.mp4') }}"
-           autoplay muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+           muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
     <div class="hero__scrim" aria-hidden="true"></div>
 
     <div class="container hero__inner">
@@ -67,10 +67,10 @@
 <section class="testimonials" aria-labelledby="testimonials-heading">
     <div class="band"><h2 id="testimonials-heading">Testimonials</h2></div>
 
-    <div id="testimonials-carousel" class="carousel slide testimonials__carousel" data-carousel-autoplay="7000" aria-roledescription="carousel" aria-label="Testimonials">
+    <div id="testimonials-carousel" class="carousel slide testimonials__carousel" data-carousel-autoplay="7000" role="region" aria-roledescription="carousel" aria-label="Testimonials carousel">
         <div class="carousel-inner">
             {% for testimonial in testimonials %}
-            <div class="carousel-item{% if loop.first %} active{% endif %}" aria-roledescription="slide" aria-label="{{ loop.index }} of {{ loop.length }}">
+            <div class="carousel-item{% if loop.first %} active{% endif %}" role="group" aria-roledescription="slide" aria-label="{{ loop.index }} of {{ loop.length }}">
                 <figure class="testimonial">
                     <svg class="icon testimonial__mark" aria-hidden="true" focusable="false"><use href="#icon-quote"></use></svg>
                     <blockquote class="testimonial__quote">

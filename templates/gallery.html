@@ -63,7 +63,7 @@
 <!-- Lightboxes: one modal per album with a user-controlled carousel -->
 {% for album in albums %}
 {% set album_index = loop.index %}
-<div class="modal fade lightbox" id="album-{{ album_index }}" tabindex="-1" aria-labelledby="album-{{ album_index }}-title" aria-hidden="true">
+<div class="modal fade lightbox" id="album-{{ album_index }}" tabindex="-1" aria-labelledby="album-{{ album_index }}-title">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-fullscreen-md-down">
         <div class="modal-content lightbox__content">
             <div class="modal-header lightbox__header">
@@ -72,10 +72,10 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-0">
-                <div id="album-{{ album_index }}-carousel" class="carousel slide carousel-fade lightbox__carousel" data-bs-interval="false" data-bs-keyboard="false" aria-roledescription="carousel" aria-label="{{ album.name }} photos">
+                <div id="album-{{ album_index }}-carousel" class="carousel slide carousel-fade lightbox__carousel" data-bs-interval="false" data-bs-keyboard="false" role="region" aria-roledescription="carousel" aria-label="{{ album.name }} photos">
                     <div class="carousel-inner">
                         {% for image in album.images %}
-                        <div class="carousel-item{% if loop.first %} active{% endif %}" aria-roledescription="slide" aria-label="Photo {{ loop.index }} of {{ loop.length }}">
+                        <div class="carousel-item{% if loop.first %} active{% endif %}" role="group" aria-roledescription="slide" aria-label="Photo {{ loop.index }} of {{ loop.length }}">
                             <img class="lightbox__image" src="{{ url_for('static', filename=image.url) }}" width="1920" height="1080" alt="{{ image.alt }}" loading="lazy">
                         </div>
                         {% endfor %}

@@ -143,10 +143,20 @@ a {
 .btn:focus-visible,
 .nav-link:focus-visible,
 .btn-close:focus,
-.navbar-toggler:focus {
+.navbar-toggler:focus,
+.form-control:focus-visible,
+.form-select:focus-visible {
     outline: 3px solid var(--sccm-focus);
     outline-offset: 3px;
     box-shadow: none;
+}
+
+/* Bootstrap zeroes the outline on carousel controls; draw the ring inside the control area */
+.carousel-control-prev:focus-visible,
+.carousel-control-next:focus-visible {
+    outline: 3px solid var(--sccm-focus);
+    outline-offset: -6px;
+    opacity: 1;
 }
 
 .skip-link {

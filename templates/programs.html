@@ -23,12 +23,23 @@
     </div>
 </section>
 
+<nav class="jump-list" aria-label="Jump to a program">
+    <div class="container jump-list__inner">
+        <p class="jump-list__label">Jump to</p>
+        <ul class="jump-list__items">
+            {% for program in programs %}
+            <li><a class="jump-list__link" href="#program-{{ program.slug }}">{{ program.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</nav>
+
 {% for category in categories %}
 <section class="program-group" id="{{ category.slug }}" aria-labelledby="{{ category.slug }}-heading">
     <div class="band"><h2 id="{{ category.slug }}-heading">{{ category.name }}</h2></div>
     <div class="container">
         {% for program in programs if program.category == category.name %}
-        <article class="program{% if loop.index is even %} program--reverse{% endif %}">
+        <article class="program{% if loop.index is even %} program--reverse{% endif %}" id="program-{{ program.slug }}">
             <div class="program__media">
                 <img class="program__photo" src="{{ url_for('static', filename=program.image_file) }}" width="1400" height="1120" alt="{{ program.image_description }}" loading="lazy">
             </div>

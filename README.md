@@ -10,7 +10,7 @@ This website serves as an online hub for the Soundscapes Conservatory of Music s
 - Testimonials carousel with a pause control
 - Faculty profiles with hover and keyboard-accessible bios
 - Interactive gallery with album lightboxes (arrow keys, photo counter, focus management)
-- Contact form with server-side validation and email integration (Flask-Mail)
+- Contact form with server-side validation, a honeypot spam trap, and email integration (Flask-Mail)
 - Custom 404 page
 
 ### Accessibility
@@ -23,7 +23,7 @@ This website serves as an online hub for the Soundscapes Conservatory of Music s
 ### Performance
 - Photos are served as web-sized JPEG derivatives with `srcset` and lazy loading
 - The hero video (H.264, 720p) is fetched only on wide screens when motion is welcome; phones get the poster image
-- One Bootstrap bundle, an inline SVG icon sprite, and two Google Fonts families loaded with `display=swap`
+- One Bootstrap bundle, an inline SVG icon sprite, and two self-hosted font families (`static/fonts`) loaded with `font-display: swap`
 
 ## Technologies Used
 - HTML5, CSS3 (custom properties, grid, flexbox), vanilla JavaScript

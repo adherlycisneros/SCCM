@@ -54,6 +54,11 @@
                         {% if message_error %}<p class="form-error" id="message-error">{{ message_error }}</p>{% endif %}
                     </div>
 
+                    <div class="hp-field" aria-hidden="true">
+                        <label for="contact_time">Leave this field empty</label>
+                        <input type="text" id="contact_time" name="contact_time" tabindex="-1" autocomplete="off">
+                    </div>
+
                     <p class="form-text contact-form__note">We'll never share your personal information with anyone.</p>
                     <button class="btn btn-brand-bright btn-lg" type="submit">Submit</button>
                 </form>

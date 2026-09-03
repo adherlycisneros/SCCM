@@ -16,6 +16,7 @@ app.config['MAIL_SUPPRESS_SEND'] = os.environ.get('MAIL_SUPPRESS_SEND') == '1'
 mail = Mail(app)
 
 CONTACT_FIELDS = ('first_name', 'last_name', 'email', 'phone', 'subject', 'message')
+HONEYPOT_FIELD = 'contact_time'  # never shown to people; see the hp-field in contact.html
 
 
 @app.context_processor
@@ -179,6 +180,12 @@ def validate_contact(form):
 def contact():
     if request.method == 'POST':
         form = {field: request.form.get(field, '').strip() for field in CONTACT_FIELDS}
+
+        # Honeypot: the hidden field is empty for people; bots that fill it get a quiet fake success
+        if request.form.get(HONEYPOT_FIELD, '').strip():
+            app.logger.warning('Contact form submission dropped: honeypot field was filled')
+            return redirect(url_for('contact', sent=1))
+
         errors = validate_contact(form)
         if errors:
             return render_template('contact.html', form=form, errors=errors), 400
@@ -213,6 +220,7 @@ PROGRAMS = [
             'name': 'Piano', 
             'description':'Our piano classes cater to students of all levels, from beginners discovering the keys for the first time to advanced musicians honing their concert repertoire. Instruction covers a range of techniques, theory, sight-reading, and performance practices, ensuring a comprehensive understanding of piano playing. Specialized courses are available, focusing on classical, jazz, and contemporary genres, tailored to align with your musical passion and goals.', 
             'image_file':'images/programs/piano.jpg',
+            'slug': 'piano',
             'category': 'Individual Instruction',
             'image_description':"A young girl with long brown hair tied back with clips, wearing a pink floral dress, concentrates as she plays the piano in a well-lit room.",
         },
@@ -220,6 +228,7 @@ PROGRAMS = [
             'name': 'Strings', 
             'description':'The string program offers individualized instruction on a variety of instruments including violin, viola, cello, and double bass. Classes are designed to suit all proficiency levels, introducing beginners to the basics of string playing and offering advanced players in-depth studies in bowing techniques, vibrato, and repertoire expansion. Ensemble opportunities provide a platform for performance and collaboration among peers.', 
             'image_file':'images/programs/strings.jpg',
+            'slug': 'strings',
             'category': 'Individual Instruction',
             'image_description':"A woman in a red sweater assists a young girl in a yellow sweatshirt with holding a violin correctly, both focused intently on the music stand in front of them.",
         },
@@ -227,6 +236,7 @@ PROGRAMS = [
             'name':'Winds',
             'description':'Wind instrument instruction encompasses a broad array of classes for flute, clarinet, saxophone, trumpet, and more. Each class is tailored to student level, from novices learning breath control and tone production to advanced students mastering complex solos and ensemble pieces. Special emphasis is placed on tone development, technical skills, and musicality across genres from classical to jazz.',
             'image_file':'images/programs/winds.jpg',
+            'slug': 'winds',
             'category': 'Individual Instruction',
             'image_description':"A young boy with curly red hair, dressed in a green sweater, plays the flute while a teenage girl stands nearby holding a flute, both in front of a music stand in a well-lit room.",
         },
@@ -234,6 +244,7 @@ PROGRAMS = [
             'name':'Guitar',
             'description':'Our guitar program welcomes students interested in classical, acoustic, and electric guitar disciplines. Beginners start with the fundamentals of strumming and chord progression, while intermediate and advanced students explore various playing styles, improvisation, and composition. Specialty classes are available for those looking to delve into specific genres such as blues, rock, and fingerstyle guitar.',
             'image_file':'images/programs/guitar.jpg',
+            'slug': 'guitar',
             'category': 'Individual Instruction',
             'image_description':"A young boy with short hair sits and plays an acoustic guitar, focused on sheet music placed on a stand in front of him against a textured wall.",
         },
@@ -241,6 +252,7 @@ PROGRAMS = [
             'name':'Voice',
             'description':'Voice lessons are designed for singers at all stages of their journey, offering techniques in breath control, pitch accuracy, and vocal range expansion. Classes cover a variety of musical styles, from classical opera to modern pop, helping students develop a versatile and expressive vocal performance. Personalized coaching focuses on your unique voice, fostering confidence and stage presence.',
             'image_file':'images/programs/voice.jpg',
+            'slug': 'voice',
             'category': 'Individual Instruction',
             'image_description':"A young girl with a high ponytail smiles brightly while holding a microphone. She stands in front of a music stand with sheet music, against a background of acoustic foam panels.",
         },
@@ -248,6 +260,7 @@ PROGRAMS = [
             'name':'Music Theory',
             'description':'Our music theory classes demystify the language of music, offering students of all instruments a foundation in reading music, understanding harmony, and exploring composition. From the basics of notation to the complexities of harmonic analysis, these classes enhance practical performance skills and deepen musical appreciation.',
             'image_file':'images/programs/theory.jpg',
+            'slug': 'music-theory',
             'category': 'Group Instruction',
             'image_description':"A hand with a ring writes musical notes and symbols, including a treble clef and sharps, on a blackboard using white chalk.",
         },
@@ -255,6 +268,7 @@ PROGRAMS = [
             'name':'Band & Orchestra',
             'description':'The band and orchestra program provides an immersive group playing experience, catering to wind, brass, string, and percussion instrumentalists. Students engage in ensemble work, refining their collaborative skills while exploring a diverse repertoire. The program is structured to accommodate different skill levels, with groups for beginners, intermediate, and advanced musicians.',
             'image_file':'images/programs/orchestra.jpg',
+            'slug': 'band-and-orchestra',
             'category': 'Group Instruction',
             'image_description':"Two young musicians, a man and a woman, play cellos in an orchestra, both focused intently on their performance on stage.",
         },
@@ -262,6 +276,7 @@ PROGRAMS = [
             'name':'Introduction to Music',
             'description':'Designed for complete beginners of any age, our Introduction to Music classes lay the groundwork for a lifelong appreciation and understanding of music. Adults and children alike are introduced to the fundamentals of music theory, instrument exploration, and basic performance skills. Tailored classes ensure that young learners receive age-appropriate instruction while adults can enjoy a curriculum designed for their unique needs and pace of learning.',
             'image_file':'images/programs/intro.jpg',
+            'slug': 'introduction-to-music',
             'category': 'Group Instruction',
             'image_description':"A group of young children, seated in a circle in a colorful classroom, playing with hand bells as part of a music lesson. A teacher is guiding them through the activity.",
         }

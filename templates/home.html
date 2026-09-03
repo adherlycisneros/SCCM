@@ -8,13 +8,14 @@
          srcset="{{ url_for('static', filename='images/heroes/woman-playing-violin-poster-sm.jpg') }} 960w, {{ url_for('static', filename='images/heroes/woman-playing-violin-poster.jpg') }} 1920w"
          sizes="100vw" width="1920" height="1012" alt="" fetchpriority="high">
     <video class="hero__video" id="hero-video" data-src="{{ url_for('static', filename='videos/woman-playing-violin.mp4') }}"
+           data-src-small="{{ url_for('static', filename='videos/woman-playing-violin-960.mp4') }}"
            muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
     <div class="hero__scrim" aria-hidden="true"></div>
 
     <div class="container hero__inner">
         <div class="hero__content">
             <h1 class="hero__title" id="hero-heading">Find Your Rhythm,<br> Discover Your Voice.</h1>
-            <p class="hero__lead">Passionate Advocate and Innovator in Music Education for 42 years.</p>
+            <p class="hero__lead">Passionate Advocate and Innovator in Music Education since 1981.</p>
             <a class="btn btn-brand-bright btn-lg" href="{{ url_for('contact') }}">Try a Free Class Today</a>
         </div>
     </div>

@@ -24,8 +24,9 @@
 
     /* ------------------------------------------------------------------
        2. Hero video: the poster image is always shown first; the video is
-          added on every device and loops until the visitor pauses it with
-          the visible button. Only prefers-reduced-motion keeps the poster.
+          added on every device (a lighter 960px encode below 768px) and
+          loops until the visitor pauses it with the visible button. Only
+          prefers-reduced-motion keeps the poster.
        ------------------------------------------------------------------ */
     var heroVideo = document.getElementById('hero-video');
     if (heroVideo && heroVideo.dataset.src) {
@@ -39,8 +40,9 @@
         };
 
         if (!reduceMotion.matches) {
+            var smallScreen = window.matchMedia('(max-width: 767.98px), (max-height: 500px)').matches;
             var source = document.createElement('source');
-            source.src = heroVideo.dataset.src;
+            source.src = (smallScreen && heroVideo.dataset.srcSmall) || heroVideo.dataset.src;
             source.type = 'video/mp4';
             heroVideo.appendChild(source);
             heroVideo.load();

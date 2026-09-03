@@ -5,7 +5,9 @@
 
 {% block content %}
 <section class="page-hero page-hero--programs" aria-labelledby="programs-heading">
-    <img class="page-hero__image" src="{{ url_for('static', filename='images/heroes/programs-hero.jpg') }}" width="1920" height="1068" alt="" fetchpriority="high">
+    <img class="page-hero__image" src="{{ url_for('static', filename='images/heroes/programs-hero.jpg') }}"
+         srcset="{{ url_for('static', filename='images/heroes/programs-hero-sm.jpg') }} 960w, {{ url_for('static', filename='images/heroes/programs-hero.jpg') }} 1920w"
+         sizes="100vw" width="1920" height="1068" alt="" fetchpriority="high">
     <div class="page-hero__content">
         <h1 class="page-hero__title" id="programs-heading">Programs</h1>
     </div>

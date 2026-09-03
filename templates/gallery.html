@@ -10,7 +10,9 @@
         <div class="carousel-inner">
             {% for image in hero_images %}
             <div class="carousel-item{% if loop.first %} active{% endif %}">
-                <img class="gallery-hero__image" src="{{ url_for('static', filename=image) }}" width="1920" height="1080" alt=""{% if loop.first %} fetchpriority="high"{% else %} loading="lazy"{% endif %}>
+                <img class="gallery-hero__image" src="{{ url_for('static', filename=image) }}"
+                     srcset="{{ url_for('static', filename=image | replace('.jpg', '-sm.jpg')) }} 800w, {{ url_for('static', filename=image) }} 1920w"
+                     sizes="100vw" width="1920" height="1080" alt=""{% if loop.first %} fetchpriority="high"{% else %} loading="lazy"{% endif %}>
             </div>
             {% endfor %}
         </div>

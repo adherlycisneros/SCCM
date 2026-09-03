@@ -25,7 +25,9 @@
 
 {% block content %}
 <section class="page-hero page-hero--about" aria-labelledby="about-heading">
-    <img class="page-hero__image" src="{{ url_for('static', filename='images/heroes/about-us-hero.jpg') }}" width="1577" height="789" alt="" fetchpriority="high">
+    <img class="page-hero__image" src="{{ url_for('static', filename='images/heroes/about-us-hero.jpg') }}"
+         srcset="{{ url_for('static', filename='images/heroes/about-us-hero-sm.jpg') }} 960w, {{ url_for('static', filename='images/heroes/about-us-hero.jpg') }} 1577w"
+         sizes="100vw" width="1577" height="789" alt="" fetchpriority="high">
     <div class="page-hero__content">
         <h1 class="page-hero__title" id="about-heading">About Us</h1>
     </div>

@@ -148,4 +148,30 @@
             }
         });
     });
+
+    /* ------------------------------------------------------------------
+       5. Gallery lightboxes: arrow keys move between photos, a counter
+          shows the position, and each album reopens on its first photo.
+       ------------------------------------------------------------------ */
+    var lightboxes = document.querySelectorAll('.lightbox');
+    Array.prototype.forEach.call(lightboxes, function (modal) {
+        var carouselElement = modal.querySelector('.carousel');
+        if (!carouselElement || !window.bootstrap) { return; }
+        var counter = modal.querySelector('[data-lightbox-counter]');
+        var total = carouselElement.querySelectorAll('.carousel-item').length;
+        var carousel = function () { return bootstrap.Carousel.getOrCreateInstance(carouselElement); };
+        var update = function (index) {
+            if (counter) { counter.textContent = (index + 1) + ' / ' + total; }
+        };
+        carouselElement.addEventListener('slid.bs.carousel', function (event) { update(event.to); });
+        modal.addEventListener('keydown', function (event) {
+            if (event.key === 'ArrowRight') { carousel().next(); }
+            if (event.key === 'ArrowLeft') { carousel().prev(); }
+        });
+        modal.addEventListener('hidden.bs.modal', function () {
+            carousel().to(0);
+            update(0);
+        });
+        update(0);
+    });
 }());

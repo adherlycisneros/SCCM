@@ -246,9 +246,7 @@ PROGRAMS = [
 def programs():
     return render_template('programs.html', programs=PROGRAMS, categories=PROGRAM_CATEGORIES)
 
-@app.route('/gallery')
-def gallery():
-    albums = [
+ALBUMS = [
         {"name": "Musical Theater", 
          "cover_image": "images/gallery/theater/theater1.jpg", 
          "cover_alt": "Cover image of the Musical Theater album showing a dramatic stage scene with two young children.",
@@ -270,7 +268,7 @@ def gallery():
              {"url": "images/gallery/chamber/chamber3.jpg", "alt": "Student choir holding yellow flowers while singing, led by a conductor in a white shirt, during a rehearsal."},
              {"url": "images/gallery/chamber/chamber4.jpg", "alt": "Boys choir, each holding a yellow flower, attentively following the conductor's lead in a church setting."},
              {"url": "images/gallery/chamber/chamber5.jpg", "alt": "Choir conductor leading a group of students holding lit candles during a solemn performance in a church."},
-             {"url": "images/gallery/chamber/chamber6.jpg", "alt":  "Mixed adult chamber choir, dressed in black, singing from sheet music during a practice session."}
+             {"url": "images/gallery/chamber/chamber6.jpg", "alt": "Mixed adult chamber choir, dressed in black, singing from sheet music during a practice session."}
          ]
         },
         {"name": "SCCM Family Through The Years", 
@@ -285,10 +283,15 @@ def gallery():
              {"url": "images/gallery/sccm/sccm6.jpg", "alt": "A music teacher at SCCM sits at a piano with a group of young students, engaging them in a lesson."}
          ]
         }
-    ]
+]
 
-    all_images = [image['url'] for album in albums for image in album['images']]
-    return render_template('gallery.html', albums=albums, all_images=all_images)
+# Every album photo, in order, for the rotating gallery hero
+HERO_IMAGES = [image['url'] for album in ALBUMS for image in album['images']]
+
+
+@app.route('/gallery')
+def gallery():
+    return render_template('gallery.html', albums=ALBUMS, hero_images=HERO_IMAGES)
    
 
 if __name__ == '__main__':

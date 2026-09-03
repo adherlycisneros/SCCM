@@ -1,82 +1,98 @@
 {% extends 'base.html' %}
 
+{% block title %}Gallery | Soundscapes Conservatory of Music{% endblock %}
+{% block description %}Photo albums from Soundscapes Conservatory of Music: musical theater productions, chamber choirs, and the SCCM family through the years.{% endblock %}
+
 {% block content %}
-
-<header id="carousel-controls" class="hero-section carousel-hero-section bg-cover bg-no-repeat bg-center text-white d-flex justify-content-center align-items-center carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-    <div class="carousel-inner">
-      {% for image in all_images %}
-      <div class="carousel-item {% if loop.first %}active{% endif %}">
-          <img src="{{ url_for('static', filename=image) }}" class="d-block w-100">
-      </div>
-      {% endfor %}
-        <!---OVERLAY GALLERY HEADING TEXT-->
-        <div class="d-flex justify-content-center align-items-center position-absolute w-100 h-100">
-            <div class="hero-text text-center">
-                <h1 class="display-2">Gallery</h1>
+<!-- Rotating photo backdrop (decorative; the same photos appear with descriptions in the albums below) -->
+<section class="gallery-hero" aria-labelledby="gallery-heading">
+    <div id="gallery-hero-carousel" class="carousel slide carousel-fade gallery-hero__carousel" data-carousel-autoplay="4500" data-bs-keyboard="false" aria-hidden="true">
+        <div class="carousel-inner">
+            {% for image in hero_images %}
+            <div class="carousel-item{% if loop.first %} active{% endif %}">
+                <img class="gallery-hero__image" src="{{ url_for('static', filename=image) }}" width="1920" height="1080" alt=""{% if loop.first %} fetchpriority="high"{% else %} loading="lazy"{% endif %}>
             </div>
+            {% endfor %}
         </div>
-        <!---->
     </div>
-</header>
+    <div class="gallery-hero__scrim" aria-hidden="true"></div>
+    <div class="gallery-hero__overlay">
+        <h1 class="page-hero__title" id="gallery-heading">Gallery</h1>
+    </div>
+    <button class="carousel-toggle gallery-hero__toggle" type="button" data-carousel-toggle="#gallery-hero-carousel" hidden>
+        <svg class="icon" data-icon="pause" aria-hidden="true" focusable="false"><use href="#icon-pause-fill"></use></svg>
+        <svg class="icon" data-icon="play" aria-hidden="true" focusable="false" hidden><use href="#icon-play-fill"></use></svg>
+        <span data-label>Pause</span>
+    </button>
+</section>
 
-
-<section class="py-5">
-    <div class="container px-4">
-        <div class="row">
-            <div class="col-lg-10 offset-lg-1 col-md-10 offset-md-1 col-sm-12">
-                <p class="text-justify gallery-text text-center">
-                    At Soundscapes Conservatory of Music, we take pride in presenting a vibrant array of over 200 yearly events that span from engaging concerts to dynamic musical celebrations. Each event is thoughtfully curated to spark inspiration, provide entertainment, foster connections, and expand the horizons of our community. We believe music serves as a universal bridge, bringing together individuals within New York City, facilitating meaningful interactions with our conservatory, and amongst one another.
-                </p>
-                <h4 class="text-justify text-center my-2 orange-headings">
-                    Check out some of our photo albums below!
-                </h4>
-            </div>
+<section class="section" aria-labelledby="events-heading">
+    <div class="container">
+        <div class="prose mx-auto text-center">
+            <h2 class="eyebrow" id="events-heading">Our Events</h2>
+            <p>At Soundscapes Conservatory of Music, we take pride in presenting a vibrant array of over 200 yearly events that span from engaging concerts to dynamic musical celebrations. Each event is thoughtfully curated to spark inspiration, provide entertainment, foster connections, and expand the horizons of our community. We believe music serves as a universal bridge, bringing together individuals within New York City, facilitating meaningful interactions with our conservatory, and amongst one another.</p>
         </div>
     </div>
 </section>
 
-<section class="container pb-5" id="gallery">
-  <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
-    {% for album in albums %}
-    <div class="col">
-      <img src="{{ url_for('static', filename=album.cover_image) }}" alt="{{ album.cover_alt }}" data-bs-toggle="modal" data-bs-target="#album-modal-{{ loop.index }}" class="img-thumbnail clickable-element">
-      <p class="mt-2"> {{ album.name }}</p>
-    </div>
-    {% endfor %}
-  </div>
-</section>
-
-{% for album in albums %}
-<div class="modal fade" id="album-modal-{{ loop.index }}" aria-labelledby="carousel-modal-label" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered responsive-modal">
-        <div class="modal-content">
-                <button type="button" class="btn-close btn-close-white top-right-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="modal-body p-0">
-                <div id="carousel-album-{{ loop.index }}" class="carousel slide carousel-fade" data-bs-interval="false">
-                    <div class="carousel-inner">
-                      {% for image in album.images %}
-                      <div class="carousel-item {% if loop.first %}active{% endif %}">
-                          <img src="{{ url_for('static', filename=image.url) }}" class="d-block w-100" alt="{{ image.alt }}">
-                      </div>
-                      {% endfor %}
+<section class="section section--soft albums" aria-labelledby="albums-heading">
+    <div class="container">
+        <h2 class="albums__heading" id="albums-heading">Check out some of our photo albums below!</h2>
+        <div class="row g-4">
+            {% for album in albums %}
+            <div class="col-md-4">
+                <article class="album">
+                    <img class="album__cover"
+                         src="{{ url_for('static', filename=album.cover_image | replace('.jpg', '-sm.jpg')) }}"
+                         srcset="{{ url_for('static', filename=album.cover_image | replace('.jpg', '-sm.jpg')) }} 800w, {{ url_for('static', filename=album.cover_image) }} 1920w"
+                         sizes="(min-width: 768px) 33vw, 100vw" width="800" height="450" alt="" loading="lazy">
+                    <div class="album__body">
+                        <h3 class="album__name">{{ album.name }}</h3>
+                        <p class="album__meta">{{ album.images | length }} photos</p>
+                        <button class="album__button" type="button" data-bs-toggle="modal" data-bs-target="#album-{{ loop.index }}">
+                            <span class="visually-hidden">{{ album.name }}: </span>View album
+                        </button>
                     </div>
-                    <button class="carousel-control-prev pop-up-carousel mx-5" type="button" data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next pop-up-carousel mx-5" type="button" data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
-                    <ol class="carousel-indicators custom-indicators">
-                        <li data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide-to="0" class="active"></li>
-                        <li data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide-to="1"></li>
-                        <li data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide-to="2"></li>
-                        <li data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide-to="3"></li>
-                        <li data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide-to="4"></li>
-                        <li data-bs-target="#carousel-album-{{ loop.index }}" data-bs-slide-to="5"></li>
-                    </ol>
+<!-- Lightboxes: one modal per album with a user-controlled carousel -->
+{% for album in albums %}
+{% set album_index = loop.index %}
+<div class="modal fade lightbox" id="album-{{ album_index }}" tabindex="-1" aria-labelledby="album-{{ album_index }}-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-fullscreen-md-down">
+        <div class="modal-content lightbox__content">
+            <div class="modal-header lightbox__header">
+                <h2 class="modal-title lightbox__title" id="album-{{ album_index }}-title">{{ album.name }}</h2>
+                <p class="lightbox__counter" data-lightbox-counter aria-hidden="true"></p>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div id="album-{{ album_index }}-carousel" class="carousel slide carousel-fade lightbox__carousel" data-bs-interval="false" data-bs-keyboard="false" aria-roledescription="carousel" aria-label="{{ album.name }} photos">
+                    <div class="carousel-inner">
+                        {% for image in album.images %}
+                        <div class="carousel-item{% if loop.first %} active{% endif %}" aria-roledescription="slide" aria-label="Photo {{ loop.index }} of {{ loop.length }}">
+                            <img class="lightbox__image" src="{{ url_for('static', filename=image.url) }}" width="1920" height="1080" alt="{{ image.alt }}" loading="lazy">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#album-{{ album_index }}-carousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous photo</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#album-{{ album_index }}-carousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next photo</span>
+                    </button>
+                    <div class="carousel-indicators">
+                        {% for image in album.images %}
+                        <button type="button" data-bs-target="#album-{{ album_index }}-carousel" data-bs-slide-to="{{ loop.index0 }}"{% if loop.first %} class="active" aria-current="true"{% endif %} aria-label="Photo {{ loop.index }}"></button>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>

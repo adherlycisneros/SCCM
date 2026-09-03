@@ -155,3 +155,6 @@ env/
 
 # pipenv related files
 Pipfile.lock
+
+# AI agent instructions
+CLAUDE.md 

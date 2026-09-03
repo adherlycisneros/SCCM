@@ -361,10 +361,13 @@ a {
 }
 
 /* 5. Footer
+   Two tiers: brand + quick links + contact on top, social icons + legal line in a bottom bar.
+   Phones get one centred column without the column headings (kept for screen readers);
+   tablets pair the link and contact columns; desktop shows all three side by side.
    -------------------------------------------------------------------------- */
 .site-footer {
     --sccm-focus: var(--sccm-white);
-    padding-block: clamp(2.5rem, 6vw, 3.5rem) 1.5rem;
+    padding-top: clamp(2.5rem, 6vw, 4rem);
     background-color: var(--sccm-ink);
     color: #d5d9dd;
 }
@@ -380,8 +383,20 @@ a {
     text-decoration: underline;
 }
 
+.site-footer__top {
+    display: grid;
+    gap: 2rem;
+    padding-bottom: clamp(2rem, 5vw, 3rem);
+    text-align: center;
+}
+
+.site-footer__brand {
+    display: grid;
+    justify-items: center;
+    gap: 1rem;
+}
+
 .brand--footer {
-    margin-bottom: 1rem;
     color: var(--sccm-white);
 }
 
@@ -397,7 +412,7 @@ a {
 }
 
 .site-footer__heading {
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     font-family: var(--sccm-font-body);
     font-size: 0.8rem;
     font-weight: 700;
@@ -406,12 +421,30 @@ a {
     color: var(--sccm-coral);
 }
 
-.site-footer__list {
+.site-footer__links,
+.site-footer__contact-list,
+.site-footer__social {
     margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
-.site-footer__list li {
-    margin-bottom: 0.35rem;
+.site-footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 1.75rem;
+}
+
+.site-footer__links a {
+    display: inline-block;
+    padding-block: 0.45rem;
+}
+
+.site-footer__contact-list {
+    display: grid;
+    justify-content: center;
+    gap: 0.25rem;
 }
 
 .site-footer__contact {
@@ -422,33 +455,18 @@ a {
     white-space: nowrap;
 }
 
-/* Phones: quick links flow on one or two lines instead of a tall list */
-@media (max-width: 575.98px) {
-    .site-footer__heading {
-        margin-bottom: 0.6rem;
-    }
-
-    .site-footer__list--inline {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.35rem 1rem;
-    }
-
-    .site-footer__list--inline li {
-        margin: 0;
-    }
-
-    .site-footer__list--inline a {
-        display: inline-block;
-        padding-block: 0.3rem;
-    }
+.site-footer__bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-block: 1.25rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .site-footer__social {
     display: flex;
-    flex-wrap: wrap;
     gap: 0.5rem;
-    margin: 0;
 }
 
 .site-footer__social a {
@@ -470,11 +488,71 @@ a {
 }
 
 .site-footer__legal {
-    margin: clamp(1.75rem, 4vw, 2.5rem) 0 0;
-    padding-top: 1.25rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0;
     font-size: 0.9rem;
+    text-align: center;
     color: #b9bfc5;
+}
+
+/* Phones: the column headings are redundant next to a link row and two contact lines */
+@media (max-width: 575.98px) {
+    .site-footer__heading {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+}
+
+@media (min-width: 576px) {
+    .site-footer__top {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2rem 2.5rem;
+        text-align: left;
+    }
+
+    .site-footer__brand {
+        grid-column: 1 / -1;
+        justify-items: start;
+    }
+
+    .site-footer__links {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .site-footer__links a {
+        padding-block: 0.3rem;
+    }
+
+    .site-footer__contact-list {
+        justify-content: start;
+    }
+
+    .site-footer__bottom {
+        flex-direction: row-reverse;
+        justify-content: space-between;
+    }
+
+    .site-footer__legal {
+        text-align: left;
+    }
+}
+
+@media (min-width: 992px) {
+    .site-footer__top {
+        grid-template-columns: 5fr 3fr 4fr;
+        gap: 3rem;
+    }
+
+    .site-footer__brand {
+        grid-column: auto;
+    }
 }
 
 /* 6. Shared components

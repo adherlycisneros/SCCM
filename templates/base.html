@@ -86,8 +86,8 @@
 
     <footer class="site-footer">
         <div class="container">
-            <div class="row gy-4 gx-4 gx-xl-5">
-                <div class="col-12 col-lg-4">
+            <div class="site-footer__top">
+                <div class="site-footer__brand">
                     <a class="brand brand--footer" href="{{ url_for('home') }}">
                         <img class="brand__logo" src="{{ url_for('static', filename='images/logos/sccm_logo.png') }}" width="56" height="56" alt="">
                         <span class="brand__name">Soundscapes Conservatory <span class="brand__name-line">of Music</span></span>
@@ -95,17 +95,10 @@
                     <address class="site-footer__address">50 School Lane<br>Brooklyn, NY 11236</address>
                 </div>
 
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <h2 class="site-footer__heading">Contact Us</h2>
-                    <ul class="list-unstyled site-footer__list">
-                        <li><a class="site-footer__contact" href="mailto:info@scsom.org"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-envelope"></use></svg><span class="visually-hidden">Email: </span>info@scsom.org</a></li>
-                        <li><a class="site-footer__contact" href="tel:+11234567890"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-telephone"></use></svg><span class="visually-hidden">Phone: </span>123-456-7890</a></li>
-                    </ul>
-                </div>
-
-                <nav class="col-12 col-sm-6 col-lg-2" aria-label="Footer">
+                <nav class="site-footer__group" aria-label="Footer">
                     <h2 class="site-footer__heading">Quick Links</h2>
-                    <ul class="list-unstyled site-footer__list site-footer__list--inline">
+                    <ul class="site-footer__links">
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
                         <li><a href="{{ url_for('about') }}">About Us</a></li>
                         <li><a href="{{ url_for('programs') }}">Programs</a></li>
                         <li><a href="{{ url_for('gallery') }}">Our Community</a></li>
@@ -113,18 +106,27 @@
                     </ul>
                 </nav>
 
-                <div class="col-12 col-lg-3">
-                    <h2 class="site-footer__heading">Follow Us</h2>
-                    <ul class="list-unstyled site-footer__social">
+                <div class="site-footer__group">
+                    <h2 class="site-footer__heading">Contact Us</h2>
+                    <ul class="site-footer__contact-list">
+                        <li><a class="site-footer__contact" href="mailto:info@scsom.org"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-envelope"></use></svg><span class="visually-hidden">Email: </span>info@scsom.org</a></li>
+                        <li><a class="site-footer__contact" href="tel:+11234567890"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-telephone"></use></svg><span class="visually-hidden">Phone: </span>123-456-7890</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="site-footer__bottom">
+                <div class="site-footer__follow">
+                    <h2 class="visually-hidden">Follow Us</h2>
+                    <ul class="site-footer__social">
                         <li><a href="https://www.facebook.com/"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-facebook"></use></svg><span class="visually-hidden">Facebook</span></a></li>
                         <li><a href="https://www.instagram.com/"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-instagram"></use></svg><span class="visually-hidden">Instagram</span></a></li>
                         <li><a href="https://twitter.com/?lang=en"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-twitter-x"></use></svg><span class="visually-hidden">X (formerly Twitter)</span></a></li>
                         <li><a href="https://www.tiktok.com/en/"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-tiktok"></use></svg><span class="visually-hidden">TikTok</span></a></li>
                     </ul>
                 </div>
+                <p class="site-footer__legal">&copy; {{ current_year }} Soundscapes Conservatory of Music. Established 1981. All Rights Reserved.</p>
             </div>
-
-            <p class="site-footer__legal">&copy; {{ current_year }} Soundscapes Conservatory of Music. Established 1981. All Rights Reserved.</p>
         </div>
     </footer>
 

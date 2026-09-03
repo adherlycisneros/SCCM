@@ -123,9 +123,11 @@
     --sccm-font-heading: "Fraunces", Georgia, "Times New Roman", serif;
     --sccm-font-body: "Source Sans 3", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
-    /* Shape, depth, rhythm */
+    /* Shape, depth, rhythm. Radius system: controls (buttons, inputs, menus) use --sccm-radius,
+       small chip-like controls use the pill radius, and media/cards use --sccm-radius-lg. */
     --sccm-radius: 0.5rem;
     --sccm-radius-lg: 1rem;
+    --sccm-radius-pill: 999px;
     --sccm-shadow: 0 1px 2px rgba(33, 37, 41, 0.06), 0 10px 30px rgba(33, 37, 41, 0.08);
     --sccm-section: clamp(3rem, 6vw, 5.5rem);
     --sccm-measure: 68ch;
@@ -401,7 +403,26 @@ a {
     font-size: 1.15rem;
 }
 
+/* Header call to action: inline at the end of the desktop nav, pinned to the bottom of the mobile drawer */
+.nav-cta {
+    --bs-btn-padding-y: 0.5rem;
+    --bs-btn-padding-x: 1rem;
+    --bs-btn-font-size: 0.95rem;
+    white-space: nowrap;
+}
+
 @media (max-width: 991.98px) {
+    .offcanvas-body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nav-cta {
+        --bs-btn-padding-y: 0.8rem;
+        margin-top: auto;
+        text-align: center;
+    }
+
     .offcanvas-body .navbar-nav {
         gap: 0.25rem;
     }
@@ -450,12 +471,28 @@ a {
     .site-header .navbar-nav {
         gap: 0.25rem;
     }
+
+    .nav-cta {
+        margin-left: 1rem;
+    }
+}
+
+/* Between 992 and 1199px the brand, five links and the CTA share about 930px: tighten the link padding */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .site-header .navbar-nav .nav-link {
+        padding-inline: 0.6rem;
+    }
+
+    .nav-cta {
+        margin-left: 0.5rem;
+    }
 }
 
 /* 5. Footer
    One component at every size: brand + address, Quick Links, Contact Us, then a bottom bar with
-   social icons and the legal line. Phones centre everything in one column with a two-column link
-   grid; from 576px the links and contact sit side by side; from 992px all three columns line up.
+   social icons and the legal line. Phones centre the brand, address, icons and legal line, and put
+   the two headed groups in one narrow centred column with left-aligned content; from 576px the two
+   groups sit side by side under the brand; from 992px all three columns line up.
    -------------------------------------------------------------------------- */
 .site-footer {
     --sccm-focus: var(--sccm-white);
@@ -477,15 +514,16 @@ a {
 
 .site-footer__top {
     display: grid;
-    gap: 1.75rem;
-    padding-bottom: 1.75rem;
-    text-align: center;
+    justify-items: center;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
 }
 
 .site-footer__brand {
     display: grid;
     justify-items: center;
     gap: 0.75rem;
+    text-align: center;
 }
 
 .brand--footer {
@@ -502,6 +540,17 @@ a {
     margin: 0;
     font-style: normal;
     line-height: 1.5;
+}
+
+/* The headed groups share one narrow centred column with left-aligned content */
+.site-footer__group {
+    width: 100%;
+    max-width: 15rem;
+    text-align: left;
+}
+
+.site-footer__group + .site-footer__group {
+    margin-top: 0.25rem;
 }
 
 .site-footer__heading {
@@ -522,33 +571,19 @@ a {
     list-style: none;
 }
 
-/* Phones: two-column grid of links; an odd last item spans both columns so the block stays balanced */
-.site-footer__links {
-    display: grid;
-    max-width: 20rem;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0 1rem;
-    margin-inline: auto;
-}
-
-.site-footer__links li:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-}
-
 .site-footer__links a {
-    display: block;
-    padding-block: 0.5rem;
+    display: inline-block;
+    padding-block: 0.3rem;
 }
 
 .site-footer__contact-list {
     display: grid;
-    justify-content: center;
     gap: 0.1rem;
 }
 
 .site-footer__contact {
     display: inline-flex;
-    min-height: 2.5rem;
+    min-height: 2.25rem;
     align-items: center;
     gap: 0.5rem;
     white-space: nowrap;
@@ -598,34 +633,23 @@ a {
 @media (min-width: 576px) {
     .site-footer__top {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        justify-items: stretch;
         gap: 2rem 2.5rem;
         padding-bottom: clamp(1.75rem, 4vw, 2.5rem);
-        text-align: left;
     }
 
     .site-footer__brand {
         grid-column: 1 / -1;
         justify-items: start;
+        text-align: left;
     }
 
-    .site-footer__links {
+    .site-footer__group {
         max-width: none;
-        grid-template-columns: 1fr;
-        gap: 0;
-        margin-inline: 0;
     }
 
-    .site-footer__links li:last-child:nth-child(odd) {
-        grid-column: auto;
-    }
-
-    .site-footer__links a {
-        display: inline-block;
-        padding-block: 0.3rem;
-    }
-
-    .site-footer__contact-list {
-        justify-content: start;
+    .site-footer__group + .site-footer__group {
+        margin-top: 0;
     }
 
     .site-footer__bottom {
@@ -719,7 +743,7 @@ a {
 
 /* Coral title band used between sections */
 .band {
-    padding-block: clamp(1.75rem, 4vw, 2.75rem);
+    padding-block: clamp(1.1rem, 2.4vw, 1.6rem);
     background-color: var(--sccm-coral);
     color: var(--sccm-ink);
     text-align: center;
@@ -732,6 +756,28 @@ a {
 .band--maroon {
     background-color: var(--sccm-maroon);
     color: var(--sccm-white);
+}
+
+/* Closing call to action at the end of the inner pages */
+.closing-cta {
+    padding-block: clamp(2.5rem, 6vw, 4rem);
+    border-top: 1px solid var(--sccm-line);
+    background-color: var(--sccm-white);
+    text-align: center;
+}
+
+.closing-cta__inner {
+    max-width: 46rem;
+}
+
+.closing-cta__title {
+    margin-bottom: 0.5rem;
+    font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.25rem);
+}
+
+.closing-cta__text {
+    margin-bottom: 1.5rem;
+    color: var(--sccm-ink-soft);
 }
 
 /* Photographic page hero (About, Programs) */
@@ -802,7 +848,7 @@ a {
     gap: 0.4rem;
     padding: 0.5rem 0.85rem;
     border: 1px solid rgba(33, 37, 41, 0.25);
-    border-radius: 999px;
+    border-radius: var(--sccm-radius-pill);
     background-color: rgba(255, 255, 255, 0.92);
     color: var(--sccm-ink);
     font-size: 0.85rem;
@@ -843,7 +889,7 @@ a {
     position: relative;
     isolation: isolate;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     min-height: clamp(24rem, 70vh, 46rem);
     overflow: hidden;
     background-color: #1d0e02;
@@ -869,18 +915,20 @@ a {
     z-index: 1;
 }
 
-/* Small screens: copy sits at the bottom under a bottom-weighted scrim, so the upper part of the frame stays clear */
+/* Phones: copy sits near the vertical centre; the scrim is darkest behind the copy and lighter at the
+   top and bottom so the violin stays visible above and around it. The bottom padding keeps the copy
+   clear of the pause control, which is anchored independently at the bottom right. */
 .hero__scrim {
     position: absolute;
     inset: 0;
     z-index: 2;
-    background: linear-gradient(180deg, rgba(29, 14, 2, 0.12) 0%, rgba(29, 14, 2, 0.3) 35%, rgba(29, 14, 2, 0.84) 100%);
+    background: linear-gradient(180deg, rgba(29, 14, 2, 0.24) 0%, rgba(29, 14, 2, 0.6) 28%, rgba(29, 14, 2, 0.7) 62%, rgba(29, 14, 2, 0.58) 100%);
 }
 
 .hero__inner {
     position: relative;
     z-index: 3;
-    padding-block: clamp(3rem, 8vw, 5rem) 4.75rem;
+    padding-block: 3rem 4.5rem;
 }
 
 .hero__content {
@@ -903,6 +951,62 @@ a {
 
 .hero__toggle {
     --sccm-focus: var(--sccm-white);
+}
+
+/* Tablets: the copy group sits just below the vertical centre */
+@media (min-width: 768px) {
+    .hero__inner {
+        padding-block: 5rem 3.5rem;
+    }
+
+    .hero__content {
+        max-width: 34rem;
+    }
+
+    .hero__scrim {
+        background: linear-gradient(180deg, rgba(29, 14, 2, 0.2) 0%, rgba(29, 14, 2, 0.55) 30%, rgba(29, 14, 2, 0.66) 65%, rgba(29, 14, 2, 0.55) 100%);
+    }
+}
+
+/* Landscape phones: a compact version of the desktop composition so the copy does not fill the short viewport */
+@media (max-width: 991.98px) and (max-height: 520px) and (orientation: landscape) {
+    .hero {
+        min-height: clamp(20rem, 100vh, 27rem);
+    }
+
+    .hero__poster,
+    .hero__video {
+        width: 118%;
+        object-position: 0% 50%;
+    }
+
+    .hero__scrim {
+        background: linear-gradient(90deg, rgba(29, 14, 2, 0.84) 0%, rgba(29, 14, 2, 0.72) 30%, rgba(29, 14, 2, 0.26) 58%, rgba(29, 14, 2, 0.1) 100%);
+    }
+
+    .hero__inner {
+        padding-block: 2rem 2.5rem;
+    }
+
+    .hero__content {
+        max-width: 22rem;
+    }
+
+    .hero__title {
+        margin-bottom: 0.6rem;
+        font-size: 2.1rem;
+    }
+
+    .hero__lead {
+        margin-bottom: 1rem;
+        font-size: 1rem;
+    }
+
+    .hero .btn-lg {
+        --bs-btn-padding-y: 0.6rem;
+        --bs-btn-padding-x: 1.25rem;
+        --bs-btn-font-size: 1rem;
+    }
 }
 
 /* Desktop: copy on the left as in the original design. The footage is panned slightly (drawn 12% wider,
@@ -994,8 +1098,24 @@ a {
     text-align: center;
 }
 
-.value + .value {
-    margin-top: 1.5rem;
+.why__values-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.value {
+    padding-top: 0.85rem;
+    border-top: 2px solid rgba(33, 37, 41, 0.18);
+}
+
+.value__index {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-family: var(--sccm-font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--sccm-ink);
 }
 
 .value h4 {
@@ -1004,6 +1124,13 @@ a {
 
 .value p {
     margin: 0;
+}
+
+@media (min-width: 1200px) {
+    .why__values-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2rem 2.5rem;
+    }
 }
 
 @media (min-width: 992px) {
@@ -1143,7 +1270,7 @@ a {
 
 .member__media {
     overflow: hidden;
-    border-radius: var(--sccm-radius);
+    border-radius: var(--sccm-radius-lg);
     background-color: var(--sccm-peach);
 }
 
@@ -1176,19 +1303,23 @@ a {
 }
 
 .member__toggle {
+    display: inline-flex;
     min-height: 2.25rem;
-    padding: 0.3rem 0.5rem;
-    border: 0;
-    border-radius: var(--sccm-radius);
-    background: none;
+    align-items: center;
+    padding: 0.3rem 0.9rem;
+    border: 1px solid var(--sccm-line);
+    border-radius: var(--sccm-radius-pill);
+    background-color: var(--sccm-white);
     color: var(--sccm-coral-text);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.member__toggle:hover {
+.member__toggle:hover,
+.member__toggle[aria-expanded="true"] {
+    border-color: var(--sccm-coral);
+    background-color: var(--sccm-peach-soft);
     color: var(--sccm-coral-deeper);
 }
 
@@ -1219,7 +1350,7 @@ a {
         align-items: center;
         padding: 1.1rem;
         overflow: auto;
-        border-radius: var(--sccm-radius);
+        border-radius: var(--sccm-radius-lg);
         background-color: rgba(255, 255, 255, 0.94);
         font-size: 0.9rem;
         opacity: 0;
@@ -1281,7 +1412,7 @@ a {
     align-items: center;
     padding: 0.35rem 1rem;
     border: 1px solid var(--sccm-line);
-    border-radius: 999px;
+    border-radius: var(--sccm-radius-pill);
     background-color: var(--sccm-white);
     color: var(--sccm-coral-text);
     font-size: 0.95rem;
@@ -1338,6 +1469,11 @@ a {
     width: 100%;
     aspect-ratio: 5 / 4;
     object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.program:hover .program__photo {
+    transform: scale(1.03);
 }
 
 .program__body {
@@ -1433,8 +1569,12 @@ a {
     }
 }
 
+.albums {
+    padding-top: calc(var(--sccm-section) * 0.7);
+}
+
 .albums__heading {
-    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
     font-size: clamp(1.35rem, 1.2rem + 0.6vw, 1.75rem);
     text-align: center;
     color: var(--sccm-coral-text);
@@ -1468,6 +1608,11 @@ a {
     width: 100%;
     aspect-ratio: 16 / 9;
     object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.album:hover .album__cover {
+    transform: scale(1.03);
 }
 
 .album__body {
@@ -1692,6 +1837,16 @@ a {
     }
 }
 
+@media (min-width: 992px) {
+    .contact .row {
+        align-items: center;
+    }
+
+    .map-embed {
+        aspect-ratio: 21 / 9;
+    }
+}
+
 /* 8. Reduced motion
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
@@ -1709,5 +1864,10 @@ a {
 
     .carousel-item {
         transition: none;
+    }
+
+    .program:hover .program__photo,
+    .album:hover .album__cover {
+        transform: none;
     }
 }

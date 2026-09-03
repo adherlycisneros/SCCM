@@ -45,7 +45,7 @@
             <div class="container">
                 <a class="navbar-brand brand" href="{{ url_for('home') }}">
                     <img class="brand__logo" src="{{ url_for('static', filename='images/logos/sccm_logo.png') }}" width="56" height="56" alt="">
-                    <span class="brand__name">Soundscapes Conservatory <span class="brand__name-line">of Music</span></span>
+                    <span class="brand__name">Soundscapes Conservatory <span class="brand__name-line">of Music</span></span><span class="visually-hidden"> (home)</span>
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#site-nav" aria-controls="site-nav" aria-label="Open menu">
@@ -73,6 +73,7 @@
                             {{ nav_item('gallery', 'Gallery') }}
                             {{ nav_item('contact', 'Contact') }}
                         </ul>
+                        <a class="btn btn-brand nav-cta" href="{{ url_for('contact') }}">Try a Free Class</a>
                     </div>
                 </div>
             </div>
@@ -89,7 +90,7 @@
                 <div class="site-footer__brand">
                     <a class="brand brand--footer" href="{{ url_for('home') }}">
                         <img class="brand__logo" src="{{ url_for('static', filename='images/logos/sccm_logo.png') }}" width="56" height="56" alt="">
-                        <span class="brand__name">Soundscapes Conservatory <span class="brand__name-line">of Music</span></span>
+                        <span class="brand__name">Soundscapes Conservatory <span class="brand__name-line">of Music</span></span><span class="visually-hidden"> (home)</span>
                     </a>
                     <address class="site-footer__address">50 School Lane<br>Brooklyn, NY 11236</address>
                 </div>

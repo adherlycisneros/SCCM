@@ -1007,6 +1007,70 @@ a {
     }
 }
 
+/* 7e. Programs: category bands and alternating program rows
+   -------------------------------------------------------------------------- */
+.program-group + .program-group {
+    margin-top: clamp(1rem, 3vw, 2rem);
+}
+
+.program {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    padding-block: clamp(2rem, 4vw, 3rem);
+    border-bottom: 1px solid var(--sccm-line);
+}
+
+.program:last-child {
+    border-bottom: 0;
+}
+
+.program__media {
+    overflow: hidden;
+    border-radius: var(--sccm-radius-lg);
+}
+
+.program__photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 5 / 4;
+    object-fit: cover;
+}
+
+.program__body {
+    padding-top: 1.5rem;
+}
+
+.program__title {
+    color: var(--sccm-coral-text);
+}
+
+.program__body p {
+    margin: 0;
+}
+
+@media (min-width: 992px) {
+    .program {
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(2rem, 5vw, 4.5rem);
+        padding-block: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    .program__body {
+        max-width: 34rem;
+        padding-top: 0;
+    }
+
+    .program--reverse .program__media {
+        order: 2;
+    }
+
+    .program--reverse .program__body {
+        order: 1;
+        justify-self: end;
+    }
+}
+
 /* ---- LEGACY page styles: replaced page by page during the refresh ---- */
 /* MEDIA QUERIES */
 

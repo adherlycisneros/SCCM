@@ -1,65 +1,42 @@
 {% extends 'base.html' %}
 
+{% block title %}Programs | Soundscapes Conservatory of Music{% endblock %}
+{% block description %}Piano, strings, winds, guitar, voice, music theory, band and orchestra, and introduction to music classes for every age and level at Soundscapes Conservatory of Music in Brooklyn.{% endblock %}
+
 {% block content %}
-
-<header class="programs-hero-section bg-cover bg-no-repeat bg-center text-white d-flex justify-content-center align-items-center" style="background-image: url('{{ url_for('static', filename='images/heroes/programs-hero.jpg') }}'); height: 75vh;">
-    <span class="visually-hidden">Enthusiastic young woman playing drums, illuminated by vibrant multicolored lights in a dynamic musical setting.</span>
-    <div class="hero-text text-center">
-        <h1 class="display-2">Programs</h1>
+<section class="page-hero page-hero--programs" aria-labelledby="programs-heading">
+    <img class="page-hero__image" src="{{ url_for('static', filename='images/heroes/programs-hero.jpg') }}" width="1920" height="1068" alt="" fetchpriority="high">
+    <div class="page-hero__content">
+        <h1 class="page-hero__title" id="programs-heading">Programs</h1>
     </div>
-</header>
+</section>
 
-<section class="py-5" id="programs">
-    <div class="container px-4">
-        <div class="row">
-            <div class="col-lg-10 offset-lg-1 col-md-10 offset-md-1 col-sm-12">
-                <p class="text-justify programs-text">
-                    At Soundscapes Conservatory of Music, we offer a comprehensive selection of musical courses designed to cater to learners of every age and proficiency. We boast a team of extraordinarily skilled and committed educators. Each member of our faculty is expertly qualified in their specific field, bringing a breadth of knowledge and adaptability that not only propels our students forward but also ensures they treasure their musical voyage in an encouraging and laid-back setting. Our dedication lies in offering superior music education that enriches the lives of all our students, regardless of their initial skill level or future goals.
-                </p>
-                <p class="text-justify programs-text mt-2">
-                    Our programs are structured into three primary levels: Beginner, Intermediate, and Advanced, with each level comprising four distinct stages. We evaluate every student individually to ascertain their optimal starting point within our structured curriculum. Upon mastering the Advanced Level, eager students are equipped to embark on their professional music journey, transitioning into our Advanced Professional Program, which aligns with collegiate preparatory standards.
-                </p>
-            </div>
+<section class="section" aria-labelledby="approach-heading">
+    <div class="container">
+        <div class="prose mx-auto">
+            <h2 class="eyebrow" id="approach-heading">Our Approach</h2>
+            <p>At Soundscapes Conservatory of Music, we offer a comprehensive selection of musical courses designed to cater to learners of every age and proficiency. We boast a team of extraordinarily skilled and committed educators. Each member of our faculty is expertly qualified in their specific field, bringing a breadth of knowledge and adaptability that not only propels our students forward but also ensures they treasure their musical voyage in an encouraging and laid-back setting. Our dedication lies in offering superior music education that enriches the lives of all our students, regardless of their initial skill level or future goals.</p>
+            <p>Our programs are structured into three primary levels: Beginner, Intermediate, and Advanced, with each level comprising four distinct stages. We evaluate every student individually to ascertain their optimal starting point within our structured curriculum. Upon mastering the Advanced Level, eager students are equipped to embark on their professional music journey, transitioning into our Advanced Professional Program, which aligns with collegiate preparatory standards.</p>
         </div>
     </div>
 </section>
 
-<section class="programs-section orange-background py-5 custom-text text-center" id="individual-instruction">
-    <h1 class="mb-5 py-5 text-white">Individual Instruction</h1>
+{% for category in categories %}
+<section class="program-group" id="{{ category.slug }}" aria-labelledby="{{ category.slug }}-heading">
+    <div class="band"><h2 id="{{ category.slug }}-heading">{{ category.name }}</h2></div>
     <div class="container">
-        {% for program in programs %}
-            {% if loop.revindex <= 3 %}
-                {% if loop.revindex == 3 %}
-                    <!-- Group Instruction -->
-                    <div class="programs-section py-5 custom-text text-center" id="group-instruction">
-                        <h1 class="py-5 text-white">Group Instruction</h1>
-                    </div>
-                {% endif %}
-                <!-- Content for Group Instruction -->
-                <div class="row justify-content-center align-items-center bg-white {% if not loop.index is odd %} flex-lg-row-reverse {% endif %}">
-                    <div class="col-lg-6 programs-image">
-                        <img src="{{ url_for('static', filename=program.image_file) }}" class="img-fluid" alt="{{ program.image_description }}">
-                    </div>
-                    <div class="col-lg-6 px-5 py-5">
-                        <h3 class="orange-headings">{{ program.name }}</h3>
-                        <p class="programs-text">{{ program.description }}</p>
-                    </div>
-                </div>
-            {% else %}
-                <!-- Content for Individual Section -->
-                <div class="row justify-content-center align-items-center bg-white {% if not loop.index is odd %} flex-lg-row-reverse {% endif %}">
-                    <div class="col-lg-6 programs-image">
-                        <img src="{{ url_for('static', filename=program.image_file) }}" class="img-fluid" alt="{{ program.image_description }}">
-                    </div>
-                    <div class="col-lg-6 px-5 py-5">
-                        <h3 class="orange-headings">{{ program.name }}</h3>
-                        <p class="programs-text">{{ program.description }}</p>
-                    </div>
-                </div>
-            {% endif %}
+        {% for program in programs if program.category == category.name %}
+        <article class="program{% if loop.index is even %} program--reverse{% endif %}">
+            <div class="program__media">
+                <img class="program__photo" src="{{ url_for('static', filename=program.image_file) }}" width="1400" height="1120" alt="{{ program.image_description }}" loading="lazy">
+            </div>
+            <div class="program__body">
+                <h3 class="program__title">{{ program.name }}</h3>
+                <p>{{ program.description }}</p>
+            </div>
+        </article>
         {% endfor %}
     </div>
 </section>
-
-
+{% endfor %}
 {% endblock %}

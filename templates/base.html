@@ -1,175 +1,134 @@
+{#- Shared layout: document head, skip link, site header/navigation, main content block, footer, scripts. -#}
+{% macro nav_item(endpoint, label) -%}
+{% set is_current = request.endpoint == endpoint %}
+<li class="nav-item">
+    <a class="nav-link{% if is_current %} active{% endif %}" href="{{ url_for(endpoint) }}"{% if is_current %} aria-current="page"{% endif %}>{{ label }}</a>
+</li>
+{%- endmacro %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Soundscapes Conservatory of Music{% endblock %}</title>
+    <meta name="description" content="{% block description %}Soundscapes Conservatory of Music has been a beacon of music education in Brooklyn since 1981, offering high quality musical education for students of all levels and ages.{% endblock %}">
+    <meta name="theme-color" content="#ff6e5a">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Soundscapes Conservatory of Music">
+    <meta property="og:title" content="{{ self.title() }}">
+    <meta property="og:description" content="{{ self.description() }}">
+    <meta property="og:image" content="{{ url_for('static', filename='images/heroes/woman-playing-violin-poster.jpg', _external=True) }}">
 
-   <!-- Bootstrap CDN -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Favicons -->
+    <link rel="icon" href="{{ url_for('static', filename='images/logos/favicon-package/favicon.ico') }}" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/logos/favicon-package/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/logos/favicon-package/favicon-16x16.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/logos/favicon-package/apple-touch-icon.png') }}">
+    <link rel="mask-icon" href="{{ url_for('static', filename='images/logos/favicon-package/safari-pinned-tab.svg') }}" color="#ff6e5a">
+    <link rel="manifest" href="{{ url_for('static', filename='images/logos/favicon-package/site.webmanifest') }}">
+    <meta name="msapplication-config" content="{{ url_for('static', filename='images/logos/favicon-package/browserconfig.xml') }}">
 
-   <!-- Favicon links-->
-   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/logos/favicon-package/apple-touch-icon.png') }}">
-   <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/logos/favicon-package/favicon-32x32.png') }}">
-   <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/logos/favicon-package/favicon-16x16.png') }}">
-   <link rel="manifest" href="images/logos/favicon-package/site.webmanifest">
-   <link rel="mask-icon" href="images/logos/favicon-package/safari-pinned-tab.svg" color="#5bbad5"> 
-   <meta name="msapplication-TileColor" content="#da532c">
-   <meta name="theme-color" content="#ffffff">
-   
-   <!-- Font Awesome Kit -->
-   <script src="https://kit.fontawesome.com/4f671d628b.js" crossorigin="anonymous"></script>
-
-   <meta charset="UTF-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <!-- Styles: Bootstrap 5.3, Google Fonts (Fraunces + Source Sans 3), then the site stylesheet -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <title>Soundscapes Conservatory of Music</title>
-
 </head>
 
 <body>
-    <header>
-        <div class="container-fluid navbar-container p-0">
-            <nav class="navbar navbar-expand-lg navbar-light px-4 py-3">
-                <div class="container-fluid d-flex p-0">
-                    <!-- Logo and Brand Name combined in one link -->
-                    <div class="navbar-brand d-flex align-items-center">
-                        <a href="/"><img src="{{ url_for('static', filename='images/logos/sccm_logo.png') }}" alt="Company Logo, SCCM" class="img-fluid"></a>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    {% include 'partials/icons.html' %}
+
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg" aria-label="Main">
+            <div class="container">
+                <a class="navbar-brand brand" href="{{ url_for('home') }}">
+                    <img class="brand__logo" src="{{ url_for('static', filename='images/logos/sccm_logo.png') }}" width="56" height="56" alt="">
+                    <span class="brand__name">Soundscapes Conservatory <span class="brand__name-line">of Music</span></span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#site-nav" aria-controls="site-nav" aria-label="Open menu">
+                    <span class="navbar-toggler-icon" aria-hidden="true"></span>
+                </button>
+
+                <!-- Drawer below the lg breakpoint, inline navigation above it -->
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="site-nav" aria-labelledby="site-nav-label">
+                    <div class="offcanvas-header">
+                        <h2 class="offcanvas-title" id="site-nav-label">Menu</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close menu"></button>
                     </div>
-                    <div class="navbar-brand d-flex align-items-center mx-0">
-                        <div><h4 class="school-name">Soundscapes Conservatory <span>of Music</span></h4></div>
-                    </div>
-    
-                    <!-- Burger Button: Visible on xs to md screens -->  
-                    <div class="d-lg-none">
-                        <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#navModal">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </div>
-    
-                    <!-- Navbar Links -->
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <div class="offcanvas-body">
                         <ul class="navbar-nav ms-auto">
-                            <li class="nav-item px-2">
-                                <a class="nav-link" href="/">Home</a>
-                            </li>
-                            <li class="nav-item px-2">
-                                <a class="nav-link" href="/about">About</a>
-                            </li>
+                            {{ nav_item('home', 'Home') }}
+                            {{ nav_item('about', 'About') }}
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="/programs" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  Programs
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="/programs#individual-instruction">Individual Instruction</a>
-                                    <a class="dropdown-item" href="/programs#group-instruction">Group Instruction</a>
-                                </div>
+                                <button class="nav-link dropdown-toggle{% if request.endpoint == 'programs' %} active{% endif %}" type="button" data-bs-toggle="dropdown" aria-expanded="false"{% if request.endpoint == 'programs' %} aria-current="page"{% endif %}>Programs</button>
+                                <ul class="dropdown-menu dropdown-menu-lg-end">
+                                    <li><a class="dropdown-item" href="{{ url_for('programs') }}">All Programs</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('programs') }}#individual-instruction">Individual Instruction</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('programs') }}#group-instruction">Group Instruction</a></li>
+                                </ul>
                             </li>
-                            <li class="nav-item px-2">
-                                <a class="nav-link" href="/gallery">Gallery</a>
-                            </li>
-                            <li class="nav-item px-2">
-                                <a class="nav-link" href="/contact">Contact</a>
-                            </li>
+                            {{ nav_item('gallery', 'Gallery') }}
+                            {{ nav_item('contact', 'Contact') }}
                         </ul>
                     </div>
                 </div>
-            </nav>
-        </div>
+            </div>
+        </nav>
     </header>
 
+    <main id="main" tabindex="-1">
+        {% block content %}{% endblock %}
+    </main>
 
-    <!-- Modal for Mobile Navigation -->
-
-<div class="modal fade" id="navModal" tabindex="-1" aria-labelledby="navModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content">
-            <div class="modal-header justify-content-center">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body d-flex flex-column align-items-center">
-                <ul class="navbar-nav text-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about">About</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="/programs" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Programs
-                        </a>
-                          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                              <a class="dropdown-item" href="/programs#individual-instruction">Individual Instruction</a>
-                              <a class="dropdown-item" href="/programs#group-instruction">Group Instruction</a>    
-                          </div>
-                    </li>
-                    <li class="nav-item">
-                          <a class="nav-link" href="/gallery">Gallery</a>
-                    </li>
-                    <li class="nav-item">
-                          <a class="nav-link" href="/contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-    {% block content %}
-    {% endblock %}
-
-
-
-    <footer class="bg-dark text-light pt-4 pb-4" id="footer">
-            <div class="container">
-                <div class="row">
-                    <!-- Logo / Address -->
-                    <div class="col-md-3 mb-3">
-                        <img src="{{ url_for('static', filename='images/logos/sccm_logo.png') }}" width="70" height="70" alt="Company Logo, SCCM" class="footer-logo">
-                        <p class="mt-2">50 School Lane <br> Brooklyn, NY 11236</p>
-                    </div>
-        
-                    <!-- Contact Information -->
-                    <div class="col-md-3 mb-3">
-                        <h5>Contact Us</h5>
-                        <ul class="list-unstyled">
-                            <li>Email: info@scsom.org</li>
-                            <li>Phone: 123-456-7890</li>
-                        </ul>
-                    </div>
-        
-                    <!-- Social Media Links -->
-                    <div class="col-md-3 mb-3">
-                        <h5>Follow Us</h5>
-                        <!-- Social media -->
-                        <a href="https://www.facebook.com/" class="me-2"><i class="fa-brands fa-square-facebook fa-lg" style="color: #ffffff;"></i></a>
-                        <a href="https://www.instagram.com/" class="me-2"><i class="fa-brands fa-instagram fa-lg" style="color: #ffffff;"></i></a>
-                        <a href="https://twitter.com/?lang=en" class="me-2"><i class="fa-brands fa-x-twitter fa-lg" style="color: #ffffff;"></i></a>
-                        <a href="https://www.tiktok.com/en/" class="me-2"><i class="fa-brands fa-tiktok fa-lg" style="color: #ffffff;"></i></a>
-                    </div>
-        
-                    <!-- Quick Links -->
-                    <div class="col-md-3 mb-3">
-                        <h5>Quick Links</h5>
-                        <ul class="list-unstyled">
-                            <li><a href="about" class="text-light">About Us</a></li>
-                            <li><a href="gallery" class="text-light">Our Community</a></li>
-                        </ul>
-                    </div>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-4">
+                    <a class="brand brand--footer" href="{{ url_for('home') }}">
+                        <img class="brand__logo" src="{{ url_for('static', filename='images/logos/sccm_logo.png') }}" width="56" height="56" alt="">
+                        <span class="brand__name">Soundscapes Conservatory <span class="brand__name-line">of Music</span></span>
+                    </a>
+                    <address class="site-footer__address">50 School Lane<br>Brooklyn, NY 11236</address>
                 </div>
-        
-                <p class="footer-text"> © 1981 Soundscapes Conservatory of Music. All Rights Reserved.</p>
-        
+
+                <div class="col-6 col-md-4 col-lg-3">
+                    <h2 class="site-footer__heading">Contact Us</h2>
+                    <ul class="list-unstyled site-footer__list">
+                        <li>Email: <a href="mailto:info@scsom.org">info@scsom.org</a></li>
+                        <li>Phone: <a href="tel:+11234567890">123-456-7890</a></li>
+                    </ul>
+                </div>
+
+                <nav class="col-6 col-md-4 col-lg-2" aria-label="Footer">
+                    <h2 class="site-footer__heading">Quick Links</h2>
+                    <ul class="list-unstyled site-footer__list">
+                        <li><a href="{{ url_for('about') }}">About Us</a></li>
+                        <li><a href="{{ url_for('programs') }}">Programs</a></li>
+                        <li><a href="{{ url_for('gallery') }}">Our Community</a></li>
+                        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <div class="col-md-4 col-lg-3">
+                    <h2 class="site-footer__heading">Follow Us</h2>
+                    <ul class="list-unstyled site-footer__social">
+                        <li><a href="https://www.facebook.com/"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-facebook"></use></svg><span class="visually-hidden">Facebook</span></a></li>
+                        <li><a href="https://www.instagram.com/"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-instagram"></use></svg><span class="visually-hidden">Instagram</span></a></li>
+                        <li><a href="https://twitter.com/?lang=en"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-twitter-x"></use></svg><span class="visually-hidden">X (formerly Twitter)</span></a></li>
+                        <li><a href="https://www.tiktok.com/en/"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-tiktok"></use></svg><span class="visually-hidden">TikTok</span></a></li>
+                    </ul>
+                </div>
             </div>
+
+            <p class="site-footer__legal">&copy; {{ current_year }} Soundscapes Conservatory of Music. Established 1981. All Rights Reserved.</p>
+        </div>
     </footer>
-        
 
-    <!-- Bootstrap Bundle JS and jQuery Library -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHj6eD6Hupl5tVIyWIOeFb2A4L5kYmE6p7iTxh4sUpb8dYflE9lotmD" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- External JavaScript file -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

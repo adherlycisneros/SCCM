@@ -1,16 +1,623 @@
-/* FOR SCREEN READER HERO IMG ACESSIBILITY */
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip: rect(0,0,0,0);
-    border: 0;
+/* ==========================================================================
+   Soundscapes Conservatory of Music — site stylesheet
+   Layered on Bootstrap 5.3. Sections:
+     1. Design tokens             5. Footer
+     2. Base & typography         6. Shared components (buttons, bands, heroes, carousels)
+     3. Layout helpers            7. Page sections (home, about, programs, gallery, contact)
+     4. Header & navigation       8. Reduced motion
+   Media queries are mobile-first and live next to the component they modify.
+   ========================================================================== */
+
+/* 1. Design tokens
+   -------------------------------------------------------------------------- */
+:root {
+    /* Brand palette */
+    --sccm-coral: #ff6e5a;            /* signature coral: bands, surfaces, accents (pair with dark text) */
+    --sccm-coral-rgb: 255, 110, 90;
+    --sccm-coral-deep: #c8442d;       /* accessible coral for text and buttons on light backgrounds (4.9:1) */
+    --sccm-coral-deep-rgb: 200, 68, 45;
+    --sccm-coral-deeper: #a83722;     /* hover / active state of the deep coral */
+    --sccm-peach: #ffc09c;            /* warm pastel panel */
+    --sccm-peach-soft: #fff1ec;       /* light tint for alternating sections */
+    --sccm-cream: #f9f5ea;            /* backdrop of the "Cultivating Excellence" photo */
+    --sccm-maroon: #a84247;           /* quote band */
+    --sccm-ink: #212529;              /* primary text and dark surfaces */
+    --sccm-ink-soft: #495057;         /* secondary text */
+    --sccm-line: #ece4de;             /* hairlines and borders */
+    --sccm-white: #ffffff;
+
+    /* Typography */
+    --sccm-font-heading: "Fraunces", Georgia, "Times New Roman", serif;
+    --sccm-font-body: "Source Sans 3", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    /* Shape, depth, rhythm */
+    --sccm-radius: 0.5rem;
+    --sccm-radius-lg: 1rem;
+    --sccm-shadow: 0 1px 2px rgba(33, 37, 41, 0.06), 0 10px 30px rgba(33, 37, 41, 0.08);
+    --sccm-section: clamp(3rem, 6vw, 5.5rem);
+    --sccm-measure: 68ch;
+    --sccm-focus: var(--sccm-ink);    /* focus-ring colour; dark sections switch it to white */
+
+    /* Bootstrap hooks */
+    --bs-body-font-family: var(--sccm-font-body);
+    --bs-body-font-size: 1.0625rem;
+    --bs-body-line-height: 1.6;
+    --bs-body-color: var(--sccm-ink);
+    --bs-body-color-rgb: 33, 37, 41;
+    --bs-heading-color: var(--sccm-ink);
+    --bs-link-color: var(--sccm-coral-deep);
+    --bs-link-color-rgb: var(--sccm-coral-deep-rgb);
+    --bs-link-hover-color: var(--sccm-coral-deeper);
+    --bs-link-hover-color-rgb: 168, 55, 34;
 }
 
+/* 2. Base & typography
+   -------------------------------------------------------------------------- */
+html {
+    scroll-behavior: smooth;
+}
 
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--sccm-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+    display: block;
+    flex: 1 0 auto;
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+[id] {
+    scroll-margin-top: 1.5rem;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4 {
+    font-family: var(--sccm-font-heading);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.6em;
+}
+
+h1, .h1 { font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem); }
+h2, .h2 { font-size: clamp(1.75rem, 1.35rem + 1.5vw, 2.5rem); }
+h3, .h3 { font-size: clamp(1.35rem, 1.2rem + 0.6vw, 1.7rem); }
+h4, .h4 { font-size: 1.2rem; }
+
+p {
+    margin-bottom: 1rem;
+}
+
+.lead {
+    font-size: 1.2rem;
+    line-height: 1.55;
+}
+
+.prose {
+    max-width: var(--sccm-measure);
+}
+
+.prose > :last-child {
+    margin-bottom: 0;
+}
+
+.eyebrow {
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sccm-coral-deep);
+}
+
+a {
+    text-underline-offset: 0.15em;
+}
+
+.icon {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    fill: currentColor;
+    vertical-align: -0.125em;
+}
+
+/* Focus: one strong, consistent ring everywhere, replacing Bootstrap's blue glow */
+:focus-visible {
+    outline: 3px solid var(--sccm-focus);
+    outline-offset: 3px;
+}
+
+.btn:focus-visible,
+.nav-link:focus-visible,
+.btn-close:focus,
+.navbar-toggler:focus {
+    outline: 3px solid var(--sccm-focus);
+    outline-offset: 3px;
+    box-shadow: none;
+}
+
+.skip-link {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 2000;
+    padding: 0.65rem 1rem;
+    border-radius: var(--sccm-radius);
+    background-color: var(--sccm-ink);
+    color: var(--sccm-white);
+    font-weight: 600;
+    text-decoration: none;
+    transform: translateY(-300%);
+    transition: transform 0.15s ease-out;
+}
+
+.skip-link:focus {
+    transform: none;
+    outline-color: var(--sccm-coral);
+}
+
+/* 3. Layout helpers
+   -------------------------------------------------------------------------- */
+.section {
+    padding-block: var(--sccm-section);
+}
+
+.section--tight {
+    padding-block: calc(var(--sccm-section) * 0.6);
+}
+
+.section--soft {
+    background-color: var(--sccm-peach-soft);
+}
+
+.section-heading {
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* 4. Header & navigation
+   -------------------------------------------------------------------------- */
+.site-header {
+    position: relative;
+    z-index: 1030;
+    background-color: var(--sccm-white);
+    border-bottom: 1px solid var(--sccm-line);
+}
+
+.site-header .navbar {
+    padding-block: 0.75rem;
+}
+
+.site-header .navbar > .container {
+    flex-wrap: nowrap;
+}
+
+.brand {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 0.75rem 0 0;
+    padding: 0;
+    color: var(--sccm-ink);
+    text-decoration: none;
+    white-space: normal;
+}
+
+.brand:hover,
+.brand:focus-visible {
+    color: var(--sccm-ink);
+}
+
+.brand__logo {
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+}
+
+.brand__name {
+    font-family: var(--sccm-font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+}
+
+.brand__name-line {
+    display: block;
+}
+
+.navbar-toggler {
+    padding: 0.55rem 0.75rem;
+    border: 1px solid var(--sccm-line);
+    border-radius: var(--sccm-radius);
+    color: var(--sccm-ink);
+}
+
+.site-header .navbar-nav .nav-link {
+    padding: 0.55rem 0.9rem;
+    border-radius: var(--sccm-radius);
+    color: var(--sccm-ink);
+    font-weight: 600;
+}
+
+.site-header .navbar-nav .nav-link:hover,
+.site-header .navbar-nav .nav-link:focus-visible,
+.site-header .navbar-nav .show > .nav-link {
+    color: var(--sccm-coral-deep);
+}
+
+.site-header .navbar-nav .nav-link.active {
+    color: var(--sccm-coral-deep);
+    text-decoration: underline;
+    text-decoration-color: var(--sccm-coral);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 0.45em;
+}
+
+.dropdown-menu {
+    --bs-dropdown-border-color: var(--sccm-line);
+    --bs-dropdown-border-radius: var(--sccm-radius);
+    --bs-dropdown-padding-y: 0.5rem;
+    --bs-dropdown-padding-x: 0.5rem;
+    --bs-dropdown-link-color: var(--sccm-ink);
+    --bs-dropdown-link-hover-color: var(--sccm-coral-deep);
+    --bs-dropdown-link-hover-bg: var(--sccm-peach-soft);
+    --bs-dropdown-link-active-color: var(--sccm-white);
+    --bs-dropdown-link-active-bg: var(--sccm-coral-deep);
+    box-shadow: var(--sccm-shadow);
+}
+
+.dropdown-item {
+    padding: 0.55rem 0.85rem;
+    border-radius: calc(var(--sccm-radius) - 0.15rem);
+    font-weight: 600;
+}
+
+.offcanvas {
+    --bs-offcanvas-width: min(22rem, 88vw);
+}
+
+.offcanvas-title {
+    margin: 0;
+    font-size: 1.15rem;
+}
+
+@media (max-width: 991.98px) {
+    .offcanvas-body .navbar-nav {
+        gap: 0.25rem;
+    }
+
+    .offcanvas-body .nav-link {
+        padding: 0.75rem 1rem;
+        font-size: 1.15rem;
+    }
+
+    .offcanvas-body .nav-link.active {
+        text-underline-offset: 0.3em;
+    }
+
+    .offcanvas-body .dropdown-toggle {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .offcanvas-body .dropdown-menu {
+        position: static;
+        float: none;
+        margin: 0.25rem 0 0.5rem;
+        border: 0;
+        background-color: var(--sccm-peach-soft);
+        box-shadow: none;
+    }
+}
+
+@media (min-width: 992px) {
+    .site-header .navbar {
+        padding-block: 1rem;
+    }
+
+    .brand__logo {
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+
+    .brand__name {
+        font-size: 1.25rem;
+    }
+
+    .site-header .navbar-nav {
+        gap: 0.25rem;
+    }
+}
+
+/* 5. Footer
+   -------------------------------------------------------------------------- */
+.site-footer {
+    --sccm-focus: var(--sccm-white);
+    padding-block: 3.5rem 2rem;
+    background-color: var(--sccm-ink);
+    color: #d5d9dd;
+}
+
+.site-footer a {
+    color: var(--sccm-white);
+    text-decoration: none;
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+    color: var(--sccm-coral);
+    text-decoration: underline;
+}
+
+.brand--footer {
+    margin-bottom: 1rem;
+    color: var(--sccm-white);
+}
+
+.brand--footer:hover,
+.brand--footer:focus-visible {
+    color: var(--sccm-white);
+    text-decoration: none;
+}
+
+.site-footer__address {
+    margin: 0;
+    font-style: normal;
+}
+
+.site-footer__heading {
+    margin-bottom: 1rem;
+    font-family: var(--sccm-font-body);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sccm-coral);
+}
+
+.site-footer__list {
+    margin: 0;
+}
+
+.site-footer__list li {
+    margin-bottom: 0.35rem;
+}
+
+.site-footer__social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.site-footer__social a {
+    display: inline-flex;
+    width: 2.75rem;
+    height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.08);
+    font-size: 1.15rem;
+}
+
+.site-footer__social a:hover,
+.site-footer__social a:focus-visible {
+    background-color: var(--sccm-coral);
+    color: var(--sccm-ink);
+    text-decoration: none;
+}
+
+.site-footer__legal {
+    margin: 2.5rem 0 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.9rem;
+    color: #b9bfc5;
+}
+
+/* 6. Shared components
+   -------------------------------------------------------------------------- */
+
+/* Buttons: one brand button (deep coral) plus a bright variant for dark backgrounds */
+.btn-brand,
+.btn-brand-bright,
+.btn-outline-brand {
+    --bs-btn-font-weight: 600;
+    --bs-btn-padding-y: 0.7rem;
+    --bs-btn-padding-x: 1.5rem;
+    --bs-btn-border-radius: var(--sccm-radius);
+}
+
+.btn-lg.btn-brand,
+.btn-lg.btn-brand-bright,
+.btn-lg.btn-outline-brand {
+    --bs-btn-padding-y: 0.85rem;
+    --bs-btn-padding-x: 1.85rem;
+    --bs-btn-font-size: 1.1rem;
+}
+
+.btn-brand {
+    --bs-btn-color: var(--sccm-white);
+    --bs-btn-bg: var(--sccm-coral-deep);
+    --bs-btn-border-color: var(--sccm-coral-deep);
+    --bs-btn-hover-color: var(--sccm-white);
+    --bs-btn-hover-bg: var(--sccm-coral-deeper);
+    --bs-btn-hover-border-color: var(--sccm-coral-deeper);
+    --bs-btn-active-color: var(--sccm-white);
+    --bs-btn-active-bg: var(--sccm-coral-deeper);
+    --bs-btn-active-border-color: var(--sccm-coral-deeper);
+    --bs-btn-disabled-color: var(--sccm-white);
+    --bs-btn-disabled-bg: var(--sccm-coral-deep);
+    --bs-btn-disabled-border-color: var(--sccm-coral-deep);
+}
+
+.btn-brand-bright {
+    --bs-btn-color: var(--sccm-ink);
+    --bs-btn-bg: var(--sccm-coral);
+    --bs-btn-border-color: var(--sccm-coral);
+    --bs-btn-hover-color: var(--sccm-ink);
+    --bs-btn-hover-bg: #ff8672;
+    --bs-btn-hover-border-color: #ff8672;
+    --bs-btn-active-color: var(--sccm-ink);
+    --bs-btn-active-bg: #ff8672;
+    --bs-btn-active-border-color: #ff8672;
+    --bs-btn-disabled-color: var(--sccm-ink);
+    --bs-btn-disabled-bg: var(--sccm-coral);
+    --bs-btn-disabled-border-color: var(--sccm-coral);
+}
+
+.btn-outline-brand {
+    --bs-btn-color: var(--sccm-coral-deep);
+    --bs-btn-border-color: var(--sccm-coral-deep);
+    --bs-btn-hover-color: var(--sccm-white);
+    --bs-btn-hover-bg: var(--sccm-coral-deep);
+    --bs-btn-hover-border-color: var(--sccm-coral-deep);
+    --bs-btn-active-color: var(--sccm-white);
+    --bs-btn-active-bg: var(--sccm-coral-deeper);
+    --bs-btn-active-border-color: var(--sccm-coral-deeper);
+    --bs-btn-disabled-color: var(--sccm-coral-deep);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--sccm-coral-deep);
+}
+
+/* Coral title band used between sections */
+.band {
+    padding-block: clamp(1.75rem, 4vw, 2.75rem);
+    background-color: var(--sccm-coral);
+    color: var(--sccm-ink);
+    text-align: center;
+}
+
+.band > * {
+    margin: 0;
+}
+
+.band--maroon {
+    background-color: var(--sccm-maroon);
+    color: var(--sccm-white);
+}
+
+/* Photographic page hero (About, Programs) */
+.page-hero {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    place-items: center;
+    min-height: clamp(16rem, 48vh, 30rem);
+    overflow: hidden;
+    background-color: var(--sccm-ink);
+    color: var(--sccm-white);
+}
+
+.page-hero__image {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.page-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(29, 14, 2, 0.2) 0%, rgba(29, 14, 2, 0.55) 100%);
+}
+
+.page-hero__content {
+    position: relative;
+    padding: 2.5rem 1rem;
+    text-align: center;
+}
+
+.page-hero__title {
+    margin: 0;
+    color: var(--sccm-white);
+    font-size: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+}
+
+.page-hero--about .page-hero__image {
+    object-position: 35% 55%;
+}
+
+.page-hero--programs .page-hero__image {
+    object-position: 50% 30%;
+}
+
+@media (min-width: 768px) {
+    .page-hero {
+        min-height: clamp(20rem, 55vh, 34rem);
+    }
+}
+
+/* Carousels: pause/play control and indicator dots with a comfortable hit area */
+.carousel-toggle {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 5;
+    display: inline-flex;
+    min-height: 2.5rem;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid rgba(33, 37, 41, 0.25);
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.92);
+    color: var(--sccm-ink);
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.carousel-toggle:hover {
+    background-color: var(--sccm-white);
+}
+
+.carousel-toggle[hidden] {
+    display: none;
+}
+
+.carousel-indicators [data-bs-target] {
+    box-sizing: content-box;
+    width: 0.65rem;
+    height: 0.65rem;
+    margin: 0 0.15rem;
+    border: 0.5rem solid transparent;
+    border-radius: 50%;
+    background-color: currentColor;
+    background-clip: padding-box;
+    opacity: 0.35;
+}
+
+.carousel-indicators .active {
+    opacity: 1;
+}
+
+/* 7. Page sections
+   -------------------------------------------------------------------------- */
+
+/* ---- LEGACY page styles: replaced page by page during the refresh ---- */
 /* MEDIA QUERIES */
 
 @media (min-width: 992px) {
@@ -329,31 +936,6 @@
 
 
 /* ------------------------------- HOME PAGE CSS ----------------------------------*/
-.navbar-brand img {
-    max-width: 95px;
-    height: auto;
-    transition: max-width 0.3s ease-in-out; 
-}
-
-.school-name {
-    transition: font-size 0.3s ease-in-out; 
-}
-
-/* Hero video container and hero image containers*/
-.school-name {
-    color: #212529; 
-    font-family: sans-serif;
-    font-weight: 700;
-    margin-bottom: 0;
-    letter-spacing: -0.45px;
-}
-
-.nav-item, .dropdown-item {
-    color: #212529;
-    font-size: 0.9rem;
-    font-family: sans-serif;
-    font-weight: bold;
-}
 
 .hero-video-container {
     position: relative;
@@ -368,13 +950,6 @@
 }
 
 /* Hero video overlay and text */
-.modal-header {
-    border-bottom: none;
-}
-
-.header-logo {
-    margin-left: 12px;
-}
 
 .hero-video-container {
     position: relative;
@@ -735,3 +1310,24 @@
 
 
 
+
+
+/* 8. Reduced motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .carousel-item {
+        transition: none;
+    }
+}

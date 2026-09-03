@@ -25,9 +25,29 @@ def page_not_found(error):
     return render_template('404.html'), 404
 
 
+TESTIMONIALS = [
+    {
+        'quote': "SCCM is more than a music school; it's a nurturing community where my child has flourished. We've seen remarkable progress in both skill and confidence.",
+        'author': 'Kate G, parent',
+    },
+    {
+        'quote': "As a student at SCCM, I've not only improved my technical skills but also discovered my own musical voice. The teachers are amazing, always encouraging creativity and individuality.",
+        'author': 'Emily J, student',
+    },
+    {
+        'quote': "SCCM has been a vibrant addition to our Brooklyn neighborhood. Their concerts and events bring us all together, showcasing the incredible talents nurtured within their walls.",
+        'author': 'Leo T, community member',
+    },
+    {
+        'quote': "Soundscapes Conservatory was a transformative experience for me. The lessons I learned and the mentors I met have shaped my musical journey and opened doors I never imagined.",
+        'author': 'Nina P, SCCM alumna',
+    },
+]
+
+
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html', testimonials=TESTIMONIALS)
 
 
 @app.route('/about')

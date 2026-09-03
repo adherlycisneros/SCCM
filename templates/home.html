@@ -1,132 +1,107 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <!-- Video Hero -->
-<div class="hero-video-container">
-    <video autoplay loop muted poster="{{ url_for('static', filename='images/heroes/woman-playing-violin-poster.jpg') }}" id="hero-video">
-        <source src="{{ url_for('static', filename='videos/woman-playing-violin.mp4') }}" type="video/mp4"/>
-    </video>
-        <div class="video-overlay d-flex justify-content-center align-items-center">
-            <div class="overlay-text-container text-white">
-                <span class="visually-hidden">Hero video showing a woman playing the violin, conveying the passion and dedication found at Soundscapes Conservatory of Music.</span>
-                <h1>Find Your Rhythm,<br> Discover Your Voice.</h1>
-                <p>Passionate Advocate and Innovator in Music Education for 42 years.</p>
-                <div class="overlay-button-container mt-2">
-                    <a href="contact" 
-                        class="btn custom-button btn-lg custom-button-text"
-                        role="button" 
-                        aria-label="Navigate to contact page to try a free class at Soundscapes Conservatory of Music">
-                        Try a Free Class Today
-                    </a>
-                </div>
-            </div>
-        </div> 
-</div>
+<!-- Hero: the poster image is always shown; script.js adds the video on wider screens when motion is welcome -->
+<section class="hero" aria-labelledby="hero-heading">
+    <img class="hero__poster"
+         src="{{ url_for('static', filename='images/heroes/woman-playing-violin-poster.jpg') }}"
+         srcset="{{ url_for('static', filename='images/heroes/woman-playing-violin-poster-sm.jpg') }} 960w, {{ url_for('static', filename='images/heroes/woman-playing-violin-poster.jpg') }} 1920w"
+         sizes="100vw" width="1920" height="1012" alt="" fetchpriority="high">
+    <video class="hero__video" id="hero-video" data-src="{{ url_for('static', filename='videos/woman-playing-violin.mp4') }}"
+           autoplay muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+    <div class="hero__scrim" aria-hidden="true"></div>
 
-<!-- About Portion -->
-<div class="banner orange-background py-5 custom-text text-center">
-    <h1 class="py-5 text-white">Why SCCM?</h1>
-</div>
-
-<div class="row justify-content-center align-items-center pastel-background">
-    <div class="col-lg-6 why-sscm-section align-self-stretch position-relative p-0">
-        <img src="{{ url_for('static', filename='images/heroes/why-sccm.jpg') }}" class="img-fluid w-100 h-100" alt="A young girl with curly red hair, wearing a blue dress, intently plays a violin while seated on a wooden chair against a white background." style="object-fit: cover;">
-        <div class="sccm-text-overlay position-absolute align-items-center p-5">
-            <h1 class="orange-headings pb-4">Cultivating Excellence</h1>
-            <p class="px-5">Soundscapes Conservatory of Music has become a beacon of music education in Brooklyn since its establishment in 1981. Committed to excellence, SCCM offers high quality musical education with a blend of traditional and modern approaches for students of all levels and ages.</p>
-            <div class="overlay-button-container position-asbolute align-items-center mt-4 d-xs-none">
-                <a href="about" class="btn custom-button btn-lg custom-button-text" role="button" aria-pressed="false">Read More</a>
-            </div>
+    <div class="container hero__inner">
+        <div class="hero__content">
+            <h1 class="hero__title" id="hero-heading">Find Your Rhythm,<br> Discover Your Voice.</h1>
+            <p class="hero__lead">Passionate Advocate and Innovator in Music Education for 42 years.</p>
+            <a class="btn btn-brand-bright btn-lg" href="{{ url_for('contact') }}">Try a Free Class Today</a>
         </div>
     </div>
 
-    <div id="core-values" class="col-lg-6 p-5 align-self-stretch">
-        <!-- Other texts -->
-        <h1 class="text-center black-heading">Our Core Values</h1>
-        <div class="pt-4">
-            <h4 class="black-heading">Innovation</h4>
-            <p>At SCCM, we embrace each student's distinct journey in music. Our tailored approach designs a unique curriculum that complements individual aspirations and talents.</p>
-        </div>
-        <div class="pt-4">
-            <h4 class="black-heading">Mastery</h4>
-            <p>Our curriculum emphasizes rigorous preparation for formal music examinations and professional pursuits, setting a solid foundation for future success.</p>
-        </div>
-        <div class="pt-4">
-            <h4 class="black-heading">Expression</h4>
-            <p>Our semi-annual events showcase our students' progress and artistry, from recitals to exhibitions, nurturing a community that celebrates achievement and confidence.</p>
-        </div>
-        <div class="pt-4">
-            <h4 class="black-heading">Expertise</h4>
-            <p>Our faculty are seasoned professionals with advanced degrees and a passion for imparting wisdom, providing an enriching education to learners at all stages.</p>
-        </div>
-    </div>
-</div>
-
-
-<!-- Testimonials Portion -->
-<div class="why-sccm orange-background pt-5 pb-2 custom-text text-center">
-    <h1 class="text-white">Testimonials</h1>
-</div>
-
-<div id="testimonials-carousel" class="carousel slide pb-3" data-bs-ride="carousel" data-bs-interval="5000">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <div class="container px-3">
-                <div class="row justify-content-center pb-5">
-                    <div class="col-md-10 text-center quote" id="testimonials-quote">
-                        <p class="lead black-heading">"SCCM is more than a music school; it's a nurturing community where my child has flourished. We've seen remarkable progress in both skill and confidence."</p>
-                        <div class="pt-3"><strong>- Kate G, parent</strong></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <div class="container">
-                <div class="row justify-content-center pb-5">
-                    <div class="col-md-10 text-center quote" id="testimonials-quote">
-                        <p class="lead black-heading">"As a student at SCCM, I've not only improved my technical skills but also discovered my own musical voice. The teachers are amazing, always encouraging creativity and individuality."</p>
-                        <div class="pt-3"><strong>- Emily J, student</strong></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <div class="container">
-                <div class="row justify-content-center pb-5">
-                    <div class="col-md-10 text-center quote" id="testimonials-quote">
-                        <p class="lead black-heading">"SCCM has been a vibrant addition to our Brooklyn neighborhood. Their concerts and events bring us all together, showcasing the incredible talents nurtured within their walls."</p>
-                        <div class="pt-3"><strong>- Leo T, community member</strong></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <div class="container">
-                <div class="row justify-content-center pb-5">
-                    <div class="col-md-10 text-center quote" id="testimonials-quote">
-                        <p class="lead black-heading">"Soundscapes Conservatory was a transformative experience for me. The lessons I learned and the mentors I met have shaped my musical journey and opened doors I never imagined."</p>
-                        <div class="pt-3 "><strong>- Nina P, SCCM alumna.</strong></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#testimonials-carousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
+    <button class="carousel-toggle hero__toggle" type="button" data-video-toggle hidden>
+        <svg class="icon" data-icon="pause" aria-hidden="true" focusable="false"><use href="#icon-pause-fill"></use></svg>
+        <svg class="icon" data-icon="play" aria-hidden="true" focusable="false" hidden><use href="#icon-play-fill"></use></svg>
+        <span data-label>Pause video</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#testimonials-carousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+</section>
 
-    <ol class="carousel-indicators">
-        <li data-bs-target="#testimonials-carousel" data-bs-slide-to="0" class="active"></li>
-        <li data-bs-target="#testimonials-carousel" data-bs-slide-to="1"></li>
-        <li data-bs-target="#testimonials-carousel" data-bs-slide-to="2"></li>
-        <li data-bs-target="#testimonials-carousel" data-bs-slide-to="3"></li>
-    </ol>
-</div>
+<!-- Why SCCM? -->
+<section class="why" aria-labelledby="why-heading">
+    <div class="band"><h2 id="why-heading">Why SCCM?</h2></div>
 
+    <div class="why__grid">
+        <div class="why__story">
+            <div class="why__story-text">
+                <h3 class="why__title">Cultivating Excellence</h3>
+                <p>Soundscapes Conservatory of Music has become a beacon of music education in Brooklyn since its establishment in 1981. Committed to excellence, SCCM offers high quality musical education with a blend of traditional and modern approaches for students of all levels and ages.</p>
+                <a class="btn btn-brand" href="{{ url_for('about') }}">Read More</a>
+            </div>
+            <img class="why__photo" src="{{ url_for('static', filename='images/heroes/why-sccm.jpg') }}" width="1120" height="1400" loading="lazy"
+                 alt="A young girl with curly red hair, wearing a blue dress, intently plays a violin while seated on a wooden chair against a white background.">
+        </div>
+
+        <div class="why__values">
+            <h3 class="why__title">Our Core Values</h3>
+            <div class="value">
+                <h4>Innovation</h4>
+                <p>At SCCM, we embrace each student's distinct journey in music. Our tailored approach designs a unique curriculum that complements individual aspirations and talents.</p>
+            </div>
+            <div class="value">
+                <h4>Mastery</h4>
+                <p>Our curriculum emphasizes rigorous preparation for formal music examinations and professional pursuits, setting a solid foundation for future success.</p>
+            </div>
+            <div class="value">
+                <h4>Expression</h4>
+                <p>Our semi-annual events showcase our students' progress and artistry, from recitals to exhibitions, nurturing a community that celebrates achievement and confidence.</p>
+            </div>
+            <div class="value">
+                <h4>Expertise</h4>
+                <p>Our faculty are seasoned professionals with advanced degrees and a passion for imparting wisdom, providing an enriching education to learners at all stages.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials" aria-labelledby="testimonials-heading">
+    <div class="band"><h2 id="testimonials-heading">Testimonials</h2></div>
+
+    <div id="testimonials-carousel" class="carousel slide testimonials__carousel" data-carousel-autoplay="7000" aria-roledescription="carousel" aria-label="Testimonials">
+        <div class="carousel-inner">
+            {% for testimonial in testimonials %}
+            <div class="carousel-item{% if loop.first %} active{% endif %}" aria-roledescription="slide" aria-label="{{ loop.index }} of {{ loop.length }}">
+                <figure class="testimonial">
+                    <svg class="icon testimonial__mark" aria-hidden="true" focusable="false"><use href="#icon-quote"></use></svg>
+                    <blockquote class="testimonial__quote">
+                        <p>{{ testimonial.quote }}</p>
+                    </blockquote>
+                    <figcaption class="testimonial__author">{{ testimonial.author }}</figcaption>
+                </figure>
+            </div>
+            {% endfor %}
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#testimonials-carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous testimonial</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#testimonials-carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next testimonial</span>
+        </button>
+
+        <div class="carousel-indicators">
+            {% for testimonial in testimonials %}
+            <button type="button" data-bs-target="#testimonials-carousel" data-bs-slide-to="{{ loop.index0 }}"{% if loop.first %} class="active" aria-current="true"{% endif %} aria-label="Testimonial {{ loop.index }}"></button>
+            {% endfor %}
+        </div>
+
+        <button class="carousel-toggle" type="button" data-carousel-toggle="#testimonials-carousel" hidden>
+            <svg class="icon" data-icon="pause" aria-hidden="true" focusable="false"><use href="#icon-pause-fill"></use></svg>
+            <svg class="icon" data-icon="play" aria-hidden="true" focusable="false" hidden><use href="#icon-play-fill"></use></svg>
+            <span data-label>Pause</span>
+        </button>
+    </div>
+</section>
 {% endblock %}

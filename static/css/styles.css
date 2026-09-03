@@ -617,6 +617,226 @@ a {
 /* 7. Page sections
    -------------------------------------------------------------------------- */
 
+/* 7a. Home: hero
+   -------------------------------------------------------------------------- */
+.hero {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    min-height: clamp(24rem, 70vh, 46rem);
+    overflow: hidden;
+    background-color: #1d0e02;
+    color: var(--sccm-white);
+}
+
+.hero__poster,
+.hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 62% 50%;
+}
+
+.hero__poster {
+    z-index: 0;
+}
+
+.hero__video {
+    z-index: 1;
+}
+
+.hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(180deg, rgba(29, 14, 2, 0.55) 0%, rgba(29, 14, 2, 0.8) 100%);
+}
+
+.hero__inner {
+    position: relative;
+    z-index: 3;
+    padding-block: clamp(3rem, 8vw, 5rem);
+}
+
+.hero__content {
+    max-width: 36rem;
+}
+
+.hero__title {
+    margin-bottom: 1rem;
+    color: var(--sccm-white);
+    font-size: clamp(2rem, 1.4rem + 3vw, 4rem);
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+}
+
+.hero__lead {
+    max-width: 30rem;
+    margin-bottom: 1.75rem;
+    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+    line-height: 1.5;
+}
+
+.hero__toggle {
+    --sccm-focus: var(--sccm-white);
+}
+
+@media (min-width: 768px) {
+    .hero__scrim {
+        background: linear-gradient(90deg, rgba(29, 14, 2, 0.86) 0%, rgba(29, 14, 2, 0.7) 38%, rgba(29, 14, 2, 0.3) 72%, rgba(29, 14, 2, 0.15) 100%);
+    }
+}
+
+/* 7b. Home: Why SCCM?
+   -------------------------------------------------------------------------- */
+.why__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.why__story {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--sccm-cream);
+}
+
+.why__story-text {
+    width: 100%;
+    max-width: 38rem;
+    margin-inline: auto;
+    padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 3.5rem) clamp(1.5rem, 3vw, 2rem);
+    text-align: center;
+}
+
+.why__story-text p {
+    margin-bottom: 1.5rem;
+}
+
+.why__title {
+    color: var(--sccm-coral-deep);
+}
+
+/* On the tinted cream panel the deeper shade keeps 4.5:1 at small heading sizes */
+.why__story .why__title {
+    color: var(--sccm-coral-deeper);
+}
+
+.why__photo {
+    display: block;
+    width: 100%;
+    max-width: 30rem;
+    margin-inline: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 12%;
+}
+
+.why__values {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem);
+    background-color: var(--sccm-peach);
+}
+
+.why__values .why__title {
+    color: var(--sccm-ink);
+    text-align: center;
+}
+
+.value + .value {
+    margin-top: 1.5rem;
+}
+
+.value h4 {
+    margin-bottom: 0.35rem;
+}
+
+.value p {
+    margin: 0;
+}
+
+@media (min-width: 992px) {
+    .why__grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .why__photo {
+        flex: 1 1 0;
+        max-width: none;
+        min-height: 26rem;
+        aspect-ratio: auto;
+        object-position: 50% 88%;
+    }
+}
+
+/* 7c. Home: testimonials
+   -------------------------------------------------------------------------- */
+.testimonials .band {
+    padding-bottom: 0;
+}
+
+.testimonials__carousel {
+    position: relative;
+    background-color: var(--sccm-coral);
+    color: var(--sccm-ink);
+}
+
+.testimonial {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 17rem;
+    max-width: 50rem;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 3rem) clamp(3.5rem, 10vw, 6rem) 4.5rem;
+    text-align: center;
+}
+
+.testimonial__mark {
+    width: 2.25rem;
+    height: 2.25rem;
+    margin: 0 auto 1rem;
+    opacity: 0.5;
+}
+
+.testimonial__quote {
+    margin: 0 0 1.25rem;
+}
+
+.testimonial__quote p {
+    margin: 0;
+    font-family: var(--sccm-font-heading);
+    font-size: clamp(1.2rem, 1rem + 1vw, 1.6rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.45;
+}
+
+.testimonial__author {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.testimonials__carousel .carousel-control-prev,
+.testimonials__carousel .carousel-control-next {
+    width: 12%;
+    opacity: 0.7;
+}
+
+.testimonials__carousel .carousel-control-prev-icon,
+.testimonials__carousel .carousel-control-next-icon {
+    filter: invert(1) grayscale(100);
+}
+
+.testimonials__carousel .carousel-indicators {
+    margin-bottom: 1.25rem;
+}
+
 /* ---- LEGACY page styles: replaced page by page during the refresh ---- */
 /* MEDIA QUERIES */
 
@@ -1281,11 +1501,6 @@ a {
     cursor: pointer;
 }
 
-.carousel-control-next-icon,
-.carousel-control-prev-icon {
-  width: 5vw;
-  height: 5vw;
-}
 
 .custom-indicators li {
     border-radius: 50%;

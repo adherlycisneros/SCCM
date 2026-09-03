@@ -50,9 +50,24 @@ def home():
     return render_template('home.html', testimonials=TESTIMONIALS)
 
 
-@app.route('/about')
-def about():
-    team_members = [
+ADMINISTRATION = [
+    {
+        'name': 'Dr. Elizabeth Nguyen',
+        'role': 'President',
+        'bio': 'An inspiring leader in music education, Dr. Nguyen has over two decades of experience. Her innovative initiatives in music pedagogy have won her the National Music Educators Award. Her Vietnamese heritage and international exposure bring a unique perspective to our administration.',
+        'image_file': 'images/about-us/nguyen.jpg',
+        'image_description': 'Dr. Elizabeth Nguyen smiling warmly, standing amidst lush green foliage, illuminated by sunlight.',
+    },
+    {
+        'name': 'Dr. Steve Feldman',
+        'role': 'Vice President',
+        'bio': "Dr. Feldman is an esteemed figure in music production, with a career spanning 15 years and accolades including the Global Music Award. His expertise in merging classical traditions with modern technology has been pivotal in our school's success.",
+        'image_file': 'images/about-us/feldman.jpg',
+        'image_description': 'Dr. Steve Feldman, Vice President, wearing glasses, dressed in a dark blazer over a white shirt and plaid tie, standing indoors with a window-lit background.',
+    },
+]
+
+FACULTY = [
         {
             'name':'Sophia Chen', 
             'role':'Piano', 
@@ -70,7 +85,7 @@ def about():
         {
             'name':'Ava Johnson', 
             'role':'Voice', 
-            'bio':'Johnson has been a holistic vocal instructor for 12 years. She has an MA in Vocal Performance from MSM and has garnered nationwide recognitio for NYSSMA exams preparation.', 
+            'bio':'Johnson has been a holistic vocal instructor for 12 years. She has an MA in Vocal Performance from MSM and has garnered nationwide recognition for NYSSMA exams preparation.', 
             'image_file':'images/about-us/johnson.jpg',
             'image_description':"Portrait of Ava Johnson, a voice instructor with braided hair, smiling warmly in a cream-colored top, set against a soft green background.",
         },
@@ -98,14 +113,14 @@ def about():
         {
             'name':'Maria Gonzales', 
             'role':'Voice & Theater', 
-            'bio':'Cuban soprano,  Gonzales, is a graduate of Universidad de las Artes, Havana. She is a veteran in operatic and musical theater performance with 20 years of experience in Broadway and West End productions.', 
+            'bio':'Cuban soprano, Gonzales, is a graduate of Universidad de las Artes, Havana. She is a veteran in operatic and musical theater performance with 20 years of experience in Broadway and West End productions.', 
             'image_file':'images/about-us/gonzales.jpg',
             'image_description':"Portrait of Maria Gonzales, a Cuban soprano with a vibrant smile, captured indoors. She is wearing a chunky gold necklace and a cozy white sweater. Her short black hair frames her cheerful face, which radiates warmth and approachability.",
         },
         {
             'name':'Isabelle Dubois', 
             'role':'Guitar & Bass', 
-            'bio':'French musician  Dubois, a classical guitarist and bass player, has 12 years of experience. She is a winner of the International Guitar Competition and studied at the Conservatoire de Paris.', 
+            'bio':'French musician Dubois, a classical guitarist and bass player, has 12 years of experience. She is a winner of the International Guitar Competition and studied at the Conservatoire de Paris.', 
             'image_file':'images/about-us/dubois.jpg',
             'image_description':"Portrait of Isabelle Dubois, a youthful French musician with a charming smile, set against an autumnal background. She has light brown hair, freckles, and a subtle makeup look, complemented by a casual grey top under a beige coat.",
         },
@@ -137,8 +152,12 @@ def about():
             'image_file':'images/about-us/lee.jpg',
             'image_description':"Portrait of Thomas Lee, an Asian man with a warm smile, seated against a wooden backdrop. He has short, slightly tousled black hair and is dressed in a casual white t-shirt. His friendly demeanor and youthful appearance reflect his approachable nature.",
         }
-    ]
-    return render_template('about.html', team_members=team_members)
+]
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html', administration=ADMINISTRATION, faculty=FACULTY)
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():

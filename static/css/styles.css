@@ -17,6 +17,7 @@
     --sccm-coral-deep: #c8442d;       /* accessible coral for text and buttons on light backgrounds (4.9:1) */
     --sccm-coral-deep-rgb: 200, 68, 45;
     --sccm-coral-deeper: #a83722;     /* hover / active state of the deep coral */
+    --sccm-coral-text: var(--sccm-coral-deep); /* coral text colour; tinted sections switch it to the deeper shade */
     --sccm-peach: #ffc09c;            /* warm pastel panel */
     --sccm-peach-soft: #fff1ec;       /* light tint for alternating sections */
     --sccm-cream: #f9f5ea;            /* backdrop of the "Cultivating Excellence" photo */
@@ -118,7 +119,7 @@ p {
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--sccm-coral-deep);
+    color: var(--sccm-coral-text);
 }
 
 a {
@@ -179,6 +180,8 @@ a {
 }
 
 .section--soft {
+    --sccm-coral-text: var(--sccm-coral-deeper);
+    --bs-link-color: var(--sccm-coral-deeper);
     background-color: var(--sccm-peach-soft);
 }
 
@@ -697,6 +700,7 @@ a {
 }
 
 .why__story {
+    --sccm-coral-text: var(--sccm-coral-deeper);
     display: flex;
     flex-direction: column;
     background-color: var(--sccm-cream);
@@ -715,12 +719,7 @@ a {
 }
 
 .why__title {
-    color: var(--sccm-coral-deep);
-}
-
-/* On the tinted cream panel the deeper shade keeps 4.5:1 at small heading sizes */
-.why__story .why__title {
-    color: var(--sccm-coral-deeper);
+    color: var(--sccm-coral-text);
 }
 
 .why__photo {
@@ -835,6 +834,177 @@ a {
 
 .testimonials__carousel .carousel-indicators {
     margin-bottom: 1.25rem;
+}
+
+/* 7d. About: quote band, community photo, team cards
+   -------------------------------------------------------------------------- */
+.quote-band {
+    padding-block: clamp(3rem, 7vw, 5rem);
+    background-color: var(--sccm-maroon);
+    color: var(--sccm-white);
+}
+
+.pull-quote {
+    max-width: 46rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.pull-quote__mark {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+.pull-quote blockquote {
+    margin: 0 0 1rem;
+}
+
+.pull-quote blockquote p {
+    margin: 0;
+    font-family: var(--sccm-font-heading);
+    font-size: clamp(1.6rem, 1.2rem + 2vw, 2.75rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+.pull-quote figcaption {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.pull-quote figcaption::before {
+    content: "\2014\00a0";
+}
+
+.community-photo {
+    display: block;
+    width: 100%;
+    height: clamp(14rem, 42vw, 32rem);
+    object-fit: cover;
+    object-position: 50% 40%;
+}
+
+.team__subheading {
+    margin: clamp(2rem, 4vw, 3rem) 0 1.25rem;
+    text-align: center;
+}
+
+.member {
+    position: relative;
+    height: 100%;
+}
+
+.member__media {
+    overflow: hidden;
+    border-radius: var(--sccm-radius);
+    background-color: var(--sccm-peach);
+}
+
+.member__photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 20%;
+}
+
+.member__caption {
+    padding: 0.85rem 0.25rem 0;
+    text-align: center;
+}
+
+.member__name {
+    margin-bottom: 0.1rem;
+    font-size: 1.1rem;
+}
+
+.member--admin .member__name {
+    font-size: 1.3rem;
+}
+
+.member__role {
+    margin: 0 0 0.25rem;
+    color: var(--sccm-ink-soft);
+    font-size: 0.95rem;
+}
+
+.member__toggle {
+    min-height: 2.25rem;
+    padding: 0.3rem 0.5rem;
+    border: 0;
+    border-radius: var(--sccm-radius);
+    background: none;
+    color: var(--sccm-coral-text);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+.member__toggle:hover {
+    color: var(--sccm-coral-deeper);
+}
+
+.member__bio {
+    display: none;
+    padding: 0.75rem 0.25rem 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.member__bio p {
+    margin: 0;
+}
+
+.member.is-open .member__bio {
+    display: block;
+}
+
+/* From the md breakpoint the bio overlays the portrait: on hover for pointer users, on demand for everyone else */
+@media (min-width: 768px) {
+    .member__bio {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        align-items: center;
+        padding: 1.1rem;
+        overflow: auto;
+        border-radius: var(--sccm-radius);
+        background-color: rgba(255, 255, 255, 0.94);
+        font-size: 0.9rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .member.is-open .member__bio {
+        display: flex;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    @media (hover: hover) {
+        .member:hover .member__bio {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .member__bio {
+        padding: 1.5rem;
+        font-size: 0.95rem;
+    }
 }
 
 /* ---- LEGACY page styles: replaced page by page during the refresh ---- */

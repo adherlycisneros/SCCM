@@ -435,14 +435,17 @@ main:focus-visible {
 
     .site-header .offcanvas-header {
         justify-content: flex-end;
-        padding: 0.6rem 0.6rem 0.15rem;
+        /* no bottom padding: the close button's own inner padding is the gap to the first link */
+        padding: 0.25rem 0.6rem 0;
     }
 
     .site-header .offcanvas-header .btn-close {
         box-sizing: border-box;
         width: 2.75rem;
         height: 2.75rem;
-        margin: 0;
+        /* the negative bottom margin lets the list start close to the visible X while the
+           44x44 hit area, most of which is transparent padding, stays intact */
+        margin: 0 0 -0.35rem;
         padding: 0.95rem;
         border-radius: var(--sccm-radius);
     }

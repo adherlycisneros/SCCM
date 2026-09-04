@@ -410,15 +410,10 @@ main:focus-visible {
 }
 
 .offcanvas {
-    --bs-offcanvas-width: min(22rem, 88vw);
+    --bs-offcanvas-width: min(19rem, 84vw);
 }
 
-.offcanvas-title {
-    margin: 0;
-    font-size: 1.15rem;
-}
-
-/* Header call to action: inline at the end of the desktop nav, pinned to the bottom of the mobile drawer */
+/* Header call to action: inline at the end of the desktop nav, grouped under the links in the drawer */
 .nav-cta {
     --bs-btn-padding-y: 0.5rem;
     --bs-btn-padding-x: 1rem;
@@ -426,32 +421,54 @@ main:focus-visible {
     white-space: nowrap;
 }
 
+/* Navigation drawer below the lg breakpoint: a compact panel hanging from the top right, sized to its
+   own content, with left-aligned links and the call to action grouped directly beneath them. */
 @media (max-width: 991.98px) {
-    .offcanvas-body {
+    .site-header .offcanvas {
+        bottom: auto;
+        max-height: 100vh;
+        max-height: 100dvh;
+        border-left: 0;
+        border-bottom-left-radius: var(--sccm-radius-lg);
+        box-shadow: -1px 2px 4px rgba(33, 37, 41, 0.06), -10px 16px 30px rgba(33, 37, 41, 0.10);
+    }
+
+    .site-header .offcanvas-header {
+        justify-content: flex-end;
+        padding: 0.6rem 0.6rem 0.15rem;
+    }
+
+    .site-header .offcanvas-header .btn-close {
+        box-sizing: border-box;
+        width: 2.75rem;
+        height: 2.75rem;
+        margin: 0;
+        padding: 0.95rem;
+        border-radius: var(--sccm-radius);
+    }
+
+    .site-header .offcanvas-body {
         display: flex;
         flex-direction: column;
+        /* the small top padding keeps the first link's focus ring inside this scrolling container */
+        padding: 0.4rem 1.25rem 1.5rem;
     }
 
-    .nav-cta {
-        --bs-btn-padding-y: 0.8rem;
-        margin-top: auto;
-        text-align: center;
+    .site-header .offcanvas-body .navbar-nav {
+        width: 100%;
+        gap: 0;
     }
 
-    .offcanvas-body .navbar-nav {
-        gap: 0.25rem;
+    .site-header .offcanvas-body .nav-link {
+        padding: 0.6rem 0.25rem;
+        font-size: 1.05rem;
     }
 
-    .offcanvas-body .nav-link {
-        padding: 0.75rem 1rem;
-        font-size: 1.15rem;
-    }
-
-    .offcanvas-body .nav-link.active {
+    .site-header .offcanvas-body .nav-link.active {
         text-underline-offset: 0.3em;
     }
 
-    .offcanvas-body .dropdown-toggle {
+    .site-header .offcanvas-body .dropdown-toggle {
         display: flex;
         width: 100%;
         align-items: center;
@@ -459,13 +476,59 @@ main:focus-visible {
         text-align: left;
     }
 
-    .offcanvas-body .dropdown-menu {
+    .site-header .offcanvas-body .dropdown-menu {
         position: static;
         float: none;
-        margin: 0.25rem 0 0.5rem;
+        width: 100%;
+        /* Bootstrap's 10rem minimum would outgrow the narrowed drawer at large text sizes */
+        min-width: 0;
+        margin: 0.15rem 0 0.35rem;
+        padding: 0.25rem;
         border: 0;
+        border-radius: var(--sccm-radius);
         background-color: var(--sccm-peach-soft);
         box-shadow: none;
+    }
+
+    .site-header .offcanvas-body .dropdown-item {
+        padding: 0.65rem 0.6rem;
+        font-size: 0.95rem;
+        white-space: normal;
+    }
+
+    .site-header .offcanvas-body .nav-cta {
+        --bs-btn-padding-y: 0.75rem;
+        margin-top: 1.25rem;
+        text-align: center;
+        white-space: normal;
+    }
+}
+
+/* Landscape phones: the same composition, tightened for a short viewport. Here the panel can run out of
+   room once the Programs submenu is open, so it becomes a conventional full-height scrolling drawer
+   rather than a floating panel whose rounded edge would clip the last link mid-word. */
+@media (max-width: 991.98px) and (max-height: 460px) {
+    .site-header .offcanvas {
+        bottom: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .site-header .offcanvas-header {
+        padding-bottom: 0;
+    }
+
+    .site-header .offcanvas-body {
+        padding-bottom: 1rem;
+    }
+
+    .site-header .offcanvas-body .nav-link {
+        /* keeps every link a >=44px touch target even on the shortest viewport */
+        padding-block: 0.6rem;
+        font-size: 1rem;
+    }
+
+    .site-header .offcanvas-body .nav-cta {
+        margin-top: 0.9rem;
     }
 }
 

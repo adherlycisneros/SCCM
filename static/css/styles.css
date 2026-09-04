@@ -571,9 +571,10 @@ main:focus-visible {
 
 /* 5. Footer
    One component at every size: brand + address, Quick Links, Contact Us, then a bottom bar with
-   social icons and the legal line. Phones centre the brand, address, icons and legal line, and put
-   the two headed groups in one narrow centred column with left-aligned content; from 576px the two
-   groups sit side by side under the brand; from 992px all three columns line up.
+   social icons and the legal line. Phones stack the three informational blocks as a single
+   left-aligned column on the container gutter, capped in width so it reads as a deliberate block;
+   only the social icons and the legal line stay centred. From 576px the two headed groups sit side
+   by side under the brand; from 992px all three columns line up.
    -------------------------------------------------------------------------- */
 .site-footer {
     --sccm-focus: var(--sccm-white);
@@ -595,16 +596,16 @@ main:focus-visible {
 
 .site-footer__top {
     display: grid;
-    justify-items: center;
-    gap: 1.5rem;
-    padding-bottom: 1.5rem;
+    justify-items: start;
+    gap: 1.75rem;
+    max-width: 22rem;
+    padding-bottom: 1.75rem;
 }
 
 .site-footer__brand {
     display: grid;
-    justify-items: center;
+    justify-items: start;
     gap: 0.75rem;
-    text-align: center;
 }
 
 .brand--footer {
@@ -621,17 +622,6 @@ main:focus-visible {
     margin: 0;
     font-style: normal;
     line-height: 1.5;
-}
-
-/* The headed groups share one narrow centred column with left-aligned content */
-.site-footer__group {
-    width: 100%;
-    max-width: 15rem;
-    text-align: left;
-}
-
-.site-footer__group + .site-footer__group {
-    margin-top: 0.25rem;
 }
 
 .site-footer__heading {
@@ -716,21 +706,12 @@ main:focus-visible {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         justify-items: stretch;
         gap: 2rem 2.5rem;
+        max-width: none;
         padding-bottom: clamp(1.75rem, 4vw, 2.5rem);
     }
 
     .site-footer__brand {
         grid-column: 1 / -1;
-        justify-items: start;
-        text-align: left;
-    }
-
-    .site-footer__group {
-        max-width: none;
-    }
-
-    .site-footer__group + .site-footer__group {
-        margin-top: 0;
     }
 
     .site-footer__bottom {

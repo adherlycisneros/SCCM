@@ -1466,62 +1466,131 @@ main:focus-visible {
     }
 }
 
-/* Programs: in-page jump list to each program
+/* Programs: two-option section navigator
+   A sticky text rail in the left margin from xl, where there is room beside the content; a
+   restrained two-tab switcher above the sections at every smaller size. The coral band starts
+   at the content column on xl so the rail keeps a quiet margin of its own to sit in.
    -------------------------------------------------------------------------- */
-.jump-list {
-    padding-bottom: clamp(2rem, 5vw, 3rem);
+.section-nav {
+    padding-bottom: clamp(1.25rem, 3vw, 2rem);
 }
 
-.jump-list__inner {
+.section-nav__list {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.5rem 0.85rem;
-}
-
-.jump-list__label {
-    margin: 0;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--sccm-ink-soft);
-}
-
-/* A real flex row rather than `display: contents`: that dissolved the list box but left every
-   <li> a list-item, so the default markers painted in the gaps between the chips. Keeping the
-   list as its own row also gives the chips a single left edge when they wrap. The basis lets
-   the whole row drop below the label once there is no useful width beside it. */
-.jump-list__items {
-    display: flex;
-    flex: 1 1 22rem;
-    flex-wrap: wrap;
-    gap: 0.5rem;
     margin: 0;
     padding: 0;
     list-style: none;
+    border-bottom: 1px solid var(--sccm-line);
 }
 
-.jump-list__link {
-    display: inline-flex;
-    min-height: 2.5rem;
+/* The <li> is the flex item, so it carries the sizing: two equal controls on a phone, stacking
+   only when 10rem apiece will not fit (320px). From sm the switcher goes compact instead. */
+.section-nav__list > li {
+    display: flex;
+    flex: 1 1 10rem;
+}
+
+.section-nav__link {
+    display: flex;
+    flex: 1;
+    min-height: 3rem;
     align-items: center;
-    padding: 0.35rem 0.9rem;
-    border: 1px solid var(--sccm-line);
-    border-radius: var(--sccm-radius-pill);
-    background-color: var(--sccm-white);
-    color: var(--sccm-coral-text);
+    justify-content: center;
+    margin-bottom: -1px;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 2px solid transparent;
+    color: var(--sccm-ink-soft);
     font-size: 0.9rem;
     font-weight: 600;
+    line-height: 1.3;
+    text-align: center;
     text-decoration: none;
-    transition: background-color 0.15s ease, border-color 0.15s ease;
+    transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-.jump-list__link:hover,
-.jump-list__link:focus-visible {
-    border-color: var(--sccm-coral);
-    background-color: var(--sccm-peach-soft);
+.section-nav__link:hover,
+.section-nav__link:focus-visible {
+    border-bottom-color: var(--sccm-coral);
     color: var(--sccm-coral-deeper);
+}
+
+.section-nav__link[aria-current] {
+    border-bottom-color: var(--sccm-coral);
+    color: var(--sccm-coral-deep);
+    font-weight: 700;
+}
+
+@media (min-width: 576px) {
+    .section-nav__list > li {
+        flex: 0 0 auto;
+    }
+
+    .section-nav__link {
+        padding-inline: 1.25rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .programs-body {
+        /* the rail column, and the breathing room kept at both outer edges. Sized so both labels
+           sit on one line: below 1280px the rail would wrap them, so the switcher is used instead. */
+        --programs-rail: clamp(13rem, 17.5vw, 17rem);
+        --programs-edge: clamp(1.5rem, 3.2vw, 5rem);
+        display: grid;
+        grid-template-columns: var(--programs-rail) minmax(0, 1fr);
+        padding-right: var(--programs-edge);
+    }
+
+    .programs-body__main {
+        min-width: 0;
+    }
+
+    .section-nav {
+        padding: 0 1.25rem 0 var(--programs-edge);
+    }
+
+    /* the band keeps running off the right edge as it always has; only its left edge stops at
+       the content column, so the rail has a quiet margin to sit in */
+    .programs-body__main .band {
+        margin-right: calc(-1 * var(--programs-edge));
+    }
+
+    /* the grid stretches the nav to the full height of the sections; the inner box has to
+       stretch with it or the sticky list has no room to travel */
+    .section-nav__inner {
+        max-width: none;
+        height: 100%;
+        padding: 0;
+    }
+
+    .section-nav__list {
+        position: sticky;
+        top: 2.5rem;
+        display: block;
+        border-bottom: 0;
+        border-left: 1px solid var(--sccm-line);
+    }
+
+    .section-nav__link {
+        display: block;
+        min-height: 0;
+        margin: 0 0 0 -1px;
+        padding: 0.5rem 0 0.5rem 1.1rem;
+        border-bottom: 0;
+        border-left: 2px solid transparent;
+        text-align: left;
+    }
+
+    .section-nav__link:hover,
+    .section-nav__link:focus-visible {
+        border-left-color: var(--sccm-coral);
+    }
+
+    .section-nav__link[aria-current] {
+        border-left-color: var(--sccm-coral);
+        color: var(--sccm-coral-deep);
+    }
 }
 
 .program {

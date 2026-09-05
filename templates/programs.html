@@ -23,34 +23,39 @@
     </div>
 </section>
 
-<nav class="jump-list" aria-label="Jump to a program">
-    <div class="container jump-list__inner">
-        <p class="jump-list__label">Jump to</p>
-        <ul class="jump-list__items">
-            {% for program in programs %}
-            <li><a class="jump-list__link" href="#program-{{ program.slug }}">{{ program.name }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
-</nav>
+<div class="programs-body">
+    {#- Section navigator: a sticky rail beside the content on wide screens, a two-option
+        switcher above it everywhere else. Only the two top-level categories. -#}
+    <nav class="section-nav" aria-label="Program sections">
+        <div class="container section-nav__inner">
+            <ul class="section-nav__list">
+                {% for category in categories %}
+                <li><a class="section-nav__link" href="#{{ category.slug }}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </nav>
 
-{% for category in categories %}
-<section class="program-group" id="{{ category.slug }}" aria-labelledby="{{ category.slug }}-heading">
-    <div class="band"><h2 id="{{ category.slug }}-heading">{{ category.name }}</h2></div>
-    <div class="container">
-        {% for program in programs if program.category == category.name %}
-        <article class="program{% if loop.index is even %} program--reverse{% endif %}" id="program-{{ program.slug }}">
-            <div class="program__media">
-                <img class="program__photo" src="{{ url_for('static', filename=program.image_file) }}" width="1400" height="1120" alt="{{ program.image_description }}" loading="lazy">
+    <div class="programs-body__main">
+        {% for category in categories %}
+        <section class="program-group" id="{{ category.slug }}" aria-labelledby="{{ category.slug }}-heading">
+            <div class="band"><h2 id="{{ category.slug }}-heading">{{ category.name }}</h2></div>
+            <div class="container">
+                {% for program in programs if program.category == category.name %}
+                <article class="program{% if loop.index is even %} program--reverse{% endif %}" id="program-{{ program.slug }}">
+                    <div class="program__media">
+                        <img class="program__photo" src="{{ url_for('static', filename=program.image_file) }}" width="1400" height="1120" alt="{{ program.image_description }}" loading="lazy">
+                    </div>
+                    <div class="program__body">
+                        <h3 class="program__title">{{ program.name }}</h3>
+                        <p>{{ program.description }}</p>
+                    </div>
+                </article>
+                {% endfor %}
             </div>
-            <div class="program__body">
-                <h3 class="program__title">{{ program.name }}</h3>
-                <p>{{ program.description }}</p>
-            </div>
-        </article>
+        </section>
         {% endfor %}
     </div>
-</section>
-{% endfor %}
+</div>
 {% include 'partials/closing-cta.html' %}
 {% endblock %}

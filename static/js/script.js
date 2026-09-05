@@ -174,4 +174,35 @@
         });
         update(0);
     });
+
+    /* ------------------------------------------------------------------
+       6. Programs: mark the section navigator's current entry as the
+          reader scrolls between Individual and Group Instruction. The
+          root margin narrows the viewport to a band near the top, so the
+          section crossing it is the one reported as current.
+       ------------------------------------------------------------------ */
+    var sectionNav = document.querySelector('.section-nav');
+    if (sectionNav && 'IntersectionObserver' in window) {
+        var navLinks = Array.prototype.slice.call(sectionNav.querySelectorAll('.section-nav__link'));
+        var sections = navLinks.map(function (link) {
+            return document.getElementById(link.getAttribute('href').slice(1));
+        });
+        var setCurrent = function (target) {
+            navLinks.forEach(function (link, index) {
+                if (sections[index] === target) {
+                    link.setAttribute('aria-current', 'true');
+                } else {
+                    link.removeAttribute('aria-current');
+                }
+            });
+        };
+        var sectionObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) { setCurrent(entry.target); }
+            });
+        }, { rootMargin: '-15% 0px -75% 0px' });
+        sections.forEach(function (section) {
+            if (section) { sectionObserver.observe(section); }
+        });
+    }
 }());

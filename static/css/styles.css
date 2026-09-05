@@ -1472,41 +1472,46 @@ main:focus-visible {
    at the content column on xl so the rail keeps a quiet margin of its own to sit in.
    -------------------------------------------------------------------------- */
 .section-nav {
-    padding-bottom: clamp(1.25rem, 3vw, 2rem);
+    padding-bottom: clamp(1.1rem, 2.5vw, 1.75rem);
 }
 
+/* The rule sits under the two controls only, not across the viewport, so the switcher reads as
+   utility navigation rather than another band of page furniture. */
 .section-nav__list {
     display: flex;
-    flex-wrap: wrap;
+    width: fit-content;
+    max-width: 100%;
     margin: 0;
     padding: 0;
     list-style: none;
     border-bottom: 1px solid var(--sccm-line);
 }
 
-/* The <li> is the flex item, so it carries the sizing: two equal controls on a phone, stacking
-   only when 10rem apiece will not fit (320px). From sm the switcher goes compact instead. */
 .section-nav__list > li {
     display: flex;
-    flex: 1 1 10rem;
 }
 
 .section-nav__link {
     display: flex;
-    flex: 1;
-    min-height: 3rem;
+    /* compact to look at, but still a comfortable target to tap */
+    min-height: 2.75rem;
     align-items: center;
     justify-content: center;
     margin-bottom: -1px;
-    padding: 0.6rem 0.75rem;
+    padding: 0.3rem 1.1rem;
     border-bottom: 2px solid transparent;
     color: var(--sccm-ink-soft);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     line-height: 1.3;
     text-align: center;
     text-decoration: none;
     transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+/* the first tab hugs the content edge, so the switcher lines up with the section below it */
+.section-nav__list > li:first-child .section-nav__link {
+    padding-left: 0;
 }
 
 .section-nav__link:hover,
@@ -1521,13 +1526,19 @@ main:focus-visible {
     font-weight: 700;
 }
 
-@media (min-width: 576px) {
-    .section-nav__list > li {
-        flex: 0 0 auto;
-    }
-
-    .section-nav__link {
-        padding-inline: 1.25rem;
+/* Switcher only: trim the visible label to its first word. Clipped rather than display:none so
+   the full category name stays in the link's accessible name. */
+@media (max-width: 1279.98px) {
+    .section-nav__suffix {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
     }
 }
 
@@ -1564,19 +1575,26 @@ main:focus-visible {
         padding: 0;
     }
 
+    .section-nav__list > li {
+        display: block;
+    }
+
     .section-nav__list {
         position: sticky;
         top: 2.5rem;
         display: block;
+        width: auto;
         border-bottom: 0;
         border-left: 1px solid var(--sccm-line);
     }
 
-    .section-nav__link {
+    .section-nav__link,
+    .section-nav__list > li:first-child .section-nav__link {
         display: block;
         min-height: 0;
         margin: 0 0 0 -1px;
         padding: 0.5rem 0 0.5rem 1.1rem;
+        font-size: 0.9rem;
         border-bottom: 0;
         border-left: 2px solid transparent;
         text-align: left;

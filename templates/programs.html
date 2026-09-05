@@ -29,8 +29,11 @@
     <nav class="section-nav" aria-label="Program sections">
         <div class="container section-nav__inner">
             <ul class="section-nav__list">
+                {#- The switcher shows only the first word; the rest stays in the accessible name,
+                    so the link still reads "Individual Instruction" to assistive technology. -#}
                 {% for category in categories %}
-                <li><a class="section-nav__link" href="#{{ category.slug }}">{{ category.name }}</a></li>
+                {% set label = category.name.split(' ', 1) %}
+                <li><a class="section-nav__link" href="#{{ category.slug }}">{{ label[0] }}<span class="section-nav__suffix"> {{ label[1] }}</span></a></li>
                 {% endfor %}
             </ul>
         </div>

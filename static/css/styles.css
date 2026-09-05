@@ -1145,10 +1145,13 @@ main:focus-visible {
     mask-composite: intersect;
 }
 
+/* Top-aligned rather than centred: the two panels are one composition, so "Our Core Values" has
+   to start level with "Cultivating Excellence" next to it. Both panels share the same top padding,
+   which is what puts the two headings on the same line. */
 .why__values {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem);
     background-color: var(--sccm-peach);
 }
@@ -1164,22 +1167,12 @@ main:focus-visible {
 }
 
 .value {
-    padding-top: 0.85rem;
-    border-top: 2px solid rgba(33, 37, 41, 0.18);
-}
-
-.value__index {
-    display: block;
-    margin-bottom: 0.35rem;
-    font-family: var(--sccm-font-heading);
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    color: var(--sccm-ink);
+    padding-top: 1rem;
+    border-top: 1px solid rgba(33, 37, 41, 0.22);
 }
 
 .value h4 {
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.45rem;
 }
 
 .value p {

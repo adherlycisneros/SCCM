@@ -2024,8 +2024,11 @@ main:focus-visible {
 }
 
 @media (min-width: 992px) {
+    /* Top-aligned, not centred. The form is far taller than the contact details, so centring
+       them dropped the heading most of the way down the column and left the two halves looking
+       unrelated. They start together now; the section's own padding is the breathing room. */
     .contact .row {
-        align-items: center;
+        align-items: start;
     }
 
     .map-embed {

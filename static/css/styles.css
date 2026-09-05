@@ -1475,13 +1475,12 @@ main:focus-visible {
 .jump-list__inner {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+    align-items: baseline;
+    gap: 0.5rem 0.85rem;
 }
 
 .jump-list__label {
-    margin: 0 0.5rem 0 0;
+    margin: 0;
     font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -1489,20 +1488,30 @@ main:focus-visible {
     color: var(--sccm-ink-soft);
 }
 
+/* A real flex row rather than `display: contents`: that dissolved the list box but left every
+   <li> a list-item, so the default markers painted in the gaps between the chips. Keeping the
+   list as its own row also gives the chips a single left edge when they wrap. The basis lets
+   the whole row drop below the label once there is no useful width beside it. */
 .jump-list__items {
-    display: contents;
+    display: flex;
+    flex: 1 1 22rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .jump-list__link {
     display: inline-flex;
     min-height: 2.5rem;
     align-items: center;
-    padding: 0.35rem 1rem;
+    padding: 0.35rem 0.9rem;
     border: 1px solid var(--sccm-line);
     border-radius: var(--sccm-radius-pill);
     background-color: var(--sccm-white);
     color: var(--sccm-coral-text);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 600;
     text-decoration: none;
     transition: background-color 0.15s ease, border-color 0.15s ease;
@@ -1556,11 +1565,6 @@ main:focus-visible {
     width: 100%;
     aspect-ratio: 5 / 4;
     object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.program:hover .program__photo {
-    transform: scale(1.03);
 }
 
 .program__body {
@@ -1958,7 +1962,6 @@ main:focus-visible {
         transition: none;
     }
 
-    .program:hover .program__photo,
     .album:hover .album__cover {
         transform: none;
     }

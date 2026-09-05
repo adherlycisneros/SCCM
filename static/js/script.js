@@ -125,9 +125,9 @@
     });
 
     /* ------------------------------------------------------------------
-       4. Faculty cards: pointer users see the bio on hover (CSS); the
-          "Read bio" button makes the same content reachable by keyboard,
-          touch and assistive technology.
+       4. Faculty cards: pointer users see the bio by hovering the portrait
+          (CSS); the "Read bio" / "Close bio" button reveals the same overlay
+          for keyboard, touch and assistive technology.
        ------------------------------------------------------------------ */
     var bioToggles = document.querySelectorAll('[data-bio-toggle]');
     Array.prototype.forEach.call(bioToggles, function (button) {
@@ -136,7 +136,7 @@
         var setOpen = function (open) {
             card.classList.toggle('is-open', open);
             button.setAttribute('aria-expanded', String(open));
-            button.querySelector('[data-label]').textContent = open ? 'Hide bio' : 'Read bio';
+            button.querySelector('[data-label]').textContent = open ? 'Close bio' : 'Read bio';
         };
         button.addEventListener('click', function () {
             setOpen(!card.classList.contains('is-open'));

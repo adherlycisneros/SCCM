@@ -3,8 +3,8 @@
 {% block title %}About Us | Soundscapes Conservatory of Music{% endblock %}
 {% block description %}Since 1981, Soundscapes Conservatory of Music has offered Brooklyn students a rich learning environment where tradition meets innovation. Meet our administration and faculty.{% endblock %}
 
-{#- One card component for administrators and faculty. The bio is revealed on hover for pointer users
-    and through the "Read bio" button for keyboard, touch and assistive technology. -#}
+{#- One card component for administrators and faculty. The bio overlays the portrait itself:
+    pointer users reveal it by hovering the picture, everyone else by the "Read bio" button. -#}
 {% macro member_card(member, group, index) -%}
 <article class="member member--{{ group }}">
     <div class="member__media">
@@ -69,9 +69,9 @@
         </div>
 
         <h3 class="team__subheading">Administration</h3>
-        <div class="row justify-content-center g-4 g-lg-5">
+        <div class="row justify-content-center g-3 g-sm-4 g-lg-5">
             {% for member in administration %}
-            <div class="col-sm-6 col-lg-4">
+            <div class="col-6 col-lg-4">
                 {{ member_card(member, 'admin', loop.index) }}
             </div>
             {% endfor %}

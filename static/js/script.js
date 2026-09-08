@@ -207,8 +207,10 @@
     /* ------------------------------------------------------------------
        6. Programs: mark the section navigator's current entry as the
           reader scrolls between Individual and Group Instruction. The
-          root margin narrows the viewport to a band near the top, so the
-          section crossing it is the one reported as current.
+          observer fires whenever a section crosses a band near the top of
+          the viewport; the current entry is then the last section whose
+          top has passed that band, and none while the reader is still
+          above the first section.
        ------------------------------------------------------------------ */
     var sectionNav = document.querySelector('.section-nav');
     if (sectionNav && 'IntersectionObserver' in window) {
@@ -225,11 +227,15 @@
                 }
             });
         };
-        var sectionObserver = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) { setCurrent(entry.target); }
+        var update = function () {
+            var line = window.innerHeight * 0.25;
+            var current = null;
+            sections.forEach(function (section) {
+                if (section && section.getBoundingClientRect().top <= line) { current = section; }
             });
-        }, { rootMargin: '-15% 0px -75% 0px' });
+            setCurrent(current);
+        };
+        var sectionObserver = new IntersectionObserver(update, { rootMargin: '-15% 0px -75% 0px' });
         sections.forEach(function (section) {
             if (section) { sectionObserver.observe(section); }
         });

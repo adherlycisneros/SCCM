@@ -144,6 +144,23 @@
     --bs-link-color-rgb: var(--sccm-coral-deep-rgb);
     --bs-link-hover-color: var(--sccm-coral-deeper);
     --bs-link-hover-color-rgb: 168, 55, 34;
+
+    /* Height of the site header, which the hero subtracts to size the first screenful. The three
+       values track where the header actually changes height: the brand wraps below 368px, and the
+       navigation goes inline at lg. */
+    --sccm-header-h: 4.6875rem;
+}
+
+@media (max-width: 22.9375rem) {
+    :root {
+        --sccm-header-h: 5rem;
+    }
+}
+
+@media (min-width: 992px) {
+    :root {
+        --sccm-header-h: 5.5625rem;
+    }
 }
 
 /* 2. Base & typography
@@ -950,11 +967,26 @@ main:focus-visible {
    -------------------------------------------------------------------------- */
 .hero {
     --sccm-focus: var(--sccm-white);
+    /* How much of the coral band below is left showing on first load. Kept inside the band's own
+       top padding - which bottoms out at 1.1rem - so the fold lands on flat coral and never slices
+       through the "Why SCCM?" capitals, which a taller peek did at 1366x768 and 1024x768. */
+    --hero-peek: 0.5rem;
     position: relative;
     isolation: isolate;
     display: flex;
     align-items: center;
-    min-height: clamp(24rem, 70vh, 46rem);
+    /* The first screenful is the header, the hero, and a deliberate sliver of the band under it.
+       Sizing the hero as a fraction of the viewport (this was 70vh) leaves a fraction behind too,
+       so a taller phone revealed proportionally more of the next section - the whole band plus the
+       start of "Cultivating Excellence" at 844px tall. Subtracting the header and a fixed peek
+       instead keeps that reveal the same on every screen. svh rather than dvh: it is the viewport
+       with the mobile browser chrome showing, which is what first load actually looks like, and it
+       does not resize the hero when that chrome hides on scroll. No ceiling here: a ceiling is a
+       desktop concern, and applying one to phones and tablets is exactly what let the tallest of
+       them - a 932px phone, a 1112px tablet - drop back under the fold and show the next section
+       again. Desktop gets its ceiling back at the lg breakpoint. */
+    min-height: max(24rem, calc(100vh - var(--sccm-header-h) - var(--hero-peek)));
+    min-height: max(24rem, calc(100svh - var(--sccm-header-h) - var(--hero-peek)));
     overflow: hidden;
     background-color: #1d0e02;
     color: var(--sccm-white);
@@ -1030,8 +1062,11 @@ main:focus-visible {
 
 /* Landscape phones: a compact version of the desktop composition so the copy does not fill the short viewport */
 @media (max-width: 991.98px) and (max-height: 520px) and (orientation: landscape) {
+    /* Landscape has no vertical room to spare, so there is no peek here: the hero simply fits the
+       viewport the header leaves it, rather than overflowing it as a flat 100vh did. */
     .hero {
-        min-height: clamp(20rem, 100vh, 27rem);
+        min-height: clamp(17rem, calc(100vh - var(--sccm-header-h)), 27rem);
+        min-height: clamp(17rem, calc(100svh - var(--sccm-header-h)), 27rem);
     }
 
     .hero__poster,
@@ -1096,6 +1131,18 @@ main:focus-visible {
 
     .hero__title {
         font-size: clamp(2.75rem, 2rem + 1.4vw, 3.5rem);
+    }
+}
+
+/* The ceiling that holds the approved desktop hero at the height it already had, so it is not
+   stretched just to push the next section down. Gated on the viewport being at least as wide as it
+   is tall, because "wide" is not the same as "desktop": a 1024x1366 tablet held in portrait is
+   1024px wide and would otherwise inherit a desktop ceiling that leaves it barely hero-dominant.
+   Portrait devices of any width keep filling the screenful instead. */
+@media (min-width: 992px) and (min-aspect-ratio: 1 / 1) {
+    .hero {
+        min-height: clamp(24rem, calc(100vh - var(--sccm-header-h) - var(--hero-peek)), 46rem);
+        min-height: clamp(24rem, calc(100svh - var(--sccm-header-h) - var(--hero-peek)), 46rem);
     }
 }
 

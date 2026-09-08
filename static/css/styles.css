@@ -147,7 +147,7 @@
 
     /* Height of the site header, which the hero subtracts to size the first screenful. The three
        values track where the header actually changes height: the brand wraps below 368px, and the
-       navigation goes inline at lg. */
+       navigation goes inline at xl. */
     --sccm-header-h: 4.6875rem;
 }
 
@@ -209,11 +209,6 @@ h4, .h4 { font-size: 1.2rem; }
 
 p {
     margin-bottom: 1rem;
-}
-
-.lead {
-    font-size: 1.2rem;
-    line-height: 1.55;
 }
 
 .prose {
@@ -759,8 +754,7 @@ main:focus-visible {
 
 /* Buttons: one brand button (deep coral) plus a bright variant for dark backgrounds */
 .btn-brand,
-.btn-brand-bright,
-.btn-outline-brand {
+.btn-brand-bright {
     --bs-btn-font-weight: 600;
     --bs-btn-padding-y: 0.7rem;
     --bs-btn-padding-x: 1.5rem;
@@ -768,8 +762,7 @@ main:focus-visible {
 }
 
 .btn-lg.btn-brand,
-.btn-lg.btn-brand-bright,
-.btn-lg.btn-outline-brand {
+.btn-lg.btn-brand-bright {
     --bs-btn-padding-y: 0.85rem;
     --bs-btn-padding-x: 1.85rem;
     --bs-btn-font-size: 1.1rem;
@@ -805,20 +798,6 @@ main:focus-visible {
     --bs-btn-disabled-border-color: var(--sccm-coral);
 }
 
-.btn-outline-brand {
-    --bs-btn-color: var(--sccm-coral-deep);
-    --bs-btn-border-color: var(--sccm-coral-deep);
-    --bs-btn-hover-color: var(--sccm-white);
-    --bs-btn-hover-bg: var(--sccm-coral-deep);
-    --bs-btn-hover-border-color: var(--sccm-coral-deep);
-    --bs-btn-active-color: var(--sccm-white);
-    --bs-btn-active-bg: var(--sccm-coral-deeper);
-    --bs-btn-active-border-color: var(--sccm-coral-deeper);
-    --bs-btn-disabled-color: var(--sccm-coral-deep);
-    --bs-btn-disabled-bg: transparent;
-    --bs-btn-disabled-border-color: var(--sccm-coral-deep);
-}
-
 /* Coral title band used between sections */
 .band {
     --sccm-focus: var(--sccm-ink);
@@ -830,11 +809,6 @@ main:focus-visible {
 
 .band > * {
     margin: 0;
-}
-
-.band--maroon {
-    background-color: var(--sccm-maroon);
-    color: var(--sccm-white);
 }
 
 /* Closing call to action at the end of the inner pages */
@@ -1106,10 +1080,6 @@ main:focus-visible {
 /* Desktop: copy on the left as in the original design. The footage is panned slightly (drawn 12% wider,
    anchored left) so the violin body sits just right of the copy column instead of underneath it. */
 @media (min-width: 992px) {
-    .hero {
-        align-items: center;
-    }
-
     .hero__poster,
     .hero__video {
         width: 112%;
@@ -1675,19 +1645,6 @@ main:focus-visible {
     }
 }
 
-.program {
-    scroll-margin-top: 1.5rem;
-}
-
-/* Contact form honeypot: off-screen for people, present for bots */
-.hp-field {
-    position: absolute;
-    left: -10000px;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-}
-
 /* 7e. Programs: category bands and alternating program rows
    -------------------------------------------------------------------------- */
 .program-group + .program-group {
@@ -2056,6 +2013,15 @@ main:focus-visible {
     margin-bottom: 1.25rem;
     color: #c5cbd1;
     font-size: 0.95rem;
+}
+
+/* Contact form honeypot: off-screen for people, present for bots */
+.hp-field {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
 }
 
 .map-section {

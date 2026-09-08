@@ -22,7 +22,7 @@ This website serves as an online hub for the Soundscapes Conservatory of Music s
 
 ### Performance
 - Photos are served as web-sized JPEG derivatives with `srcset` and lazy loading
-- The hero video (H.264, 720p) is fetched only on wide screens when motion is welcome; phones get the poster image
+- The hero video (H.264; a 1280px encode, with a lighter 960px encode for small screens) is added by script only when motion is welcome, so visitors who prefer reduced motion get the poster image
 - One Bootstrap bundle, an inline SVG icon sprite, and two self-hosted font families (`static/fonts`) loaded with `font-display: swap`
 
 ## Technologies Used
@@ -36,7 +36,7 @@ This website serves as an online hub for the Soundscapes Conservatory of Music s
 app.py                    routes, page data (faculty, programs, albums, testimonials), contact handling
 templates/base.html       shared layout: head, header/navigation, footer, scripts
 templates/*.html          one template per page plus 404.html
-templates/partials/       icons.html (SVG sprite)
+templates/partials/       icons.html (SVG sprite), closing-cta.html (shared call to action)
 static/css/styles.css     design tokens, base styles, shared components, page sections
 static/js/script.js       navigation drawer, hero video, carousels, faculty bios, lightboxes
 static/images, static/videos   optimized media (originals remain in git history before commit 670752d)

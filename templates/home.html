@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- Hero: the poster image is always shown; script.js adds the video on wider screens when motion is welcome -->
+<!-- Hero: the poster image is always shown; script.js adds the video (a lighter encode on small screens) unless the visitor prefers reduced motion -->
 <section class="hero" aria-labelledby="hero-heading">
     <img class="hero__poster"
          src="{{ url_for('static', filename='images/heroes/woman-playing-violin-poster.jpg') }}"

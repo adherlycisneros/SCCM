@@ -679,6 +679,9 @@ main:focus-visible {
 
 .site-footer__social {
     display: flex;
+    /* wrapping only ever happens with enlarged text; at normal sizes the four icons fit on one line */
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 0.5rem;
 }
 
@@ -726,6 +729,11 @@ main:focus-visible {
         flex-direction: row-reverse;
         justify-content: space-between;
         gap: 1.5rem;
+    }
+
+    /* the icon row keeps its full width beside the legal line; it is the legal line that wraps */
+    .site-footer__follow {
+        flex-shrink: 0;
     }
 
     .site-footer__legal {
@@ -1369,6 +1377,9 @@ main:focus-visible {
     position: relative;
     display: grid;
     grid-template-rows: auto auto;
+    /* minmax(0, ...) lets the column shrink below its content's minimum, so an enlarged
+       "Read bio" label at 200% text zoom wraps instead of pushing the card past the viewport */
+    grid-template-columns: minmax(0, 1fr);
     align-content: start;
     height: 100%;
     /* The bio sizes its type and padding against the card, so an administrator portrait

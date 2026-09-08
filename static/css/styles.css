@@ -934,14 +934,13 @@ main:focus-visible,
     opacity: 1;
 }
 
-/* Back to top: a round arrow button that keeps to the bottom-right corner while the reader is inside the
-   main content. It lives at the end of <main> and sticks to the viewport bottom, so it rides up with the
-   last section as the footer comes into view and comes to rest a clearance above the footer, never over
-   it. The wrapper has no height; its negative top margin (balanced by the bottom one, so the page does
-   not grow) moves its resting line up by the clearance. script.js reveals it after a screenful. */
+/* Back to top (the long About and Programs pages include it): a round arrow button that keeps to the
+   bottom-right corner while the reader is inside the main content. It is the last child of <main> and
+   sticks to the viewport bottom, so it rides up with the last section as the footer comes into view and
+   comes to rest 1.75rem above the footer, never over it. The wrapper has no height; its negative top
+   margin, balanced by the bottom one so the page does not grow, moves its resting line up by that
+   clearance. script.js reveals it after a screenful. */
 .back-to-top {
-    /* space kept between the button and whatever ends the page below it */
-    --back-to-top-clearance: 1.75rem;
     position: sticky;
     bottom: 1rem;
     z-index: 1020;
@@ -949,28 +948,9 @@ main:focus-visible,
     height: 0;
     align-items: flex-end;
     justify-content: flex-end;
-    margin: calc(-1 * var(--back-to-top-clearance)) 0 var(--back-to-top-clearance);
+    margin: -1.75rem 0 1.75rem;
     padding-inline: 1rem;
     pointer-events: none;
-}
-
-/* Two sections pin something else in that corner just above the footer, so the button stops the same
-   clearance above that instead: the home page's testimonials Pause button (1rem in, 2.5rem tall) ... */
-.testimonials + .back-to-top {
-    --back-to-top-clearance: 5.25rem;
-}
-
-/* ... and the Contact page's map, whose embedded camera control sits 24px above its bottom edge and
-   40px tall inside the band's own bottom padding. From 1280px the map is narrower than the viewport and
-   the corner beside it is free, so the footer clearance is enough there. */
-.map-section + .back-to-top {
-    --back-to-top-clearance: calc(clamp(1.5rem, 4vw, 3rem) + 5.75rem);
-}
-
-@media (min-width: 1280px) {
-    .map-section + .back-to-top {
-        --back-to-top-clearance: 1.75rem;
-    }
 }
 
 .back-to-top__button {

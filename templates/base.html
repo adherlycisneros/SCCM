@@ -82,14 +82,9 @@
 
     <main id="main" tabindex="-1">
         {% block content %}{% endblock %}
-        {#- Back to top: kept at the end of main so it sticks to the viewport bottom while the content is
-            on screen and rides up with it before the footer; script.js reveals it after a screenful. -#}
-        <div class="back-to-top">
-            <button class="back-to-top__button" type="button" data-back-to-top hidden>
-                <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow-up"></use></svg>
-                <span class="visually-hidden">Back to top</span>
-            </button>
-        </div>
+        {#- Only the long pages get the Back to top button. It is included here, after the content, because
+            it has to be the last child of main to stick to the viewport and come to rest above the footer. -#}
+        {% if request.endpoint in ('about', 'programs') %}{% include 'partials/back-to-top.html' %}{% endif %}
     </main>
 
     <footer class="site-footer">

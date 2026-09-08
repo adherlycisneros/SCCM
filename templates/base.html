@@ -41,7 +41,7 @@
     {% include 'partials/icons.html' %}
 
     <header class="site-header">
-        <nav class="navbar navbar-expand-lg" aria-label="Main">
+        <nav class="navbar navbar-expand-xl" aria-label="Main">
             <div class="container">
                 <a class="navbar-brand brand" href="{{ url_for('home') }}">
                     <img class="brand__logo" src="{{ url_for('static', filename='images/logos/sccm_logo.png') }}" width="56" height="56" alt="">
@@ -59,12 +59,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close menu"></button>
                     </div>
                     <div class="offcanvas-body">
-                        <ul class="navbar-nav ms-lg-auto">
+                        <ul class="navbar-nav ms-xl-auto">
                             {{ nav_item('home', 'Home') }}
                             {{ nav_item('about', 'About') }}
                             <li class="nav-item dropdown">
                                 <button class="nav-link dropdown-toggle{% if request.endpoint == 'programs' %} active{% endif %}" type="button" data-bs-toggle="dropdown" aria-expanded="false"{% if request.endpoint == 'programs' %} aria-current="page"{% endif %}>Programs</button>
-                                <ul class="dropdown-menu dropdown-menu-lg-end">
+                                <ul class="dropdown-menu dropdown-menu-xl-end">
                                     <li><a class="dropdown-item" href="{{ url_for('programs') }}">All Programs</a></li>
                                     <li><a class="dropdown-item" href="{{ url_for('programs') }}#individual-instruction">Individual Instruction</a></li>
                                     <li><a class="dropdown-item" href="{{ url_for('programs') }}#group-instruction">Group Instruction</a></li>

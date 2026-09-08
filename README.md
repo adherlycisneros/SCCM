@@ -53,7 +53,7 @@ export MAIL_SUPPRESS_SEND=1   # develop without SMTP credentials
 python app.py                 # http://localhost:8080
 ```
 
-The contact form sends email through SMTP. Set `MAIL_USERNAME` and `MAIL_PASSWORD` (Office 365 by default) as described in `.env.example`; with `MAIL_SUPPRESS_SEND=1` the form flow works locally without sending anything.
+The contact form sends email through Gmail SMTP with an App Password. Set `MAIL_USERNAME`, `MAIL_PASSWORD` and `MAIL_RECIPIENT` as described in `.env.example`; with `MAIL_SUPPRESS_SEND=1` the form flow works locally without sending anything.
 
 ## Deployment
 The Dockerfile runs the app with Gunicorn, and the GitHub Actions workflow deploys to Fly.io on every push to `main`.

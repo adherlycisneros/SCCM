@@ -6,7 +6,10 @@ from flask_mail import Mail, Message
 
 app = Flask(__name__)
 
-app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.office365.com')
+# Outbound mail goes through Gmail SMTP with an App Password (Office 365 no longer accepts basic SMTP
+# authentication). The authenticated Gmail account is the sender of every message; MAIL_RECIPIENT is
+# the inbox that receives them (see the contact route).
+app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
 app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
@@ -190,6 +193,9 @@ def contact():
         if errors:
             return render_template('contact.html', form=form, errors=errors), 400
 
+        # From: the authenticated Gmail account (Gmail only sends as the account that logged in).
+        # To: MAIL_RECIPIENT, the owner's inbox; it falls back to the sending account when unset.
+        # Reply-To: the visitor, so replying to the received message answers them directly.
         inbox = os.environ.get('MAIL_RECIPIENT') or app.config['MAIL_USERNAME'] or 'sccm-website@localhost'
         sender = app.config['MAIL_USERNAME'] or 'sccm-website@localhost'
         email = Message(form['subject'], sender=sender, recipients=[inbox], reply_to=form['email'])

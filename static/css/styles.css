@@ -936,20 +936,41 @@ main:focus-visible,
 
 /* Back to top: a round arrow button that keeps to the bottom-right corner while the reader is inside the
    main content. It lives at the end of <main> and sticks to the viewport bottom, so it rides up with the
-   last section and never sits over the footer. The button is drawn 2.5rem below its sticky line, which
-   puts it 1rem above the viewport edge while stuck and, at rest, across the seam into the footer's top
-   padding (4px above it, 40px into it): clear of the controls in a section's bottom corner and of the
-   footer's own links, whose row starts 36px in on phones. script.js reveals it after a screenful. */
+   last section as the footer comes into view and comes to rest a clearance above the footer, never over
+   it. The wrapper has no height; its negative top margin (balanced by the bottom one, so the page does
+   not grow) moves its resting line up by the clearance. script.js reveals it after a screenful. */
 .back-to-top {
+    /* space kept between the button and whatever ends the page below it */
+    --back-to-top-clearance: 1.75rem;
     position: sticky;
-    bottom: 3.5rem;
+    bottom: 1rem;
     z-index: 1020;
     display: flex;
     height: 0;
     align-items: flex-end;
     justify-content: flex-end;
+    margin: calc(-1 * var(--back-to-top-clearance)) 0 var(--back-to-top-clearance);
     padding-inline: 1rem;
     pointer-events: none;
+}
+
+/* Two sections pin something else in that corner just above the footer, so the button stops the same
+   clearance above that instead: the home page's testimonials Pause button (1rem in, 2.5rem tall) ... */
+.testimonials + .back-to-top {
+    --back-to-top-clearance: 5.25rem;
+}
+
+/* ... and the Contact page's map, whose embedded camera control sits 24px above its bottom edge and
+   40px tall inside the band's own bottom padding. From 1280px the map is narrower than the viewport and
+   the corner beside it is free, so the footer clearance is enough there. */
+.map-section + .back-to-top {
+    --back-to-top-clearance: calc(clamp(1.5rem, 4vw, 3rem) + 5.75rem);
+}
+
+@media (min-width: 1280px) {
+    .map-section + .back-to-top {
+        --back-to-top-clearance: 1.75rem;
+    }
 }
 
 .back-to-top__button {
@@ -965,7 +986,6 @@ main:focus-visible,
     color: var(--sccm-white);
     font-size: 1.25rem;
     box-shadow: var(--sccm-shadow);
-    transform: translateY(2.5rem);
     opacity: 0;
     visibility: hidden;
     pointer-events: auto;

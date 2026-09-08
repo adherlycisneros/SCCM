@@ -6,8 +6,12 @@
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     /* ------------------------------------------------------------------
-       1. Navigation drawer: close it after choosing a same-page anchor link
-          (a normal page navigation closes it anyway).
+       1. Navigation drawer: a same-page anchor link (the Programs submenu
+          while on the Programs page) closes the drawer first and jumps to
+          the section only once it has closed. Bootstrap returns focus to the
+          menu button when the drawer closes, and the browser scrolls that
+          button into view, so jumping earlier would end at the top of the
+          page. A normal page navigation closes the drawer by itself.
        ------------------------------------------------------------------ */
     var siteNav = document.getElementById('site-nav');
     if (siteNav && window.bootstrap) {
@@ -15,10 +19,18 @@
             var link = event.target.closest('a[href*="#"]');
             if (!link) { return; }
             var target = new URL(link.href, window.location.href);
-            if (target.pathname === window.location.pathname) {
-                var drawer = bootstrap.Offcanvas.getInstance(siteNav);
-                if (drawer) { drawer.hide(); }
-            }
+            var drawer = bootstrap.Offcanvas.getInstance(siteNav);
+            if (target.pathname !== window.location.pathname || !target.hash || !drawer || !siteNav.classList.contains('show')) { return; }
+            event.preventDefault();
+            siteNav.addEventListener('hidden.bs.offcanvas', function () {
+                var section = document.getElementById(target.hash.slice(1));
+                if (window.location.hash === target.hash && section) {
+                    section.scrollIntoView();
+                } else {
+                    window.location.hash = target.hash;
+                }
+            }, { once: true });
+            drawer.hide();
         });
     }
 

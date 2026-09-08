@@ -139,11 +139,15 @@
     /* ------------------------------------------------------------------
        4. Faculty cards: pointer users see the bio by hovering the portrait
           (CSS); the "Read bio" / "Close bio" button reveals the same overlay
-          for keyboard, touch and assistive technology.
+          for keyboard, touch and assistive technology. Escape closes an
+          opened bio, and also dismisses a hover-revealed one without the
+          pointer having to move away (WCAG 1.4.13); the hover works again
+          once the pointer has left the portrait.
        ------------------------------------------------------------------ */
     var bioToggles = document.querySelectorAll('[data-bio-toggle]');
     Array.prototype.forEach.call(bioToggles, function (button) {
         var card = button.closest('.member');
+        var media = card && card.querySelector('.member__media');
         if (!card) { return; }
         var setOpen = function (open) {
             card.classList.toggle('is-open', open);
@@ -159,7 +163,20 @@
                 button.focus();
             }
         });
+        if (media) {
+            media.addEventListener('mouseleave', function () {
+                card.classList.remove('is-dismissed');
+            });
+        }
     });
+    if (bioToggles.length) {
+        document.addEventListener('keydown', function (event) {
+            if (event.key !== 'Escape') { return; }
+            Array.prototype.forEach.call(document.querySelectorAll('.member__media:hover'), function (media) {
+                media.closest('.member').classList.add('is-dismissed');
+            });
+        });
+    }
 
     /* ------------------------------------------------------------------
        5. Gallery lightboxes: arrow keys move between photos, a counter

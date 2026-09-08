@@ -1505,6 +1505,18 @@ main:focus-visible {
         filter: saturate(0.55);
         opacity: 0.85;
     }
+
+    /* Escape dismisses the hover-revealed bio without moving the pointer (WCAG 1.4.13);
+       script.js clears the class again once the pointer leaves the portrait */
+    .member.is-dismissed:not(.is-open) .member__media:hover ~ .member__bio {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .member.is-dismissed:not(.is-open) .member__media:hover .member__photo {
+        filter: none;
+        opacity: 1;
+    }
 }
 
 /* Programs: two-option section navigator

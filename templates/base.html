@@ -40,7 +40,7 @@
     <a class="skip-link" href="#main">Skip to main content</a>
     {% include 'partials/icons.html' %}
 
-    <header class="site-header">
+    <header class="site-header" id="top" tabindex="-1">
         <nav class="navbar navbar-expand-xl" aria-label="Main">
             <div class="container">
                 <a class="navbar-brand brand" href="{{ url_for('home') }}">
@@ -82,6 +82,14 @@
 
     <main id="main" tabindex="-1">
         {% block content %}{% endblock %}
+        {#- Back to top: kept at the end of main so it sticks to the viewport bottom while the content is
+            on screen and rides up with it before the footer; script.js reveals it after a screenful. -#}
+        <div class="back-to-top">
+            <button class="back-to-top__button" type="button" data-back-to-top hidden>
+                <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-arrow-up"></use></svg>
+                <span class="visually-hidden">Back to top</span>
+            </button>
+        </div>
     </main>
 
     <footer class="site-footer">

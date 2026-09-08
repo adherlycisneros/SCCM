@@ -240,4 +240,31 @@
             if (section) { sectionObserver.observe(section); }
         });
     }
+
+    /* ------------------------------------------------------------------
+       7. Back to top: shown once the reader has scrolled a screenful, it
+          returns them to the top and moves focus to the header so the next
+          Tab starts from the beginning. The scroll is smooth unless the
+          visitor prefers reduced motion.
+       ------------------------------------------------------------------ */
+    var backToTop = document.querySelector('[data-back-to-top]');
+    if (backToTop) {
+        var pageTop = document.getElementById('top');
+        var backToTopShown = false;
+        var updateBackToTop = function () {
+            var show = window.scrollY > window.innerHeight;
+            if (show !== backToTopShown) {
+                backToTopShown = show;
+                backToTop.classList.toggle('is-visible', show);
+            }
+        };
+        backToTop.hidden = false;
+        backToTop.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+            if (pageTop) { pageTop.focus({ preventScroll: true }); }
+        });
+        window.addEventListener('scroll', updateBackToTop, { passive: true });
+        window.addEventListener('resize', updateBackToTop);
+        updateBackToTop();
+    }
 }());

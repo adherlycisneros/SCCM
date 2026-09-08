@@ -266,11 +266,12 @@ a {
     box-shadow: none;
 }
 
-/* Panels that receive focus programmatically when they open (or via the skip link) need no ring of their own;
-   the controls inside them still show it */
+/* Panels that receive focus programmatically when they open (or via the skip link, or the Back to top
+   button landing on the header) need no ring of their own; the controls inside them still show it */
 .modal:focus-visible,
 .offcanvas:focus-visible,
-main:focus-visible {
+main:focus-visible,
+.site-header:focus-visible {
     outline: none;
 }
 
@@ -931,6 +932,64 @@ main:focus-visible {
 
 .carousel-indicators .active {
     opacity: 1;
+}
+
+/* Back to top: a round arrow button that keeps to the bottom-right corner while the reader is inside the
+   main content. It lives at the end of <main> and sticks to the viewport bottom, so it rides up with the
+   last section and never sits over the footer. The button is drawn 2.5rem below its sticky line, which
+   puts it 1rem above the viewport edge while stuck and, at rest, across the seam into the footer's top
+   padding (4px above it, 40px into it): clear of the controls in a section's bottom corner and of the
+   footer's own links, whose row starts 36px in on phones. script.js reveals it after a screenful. */
+.back-to-top {
+    position: sticky;
+    bottom: 3.5rem;
+    z-index: 1020;
+    display: flex;
+    height: 0;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-inline: 1rem;
+    pointer-events: none;
+}
+
+.back-to-top__button {
+    display: inline-flex;
+    width: 2.75rem;
+    height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: var(--sccm-coral-deep);
+    color: var(--sccm-white);
+    font-size: 1.25rem;
+    box-shadow: var(--sccm-shadow);
+    transform: translateY(2.5rem);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: auto;
+    transition: opacity 0.2s ease, visibility 0.2s ease, background-color 0.15s ease;
+}
+
+.back-to-top__button[hidden] {
+    display: none;
+}
+
+.back-to-top__button.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top__button:hover {
+    background-color: var(--sccm-coral-deeper);
+}
+
+/* The button floats over any background, so its ring is two-tone: a white gap, then the ink line */
+.back-to-top__button:focus-visible {
+    outline: 3px solid var(--sccm-ink);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 3px var(--sccm-white), var(--sccm-shadow);
 }
 
 /* 7. Page sections
